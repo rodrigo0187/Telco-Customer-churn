@@ -1,2 +1,2 @@
 # Telco-Customer-churn
-proyecto para Gestión de datos para la IA
+Estrucura para la gestión de datos para la IA
