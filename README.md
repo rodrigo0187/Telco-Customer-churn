@@ -32,13 +32,13 @@ Se utiliza docker para empaquetar la aplicación y empaquetar sus dependencias t
 - Clonar repositorio desde GitHub
 
 1. clonar repositorio
-   git clone <URL>
+   * git clone <URL>
 
 2. construir imagen docker
-   docker build -t mi-app .
+   * docker build -t mi-app .
 
 3. ejecución del contenedor
-   docker run -p 5000:5000 mi-app
+   * docker run -p 5000:5000 mi-app
 
 # Despliegue
 
