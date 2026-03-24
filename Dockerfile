@@ -9,6 +9,6 @@ RUN pip install -r requirements.txt
 # copiar el resto de los archivos del proyecto al contenedor
 COPY . .
 # exponer el puerto en el que la aplicación se ejecutará
-EXPOSE 8000
+EXPOSE 5000
 # comando para ejecutar la aplicación
 CMD ["python", "app.py"]
