@@ -1,0 +1,2 @@
+# Dependencias se instalaran las librerias que se utilizaran solo en el proyecto.
+pytest==9.0.2
