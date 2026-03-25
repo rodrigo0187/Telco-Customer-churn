@@ -69,17 +69,24 @@ Esto permite la separación de responsabilidades y la escalabilidad del sistema.
 
 ### 1. Clonar repositorio
 
-</>Bash , Terminal
+```
 git clone https://github.com/rodrigo0187/Telco-Customer-churn.git
+
+```
 
 ### 2. construir imagen docker
 
-</>Bash , Terminal
-docker build -t mi-app .
+```
+   docker build -t mi-app .
+
+```
 
 ### 3. ejecutar contenedor
 
+```
 docker run -p 5000:5000 mi-app .
+
+```
 
 ---
 
