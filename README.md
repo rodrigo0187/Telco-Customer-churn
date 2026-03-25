@@ -70,7 +70,7 @@ Esto permite la separación de responsabilidades y la escalabilidad del sistema.
 ### 1. Clonar repositorio
 
 </>Bash , Terminal
-git clone <URL>
+git clone https://github.com/rodrigo0187/Telco-Customer-churn.git
 
 ### 2. construir imagen docker
 
@@ -150,29 +150,31 @@ app.py
 
 Punto de entrada de la aplicación que expone el modelo mediante endpoints.
 
+```bash
 src/
 ├── cleaning/
-│ ├── fix_data_types.py
-│ ├── remove_duplicates.py
-│ └── remove_nulls.py
+│   ├── fix_data_types.py
+│   ├── remove_duplicates.py
+│   └── remove_nulls.py
 │
 ├── feature_engineering/
-│ ├── encoding.py
-│ ├── feature_creation.py
-│ └── scaling.py
+│   ├── encoding.py
+│   ├── feature_creation.py
+│   └── scaling.py
 │
 ├── ingestion/
-│ └── load_csv.py
+│   └── load_csv.py
 │
 ├── model/
-│ ├── train.py
-│ ├── predict.py
-│ └── evaluate.py
+│   ├── train.py
+│   ├── predict.py
+│   └── evaluate.py
 │
 ├── tests/
-│ ├── test_cleaning.py
-│ ├── test_features.py
-│ ├── test_model.py
-│ └── test_pipeline.py
+│   ├── test_cleaning.py
+│   ├── test_features.py
+│   ├── test_model.py
+│   └── test_pipeline.py
 │
-└── pipeline.py # Orquestador del flujo de datos
+└── pipeline.py  # Orquestador del flujo de datos
+```
