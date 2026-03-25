@@ -1,66 +1,178 @@
-# Telco-Customer-churn
+# Telco Customer Churn
 
-Estructura para la gestión de datos para la IA
-Este proyecto tiene como objetivo configurar un entorno para el desarrollo de soluciones en analisis de datos e inteligencia artificial.
-La cual se integran herramientas como, GitHub, Codespaces, Docker y render, lo que garantiza un enterno , escalable , reproducible y automatizado.
+## Descripción
 
-### Arquitectura
+Este proyecto tiene como objetivo configurar un entorno para el desarrollo de soluciones de análisis de datos e inteligencia artificial.
 
-Se integra una arquitectura de tipo pipelin híbrida modular, donde el flujo de trabajo o de datos se manifiesta de la siguiente manera;
+Integra herramientas como GitHub, Codespaces, Docker y Render, garantizando un entorno:
 
-- ingesta de datos
-- procesamiento de datos
-- modelo de la IA
-- Exposicion mediante la API
+- escalable
+- reproducible
+- automatizado
 
-### Esto nos garantiza separar las responsabilidade y la escalabilidad del sistema.
+---
 
-## Tecnologías
+## Arquitectura
 
-- Python
-- Docker
-- GitHub
-- Github Codespace
-- render
+Se implementa una arquitectura de tipo pipeline híbrida modular, donde el flujo de datos se organiza de la siguiente forma:
 
-# Contenerización
+- Ingesta de datos
+- Procesamiento de datos
+- Almacenamiento
+- Modelo de IA
+- Exposición mediante API
 
-Se utiliza docker para empaquetar la aplicación y empaquetar sus dependencias todo en un solo contendor, facilitando su ejecucion en cualquier entorno sin problemas de configuración.
+Esto permite la separación de responsabilidades y la escalabilidad del sistema.
+
+---
+
+## Tecnologías y Librerías
+
+### Lenguaje
+
+- Python 3.x
+
+### Machine Learning
+
+- scikit-learn: entrenamiento, evaluación y pipelines
+
+### Procesamiento de datos
+
+- pandas
+- numpy
+
+### Testing
+
+- pytest: pruebas unitarias e integración
+
+### Contenerización
+
+- Docker: empaquetado de la aplicación
+
+### Control de versiones y CI/CD
+
+- Git: control de versiones
+- GitHub: repositorio
+- GitHub Actions: automatización de flujos (CI/CD)
+
+### Despliegue
+
+- Render: despliegue automático
+
+### Base de datos
+
+- PostgreSQL: almacenamiento de datos
+
+---
 
 ## Ejecución
 
-- Clonar repositorio desde GitHub
+### 1. Clonar repositorio
 
-1. clonar repositorio
-   * git clone <URL>
+</>Bash , Terminal
+git clone <URL>
 
-2. construir imagen docker
-   * docker build -t mi-app .
+### 2. construir imagen docker
 
-3. ejecución del contenedor
-   * docker run -p 5000:5000 mi-app
+</>Bash , Terminal
+docker build -t mi-app .
 
-# Despliegue
+### 3. ejecutar contenedor
 
-La aplicación puede ser desplegada en la nube utilizando render , el acceso debe ser inmediato ya que la URL debe ser pública.
+docker run -p 5000:5000 mi-app .
 
-# Estructura de los directorios
+---
 
-## ingestion
+### Despliegue
 
-Módulo encargada en la obtención de los datos(crudos).
-(Entrada de los datos en crudo)
+La aplicación puede ser desplegada en la nube utilizando Render.
+El acceso se realiza mediante una URL pública.
 
-## Processing
+---
 
-Módulo de la limpieza y transformación de los datos.
-(Limpieza / transformación / limpieza de los datos)
+### Versionado
 
-## Model
+Se utiliza versionado semantico vMAJOR.MINOR.PATCH
+ejemplo v.1.0.0
 
-Módulo donde se aplica la logica de la inteligencia artificial(IA)
-logica de la IA / expone la IA
+---
 
-## app.py
+### Flujo de Datos (Pipeline)
 
-punto de entrada de la aplicación
+Ingestion
+
+Módulo encargado de la obtención de datos crudos desde archivos .csv.
+
+carga de datos desde CSV
+carga inicial a base de datos
+
+---
+
+Cleaning
+
+Módulo encargado de la limpieza y consistencia de los datos.
+
+eliminación de valores nulos
+eliminación de duplicados
+corrección de tipos de datos
+
+---
+
+Feature Engineering
+
+Módulo encargado de transformar los datos en variables útiles para el modelo.
+
+encoding de variables categóricas
+normalización / scaling
+creación de nuevas variables
+
+---
+
+Data Storage (PostgreSQL)
+
+Módulo encargado del almacenamiento de datos.
+
+datos crudos
+datos procesados
+features
+
+---
+
+Model
+
+Módulo encargado del entrenamiento y predicción del modelo de churn.
+
+Testing
+
+Módulo encargado de validar el correcto funcionamiento del sistema.
+
+app.py
+
+Punto de entrada de la aplicación que expone el modelo mediante endpoints.
+
+src/
+├── cleaning/
+│ ├── fix_data_types.py
+│ ├── remove_duplicates.py
+│ └── remove_nulls.py
+│
+├── feature_engineering/
+│ ├── encoding.py
+│ ├── feature_creation.py
+│ └── scaling.py
+│
+├── ingestion/
+│ └── load_csv.py
+│
+├── model/
+│ ├── train.py
+│ ├── predict.py
+│ └── evaluate.py
+│
+├── tests/
+│ ├── test_cleaning.py
+│ ├── test_features.py
+│ ├── test_model.py
+│ └── test_pipeline.py
+│
+└── pipeline.py # Orquestador del flujo de datos
