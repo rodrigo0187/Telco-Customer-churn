@@ -1,5 +1,9 @@
 # Telco Customer Churn
 
+##Integrante
+- Rodrigo Ignacio Aedo Contreras
+- Benjamín Jesús Figueroa Poblete
+
 ## Descripción
 
 Este proyecto tiene como objetivo configurar un entorno para el desarrollo de soluciones de análisis de datos e inteligencia artificial.
