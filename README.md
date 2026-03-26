@@ -1,6 +1,6 @@
 # Telco Customer Churn
 
-##Integrante
+## Integrante
 - Rodrigo Ignacio Aedo Contreras
 - Benjamín Jesús Figueroa Poblete
 
