@@ -20,10 +20,12 @@ Integra herramientas como GitHub, Codespaces, Docker y Render, garantizando un e
 
 Se implementa una arquitectura de tipo pipeline híbrida modular, donde el flujo de datos se organiza de la siguiente forma:
 
-- Ingesta de datos
+- Ingesta de datos (Ingestion)
+- Limpieza de datos (Cleaning)
+- Transformación (Feature Engineering)
 - Procesamiento de datos
 - Almacenamiento
-- Modelo de IA
+- Modelo de IA (Model)
 - Exposición mediante API
 
 Esto permite la separación de responsabilidades y la escalabilidad del sistema.
