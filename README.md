@@ -1,6 +1,7 @@
 # Telco Customer Churn
 
 ## Integrantes
+
 - Rodrigo Ignacio Aedo Contreras
 - Benjamín Jesús Figueroa Poblete
 
@@ -23,9 +24,9 @@ Se implementa una arquitectura de tipo pipeline híbrida modular, donde el flujo
 - Ingesta de datos (Ingestion)
 - Limpieza de datos (Cleaning)
 - Transformación (Feature Engineering)
-- Procesamiento de datos
-- Almacenamiento
+- Almacenamiento (storage)
 - Modelo de IA (Model)
+- Pruebas unitarias (Test)
 - Exposición mediante API
 
 Esto permite la separación de responsabilidades y la escalabilidad del sistema.
@@ -42,14 +43,17 @@ Esto permite la separación de responsabilidades y la escalabilidad del sistema.
 
 - scikit-learn: entrenamiento, evaluación y pipelines
 
-### Procesamiento de datos
-
-- pandas
-- numpy
-
 ### Testing
 
 - pytest: pruebas unitarias e integración
+
+### Librerias
+
+- Pandas 3.0.x
+- Scikit 1.7.x
+- Numpy 2.3.4
+- Scipy 1.16.3
+- joblib 1.5.2
 
 ### Contenerización
 
@@ -165,6 +169,10 @@ Punto de entrada de la aplicación que expone el modelo mediante endpoints.
 
 ```bash
 src/
+│
+├── ingestion/
+│   └── load_csv.py
+│
 ├── cleaning/
 │   ├── fix_data_types.py
 │   ├── remove_duplicates.py
@@ -175,8 +183,9 @@ src/
 │   ├── feature_creation.py
 │   └── scaling.py
 │
-├── ingestion/
-│   └── load_csv.py
+├── storage
+│   ├── load_bd.py
+│   └── storage_bd.py
 │
 ├── model/
 │   ├── train.py
