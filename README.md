@@ -28,6 +28,7 @@ Se implementa una arquitectura de tipo pipeline híbrida modular, donde el flujo
 - Modelo de IA (Model)
 - Pruebas unitarias (Test)
 - Exposición mediante API
+- Eda (Exploratory Data Analytics)
 
 Esto permite la separación de responsabilidades y la escalabilidad del sistema.
 
