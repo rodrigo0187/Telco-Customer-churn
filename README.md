@@ -22,9 +22,7 @@ Se implementa una arquitectura de tipo pipeline híbrida modular, donde el flujo
 - Transformación (Feature Engineering)
 - Almacenamiento (storage)
 - Modelo de IA (Model)
-- Pruebas unitarias (Test)
 - Exposición mediante API
-- Eda (Exploratory Data Analytics)
 
 Esto permite la separación de responsabilidades y la escalabilidad del sistema.
 
@@ -189,11 +187,6 @@ src/
 │   ├── predict.py
 │   └── evaluate.py
 │
-├── tests/
-│   ├── test_cleaning.py
-│   ├── test_features.py
-│   ├── test_model.py
-│   └── test_pipeline.py
 │
 └── pipeline.py  # Orquestador del flujo de datos
 ```
