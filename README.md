@@ -197,6 +197,8 @@ src/
 │
 └── pipeline.py  # Orquestador del flujo de datos
 ```
+## Enlace del Documento Técnico
+https://docs.google.com/document/d/1sDkir-LdEzf7WIuoey8irOKEiO-2Y4m_5qQb3kaK1L4/edit?usp=sharing
 
 ## Integrantes
 
