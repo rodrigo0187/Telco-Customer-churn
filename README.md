@@ -1,9 +1,5 @@
 # Telco Customer Churn
 
-## Integrantes
-
-- Rodrigo Ignacio Aedo Contreras
-- Benjamín Jesús Figueroa Poblete
 
 ## Descripción
 
@@ -201,3 +197,8 @@ src/
 │
 └── pipeline.py  # Orquestador del flujo de datos
 ```
+
+## Integrantes
+
+- Rodrigo Ignacio Aedo Contreras
+- Benjamín Jesús Figueroa Poblete
