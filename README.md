@@ -87,14 +87,14 @@ git clone https://github.com/rodrigo0187/Telco-Customer-churn.git
 
 ```
 
-### 2. construir imagen docker
+### 2. Construir imagen docker
 
 ```
    docker build -t mi-app .
 
 ```
 
-### 3. ejecutar contenedor
+### 3. Ejecutar contenedor
 
 ```
 docker run -p 5000:5000 mi-app .
