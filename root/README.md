@@ -231,7 +231,7 @@ src/
 │
 └── pipeline.py  # Orquestador del flujo de datos
 ```
-[Visita el Documento Diseño técnico](https://github.com/rodrigo0187/Telco-Customer-churn/blob/main/root/docs/Documento_Diseno_técnico.pdf)
+[Visita el Documento Diseño técnico](https://github.com/rodrigo0187/Telco-Customer-churn/blob/main/root/docs/Documento_Diseno_T%C3%A9cnico.pdf)
 ---
 ## Integrantes 
 - Rodrigo Ignacio Aedo Contreras
