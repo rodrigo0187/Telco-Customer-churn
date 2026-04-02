@@ -1,4 +1,4 @@
-# Telco Customer Churn
+# Modelo predictivo de riesgo de abandono de clientes en servicios de telecomunicaciones
 
 ## Descripción
 
@@ -13,10 +13,10 @@ Integra herramientas como GitHub, Codespaces, Docker y Render, garantizando un e
 ## Estructura del proyecto (collapse)
 
 ```/root
-├── README.md
 ├── docs/
 ├── └── documento_tecnico.pdf
 src/
+├── README.md
 ├── ingestion/
 ├── cleaning/
 ├── feature_engineering/
@@ -220,7 +220,6 @@ python app.py
 
 ```bash
 /root
-│
 ├── docs/
 ├── └── documento_tecnico.pdf
 src/
