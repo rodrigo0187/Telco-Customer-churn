@@ -1,4 +1,4 @@
-# Telco Customer Churn
+# Modelo predictivo de riesgo de abandono de clientes en servicios de telecomunicaciones
 
 ## Descripción
 El sistema permite predecir la probabilidad de que un cliente abandone el servicio (churn) en una empresa de telecomunicaciones, utilizando técnicas de machine learning a partir de datos históricos de clientes. El sistema ingesta los datos, los procesa, limpia, transforma y analiza la información para generar predicciones que luego pueden ser consumidas a través de una API. Además, el proyecto es reproducible y escalable.
@@ -54,11 +54,10 @@ Esto permite la separación de responsabilidades y la escalabilidad del sistema.
 ### Librerías
 - Las versiones indicadas son referenciales y pueden cambiar con el tiempo; se recomienda validarlas y ajustar según el entorno y las dependencias del proyecto.
   
-- Pandas 3.0.x
-- Scikit 1.7.x
-- Numpy 2.3.4
-- Scipy 1.16.3
-- joblib 1.5.2
+- [Pandas](https://pandas.pydata.org/docs/getting_started/install.html)
+- [Scikit](https://scikit-learn.org/stable/install.html)
+- [Numpy](https://numpy.org/install/)
+- [Scipy](https://scipy.org/install/)
 
 ### Contenerización
 
@@ -201,7 +200,6 @@ Punto de entrada de la aplicación que expone el modelo mediante endpoints.
 
 ```bash
 /root
-├── README.md
 ├── docs/
 ├── └── documento_tecnico.pdf
 src/
@@ -227,12 +225,13 @@ src/
 │   ├── train.py
 │   ├── predict.py
 │   └── evaluate.py
+├── README.md
 │
 │
 └── pipeline.py  # Orquestador del flujo de datos
 ```
 [Visita el Documento Diseño técnico](https://github.com/rodrigo0187/Telco-Customer-churn/blob/main/root/docs/Documento_Diseno_T%C3%A9cnico.pdf)
 ---
-## Integrantes 
+## Autores
 - Rodrigo Ignacio Aedo Contreras
 - Benjamín Jesús Figueroa Poblete
