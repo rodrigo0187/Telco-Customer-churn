@@ -78,6 +78,15 @@ Esto permite la separación de responsabilidades y la escalabilidad del sistema.
 
 # Ejecución con Docker
 
+## Ejecución sin instalación
+
+El proyecto puede ejecutarse sin necesidad de instalar dependencias localmente utilizando Docker.  
+Todo el entorno (librerías, configuración y aplicación) se encuentra contenido dentro de la imagen.
+
+Una vez levantado el contenedor, la aplicación quedará disponible localmente en:
+
+http://localhost:5000
+
 ### 1. Clonar repositorio
 
 ```
@@ -95,7 +104,7 @@ git clone https://github.com/rodrigo0187/Telco-Customer-churn.git
 ### 3. Ejecutar contenedor
 
 ```
-docker run -p 5000:5000 mi-app .
+docker run -p 5000:5000 mi-app
 
 ```
 
@@ -209,7 +218,7 @@ src/
 │   ├── feature_creation.py
 │   └── scaling.py
 │
-├── storage
+├── storage/
 │   ├── load_bd.py
 │   └── storage_bd.py
 │
@@ -222,7 +231,7 @@ src/
 └── pipeline.py  # Orquestador del flujo de datos
 ```
 
-[Para más información visita la documentación del proyecto](https://github.com/rodrigo0187/Telco-Customer-churn.git)
+[Para más información visita la documentación](https://docs.google.com/document/d/1sDkir-LdEzf7WIuoey8irOKEiO-2Y4m_5qQb3kaK1L4/edit?tab=t.0#heading=h.sasmue9vtj6y)
 ---
 ## Integrantes 
 - Rodrigo Ignacio Aedo Contreras
