@@ -1,8 +1,6 @@
 # Telco Customer Churn
-
-
+---
 ## Descripción
-
 El sistema permite predecir la probabilidad de que un cliente abandone el servicio (churn) en una empresa de telecomunicaciones, utilizando técnicas de machine learning a partir de datos históricos de clientes. El sistema ingesta los datos, los procesa, limpia, transforma y analiza la información para generar predicciones que luego pueden ser consumidas a través de una API. Además, el proyecto es reproducible y escalable.
 
 Integra herramientas como GitHub, Codespaces, Docker y Render, garantizando un entorno:
@@ -10,6 +8,7 @@ Integra herramientas como GitHub, Codespaces, Docker y Render, garantizando un e
 - escalable
 - reproducible
 - automatizado
+
 ## Estructura del proyecto
 ```
 src/
@@ -21,7 +20,6 @@ src/
 └── pipeline.py
 
 ```
-
 ---
 
 ## Arquitectura
@@ -31,7 +29,7 @@ Se implementa una arquitectura de tipo pipeline híbrida modular, donde el flujo
 - Ingesta de datos (Ingestion)
 - Limpieza de datos (Cleaning)
 - Transformación (Feature Engineering)
-- Almacenamiento (storage)
+- Almacenamiento (Storage)
 - Modelo de IA (Model)
 - Exposición mediante API
 
@@ -49,8 +47,8 @@ Esto permite la separación de responsabilidades y la escalabilidad del sistema.
 
 - scikit-learn: entrenamiento, evaluación y pipelines
 
-### Librerias
-- Las versiones indicadas son referenciales, y pueden cambiar con el tiempo, se recomienda validarlas y ajustar según el entorno y las dependencias del proyecto.
+### Librerías
+- Las versiones indicadas son referenciales y pueden cambiar con el tiempo; se recomienda validarlas y ajustar según el entorno y las dependencias del proyecto.
   
 - Pandas 3.0.x
 - Scikit 1.7.x
@@ -102,7 +100,7 @@ docker run -p 5000:5000 mi-app .
 ```
 
 ---
-# Ejecucion local con Windows y linux
+# Ejecución local con Windows y linux
 ```
 # crear entorno virtual
 python -m venv venv
@@ -128,23 +126,25 @@ El acceso se realiza mediante una URL pública.
 
 ### Versionado
 
-Se utiliza versionado semantico vMAJOR.MINOR.PATCH
+Se utiliza versionado semántico vMAJOR.MINOR.PATCH
 ejemplo v.1.0.0
 
 ---
 
 ### Flujo de Datos (Pipeline)
 
-Ingestion
+**Ingestion**
 
-Módulo encargado de la obtención de datos crudos desde archivos .csv.
+Módulo encargado de la obtención de datos crudos desde archivos .csv mediante procesamiento batch.
 
-carga de datos desde CSV
-carga inicial a base de datos
+lectura de archivos CSV
+validación básica de estructura y formato
+manejo de errores de lectura
+carga inicial de datos a la base de datos
 
 ---
 
-Cleaning
+**Cleaning**
 
 Módulo encargado de la limpieza y consistencia de los datos.
 
@@ -154,7 +154,7 @@ corrección de tipos de datos
 
 ---
 
-Feature Engineering
+**Feature Engineering**
 
 Módulo encargado de transformar los datos en variables útiles para el modelo.
 
@@ -164,7 +164,7 @@ creación de nuevas variables
 
 ---
 
-Data Storage (PostgreSQL)
+**Data Storage (PostgreSQL)**
 
 Módulo encargado del almacenamiento de datos.
 
@@ -174,13 +174,17 @@ features
 
 ---
 
-Model
+**Model**
 
 Módulo encargado del entrenamiento y predicción del modelo de churn.
 
-Testing
+---
+
+**Testing**
 
 Módulo encargado de validar el correcto funcionamiento del sistema.
+
+---
 
 app.py
 
@@ -216,11 +220,8 @@ src/
 └── pipeline.py  # Orquestador del flujo de datos
 ```
 ---
-## Enlace del Documento Técnico
-[Para más informacion visita la documentación]('https://docs.google.com/document/d/1sDkir-LdEzf7WIuoey8irOKEiO-2Y4m_5qQb3kaK1L4/edit?usp=sharing')
-
+[Para más información visita la documentación del proyecto]('https://github.com/rodrigo0187/Telco-Customer-churn.git')
 ---
-## Integrantes
-
+## Integrantes 
 - Rodrigo Ignacio Aedo Contreras
 - Benjamín Jesús Figueroa Poblete
