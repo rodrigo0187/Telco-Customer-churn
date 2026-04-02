@@ -9,7 +9,7 @@ Integra herramientas como GitHub, Codespaces, Docker y Render, garantizando un e
 - reproducible
 - automatizado
 
-## Estructura del proyecto
+## Estructura del proyecto collapse
 ```
 src/
 ├── ingestion/
@@ -190,6 +190,8 @@ app.py
 
 Punto de entrada de la aplicación que expone el modelo mediante endpoints.
 
+### Estructura del proyecto expand
+
 ```bash
 src/
 ├── Documento_técnico.pdf
@@ -219,7 +221,7 @@ src/
 │
 └── pipeline.py  # Orquestador del flujo de datos
 ```
----
+
 [Para más información visita la documentación del proyecto]('https://github.com/rodrigo0187/Telco-Customer-churn.git')
 ---
 ## Integrantes 
