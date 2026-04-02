@@ -211,8 +211,7 @@ Punto de entrada de la aplicación que expone el modelo mediante endpoints.
 ├── docs/
 ├── └── documento_tecnico.pdf
 src/
-├── Documento_técnico.pdf
-|
+│
 ├── ingestion/
 │   └── load_csv.py
 │
@@ -239,7 +238,7 @@ src/
 └── pipeline.py  # Orquestador del flujo de datos
 ```
 
-[Para más información visita la documentación](https://docs.google.com/document/d/1sDkir-LdEzf7WIuoey8irOKEiO-2Y4m_5qQb3kaK1L4/edit?tab=t.0#heading=h.sasmue9vtj6y)
+[Para más información visita la documentación]()
 ---
 ## Integrantes 
 - Rodrigo Ignacio Aedo Contreras
