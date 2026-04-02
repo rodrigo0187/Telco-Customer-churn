@@ -101,19 +101,16 @@ Una vez levantado el contenedor, la aplicación quedará disponible localmente e
 ### 1. Clonar repositorio
 
 ```git clone https://github.com/rodrigo0187/Telco-Customer-churn.git
-
 ```
 
 ### 2. Construir imagen docker
 
 ```docker build -t mi-app .
-
 ```
 
 ### 3. Ejecutar contenedor
 
 ```docker run -p 5000:5000 mi-app
-
 ```
 
 ---
