@@ -49,12 +49,9 @@ Esto permite la separación de responsabilidades y la escalabilidad del sistema.
 
 - scikit-learn: entrenamiento, evaluación y pipelines
 
-### Testing
-
-- pytest: pruebas unitarias e integración
-
 ### Librerias
-
+- Las versiones indicadas son referenciales, y pueden cambiar con el tiempo, se recomienda validarlas y ajustar según el entorno y las dependencias del proyecto.
+  
 - Pandas 3.0.x
 - Scikit 1.7.x
 - Numpy 2.3.4
