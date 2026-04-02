@@ -3,13 +3,25 @@
 
 ## Descripción
 
-Este proyecto tiene como objetivo configurar un entorno para el desarrollo de soluciones de análisis de datos e inteligencia artificial.
+El sistema permite predecir la probabilidad de que un cliente abandone el servicio(Churn) en una empresa de telecomunicaciones utilizando técnicas de machine learning, a apartir de datos historicos de clientes. El sistema ingesta los datos, procesa ,limpia ,transforma y analiza la información para generar predicciones que luego pueden ser consumidas a trávez de API.
+Ademas, el proyecto es reproducible y escalable.
 
 Integra herramientas como GitHub, Codespaces, Docker y Render, garantizando un entorno:
 
 - escalable
 - reproducible
 - automatizado
+## Estructura del proyecto
+```
+src/
+├── ingestion/
+├── cleaning/
+├── feature_engineering/
+├── storage/
+├── model/
+└── pipeline.py
+
+```
 
 ---
 
@@ -70,7 +82,7 @@ Esto permite la separación de responsabilidades y la escalabilidad del sistema.
 
 ---
 
-## Ejecución
+# Ejecución con Docker
 
 ### 1. Clonar repositorio
 
@@ -94,7 +106,23 @@ docker run -p 5000:5000 mi-app .
 ```
 
 ---
+# Ejecucion local con Windows y linux
+```
+# crear entorno virtual
+python -m venv venv
 
+# activar entorno
+source venv/bin/activate  # Linux/Mac
+venv\Scripts\activate     # Windows
+
+# instalar dependencias
+pip install -r requirements.txt
+
+# ejecutar aplicación
+python app.py
+
+```
+---
 ### Despliegue
 
 La aplicación puede ser desplegada en la nube utilizando Render.
@@ -164,7 +192,8 @@ Punto de entrada de la aplicación que expone el modelo mediante endpoints.
 
 ```bash
 src/
-│
+├── Documento_técnico.pdf
+|
 ├── ingestion/
 │   └── load_csv.py
 │
@@ -190,9 +219,11 @@ src/
 │
 └── pipeline.py  # Orquestador del flujo de datos
 ```
+---
 ## Enlace del Documento Técnico
-https://docs.google.com/document/d/1sDkir-LdEzf7WIuoey8irOKEiO-2Y4m_5qQb3kaK1L4/edit?usp=sharing
+[Para más informacion visita la documentación]('https://docs.google.com/document/d/1sDkir-LdEzf7WIuoey8irOKEiO-2Y4m_5qQb3kaK1L4/edit?usp=sharing')
 
+---
 ## Integrantes
 
 - Rodrigo Ignacio Aedo Contreras
