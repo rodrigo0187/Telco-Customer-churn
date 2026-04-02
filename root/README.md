@@ -193,12 +193,6 @@ Módulo encargado del entrenamiento y predicción del modelo de churn.
 
 ---
 
-**Testing**
-
-Módulo encargado de validar el correcto funcionamiento del sistema.
-
----
-
 app.py
 
 Punto de entrada de la aplicación que expone el modelo mediante endpoints.
