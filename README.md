@@ -16,13 +16,18 @@ Integra herramientas como GitHub, Codespaces, Docker y Render, garantizando un e
 ├── docs/
 ├── └── documento_tecnico.pdf
 src/
-├── README.md
 ├── ingestion/
 ├── cleaning/
 ├── feature_engineering/
 ├── storage/
 ├── model/
-└── pipeline.py
+├── .dockerignore
+├── .env
+├── .gitignore
+├── app.py
+├── Dockerfile
+├── README.md
+└── requirements.txt
 
 ```
 
@@ -30,7 +35,7 @@ src/
 
 ## Arquitectura
 
-Se implementa una arquitectura de tipo pipeline híbrida modular, donde el flujo de datos se organiza de la siguiente forma:
+Se implementa una arquitectura de tipo pipeline híbrida modular, el flujo de datos se organiza por capas funcionales:
 
 - Ingesta de datos (Ingestion)
 - Limpieza de datos (Cleaning)
@@ -47,7 +52,7 @@ Esto permite la separación de responsabilidades y la escalabilidad del sistema.
 
 ### Lenguaje
 
-- Python 3.x
+- Python 3.x    [Python](https://www.python.org/downloads/)
 
 ### Machine Learning
 
@@ -74,11 +79,11 @@ Esto permite la separación de responsabilidades y la escalabilidad del sistema.
 
 ## Despliegue aplicación
 
-- Render: despliegue automático
+- Render: despliegue automático de la aplicación en la nube
 
 ### Base de datos
 
-- PostgreSQL: almacenamiento de datos
+- PostgreSQL: almacenamiento de datos y features
 
 ---
 
@@ -214,7 +219,10 @@ python app.py
       - Archivo que contiene las dependencias de python del proyecto
 
 7. app.py
-      - Archivo principal de la aplicacíon
+      - Archivo principal de la aplicación
+
+8. pipeline.py
+      - Orquestador del flujo de datos, que ejecuta las diferentes etapas del pipeline
 
 ### Estructura del proyecto (expand)
 
@@ -251,8 +259,8 @@ src/
 ├── .gitignore
 ├── Dockerfile
 ├── README.md
-├── app.py # aplicación
-├── riquerements.txt
+├── app.py # archivo principal de la aplicación
+├── requirements.txt
 └── pipeline.py  # Orquestador del flujo de datos
 ```
 
