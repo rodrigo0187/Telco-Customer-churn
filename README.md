@@ -1,6 +1,7 @@
 # Telco Customer Churn
 
 ## Descripción
+
 El sistema permite predecir la probabilidad de que un cliente abandone el servicio (churn) en una empresa de telecomunicaciones, utilizando técnicas de machine learning a partir de datos históricos de clientes. El sistema ingesta los datos, los procesa, limpia, transforma y analiza la información para generar predicciones que luego pueden ser consumidas a través de una API. Además, el proyecto es reproducible y escalable.
 
 Integra herramientas como GitHub, Codespaces, Docker y Render, garantizando un entorno:
@@ -10,8 +11,8 @@ Integra herramientas como GitHub, Codespaces, Docker y Render, garantizando un e
 - automatizado
 
 ## Estructura del proyecto (collapse)
-```
-/root
+
+```/root
 ├── README.md
 ├── docs/
 ├── └── documento_tecnico.pdf
@@ -24,6 +25,7 @@ src/
 └── pipeline.py
 
 ```
+
 ---
 
 ## Arquitectura
@@ -51,14 +53,14 @@ Esto permite la separación de responsabilidades y la escalabilidad del sistema.
 
 - scikit-learn: entrenamiento, evaluación y pipelines
 
-### Librerías
+### Librerías  
+
 - Las versiones indicadas son referenciales y pueden cambiar con el tiempo; se recomienda validarlas y ajustar según el entorno y las dependencias del proyecto.
   
-- Pandas 3.0.x
-- Scikit 1.7.x
-- Numpy 2.3.4
-- Scipy 1.16.3
-- joblib 1.5.2
+- Pandas 3.0.x    [Pandas](https://pandas.pydata.org/docs/getting_started/install.html)
+- Scikit 1.7.x    [Scikit](https://scikit-learn.org/stable/install.html)
+- Numpy 2.3.4     [Numpy](https://numpy.org/install/)
+- Scipy 1.16.3    [Scipy](https://scipy.org/install/)
 
 ### Contenerización
 
@@ -70,7 +72,7 @@ Esto permite la separación de responsabilidades y la escalabilidad del sistema.
 - GitHub: repositorio
 - GitHub Actions: automatización de flujos (CI/CD)
 
-### Despliegue
+## Despliegue aplicación
 
 - Render: despliegue automático
 
@@ -80,7 +82,7 @@ Esto permite la separación de responsabilidades y la escalabilidad del sistema.
 
 ---
 
-# Ejecución con Docker
+## Ejecución con Docker
 
 ## Ejecución sin instalación
 
@@ -89,33 +91,31 @@ Todo el entorno (librerías, configuración y aplicación) se encuentra contenid
 
 Una vez levantado el contenedor, la aplicación quedará disponible localmente en:
 
-http://localhost:5000
+<http://localhost:5000>
 
 ### 1. Clonar repositorio
 
-```
-git clone https://github.com/rodrigo0187/Telco-Customer-churn.git
+```git clone https://github.com/rodrigo0187/Telco-Customer-churn.git
 
 ```
 
 ### 2. Construir imagen docker
 
-```
-   docker build -t mi-app .
+```docker build -t mi-app .
 
 ```
 
 ### 3. Ejecutar contenedor
 
-```
-docker run -p 5000:5000 mi-app
+```docker run -p 5000:5000 mi-app
 
 ```
 
 ---
-# Ejecución local con Windows y linux
-```
-# crear entorno virtual
+
+## Ejecución local con Windows y linux
+
+```# crear entorno virtual
 python -m venv venv
 
 # activar entorno
@@ -129,79 +129,98 @@ pip install -r requirements.txt
 python app.py
 
 ```
----
-### Despliegue
-
-La aplicación puede ser desplegada en la nube utilizando Render.
-El acceso se realiza mediante una URL pública.
 
 ---
 
-### Versionado
+## Despliegue
 
-Se utiliza versionado semántico vMAJOR.MINOR.PATCH
-ejemplo v.1.0.0
+1. La aplicación puede ser desplegada en la nube utilizando Render.
+2. El acceso se realiza mediante una URL pública.
+
+---
+
+## Versionado
+
+1. Se utiliza versionado semántico vMAJOR.MINOR.PATCH ejemplo v.1.0.0
 
 ---
 
 ### Flujo de Datos (Pipeline)
 
-**Ingestion**
+## Ingestion
 
-Módulo encargado de la obtención de datos crudos desde archivos .csv mediante procesamiento batch.
-
-lectura de archivos CSV
-validación básica de estructura y formato
-manejo de errores de lectura
-carga inicial de datos a la base de datos
-
----
-
-**Cleaning**
-
-Módulo encargado de la limpieza y consistencia de los datos.
-
-eliminación de valores nulos
-eliminación de duplicados
-corrección de tipos de datos
+1. Módulo encargado de la obtención de datos crudos desde archivos .csv mediante procesamiento batch.
+      1. lectura de archivos CSV
+      2. validación básica de estructura y formato
+      3. manejo de errores de lectura
+      4. carga inicial de datos a la base de datos
 
 ---
 
-**Feature Engineering**
+## Cleaning
 
-Módulo encargado de transformar los datos en variables útiles para el modelo.
-
-encoding de variables categóricas
-normalización / scaling
-creación de nuevas variables
-
----
-
-**Data Storage (PostgreSQL)**
-
-Módulo encargado del almacenamiento de datos.
-
-datos crudos
-datos procesados
-features
+1. Módulo encargado de la limpieza y consistencia de los datos.
+      1. eliminación de valores nulos
+      2. eliminación de duplicados
+      3. corrección de tipos de datos
 
 ---
 
-**Model**
+## Feature Engineering
 
-Módulo encargado del entrenamiento y predicción del modelo de churn.
+1. Módulo encargado de transformar los datos en variables útiles para el modelo.
+      1. encoding de variables categóricas
+      2. normalización / scaling
+      3. creación de nuevas variables
 
 ---
 
-app.py
+## Storage (PostgreSQL)
 
-Punto de entrada de la aplicación que expone el modelo mediante endpoints.
+1. Módulo encargado del almacenamiento de datos.
+
+      1. datos crudos
+      2. datos procesados
+      3. features
+
+---
+
+## Model
+
+1. Módulo encargado de:
+      1. entrenamiento
+      2. predicción
+
+---
+
+## Archivos
+
+1. .dockerignore
+      - Docker utiliza este archivo, para excluir archivos y carpetas al momento de construir el contenedor
+
+2. .env
+      - Archivo de configuracion que almacena las variables de entorno
+
+3. .gitignore
+      - Archivo que le indica a git, qué archivos no debe versionar
+
+4. Dockerfile
+      - Archivo que indica cómo construir una imagen docker de la aplicación
+
+5. README.md
+      - Archivo contiene las descripciónes del sistema, instrucciones de ejecución, arquitectura y tecnologias usadas en el sistema
+
+6. requirements.txt
+      - Archivo que contiene las dependencias de python del proyecto
+
+7. app.py
+      - Archivo principal de la aplicacíon
 
 ### Estructura del proyecto (expand)
 
 ```bash
 /root
-├── README.md
+│
 ├── docs/
 ├── └── documento_tecnico.pdf
 src/
@@ -228,11 +247,21 @@ src/
 │   ├── predict.py
 │   └── evaluate.py
 │
-│
+├── .dockerignore
+├── .env
+├── .gitignore
+├── Dockerfile
+├── README.md
+├── app.py # aplicación
+├── riquerements.txt
 └── pipeline.py  # Orquestador del flujo de datos
 ```
+
 [Visita el Documento Diseño técnico](https://github.com/rodrigo0187/Telco-Customer-churn/blob/main/root/docs/Documento_Diseno_T%C3%A9cnico.pdf)
+
 ---
-## Integrantes 
+
+## Autores
+
 - Rodrigo Ignacio Aedo Contreras
 - Benjamín Jesús Figueroa Poblete
