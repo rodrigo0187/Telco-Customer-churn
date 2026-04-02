@@ -11,6 +11,10 @@ Integra herramientas como GitHub, Codespaces, Docker y Render, garantizando un e
 
 ## Estructura del proyecto (collapse)
 ```
+/root
+├── README.md
+├── docs/
+├── └── documento_tecnico.pdf
 src/
 ├── ingestion/
 ├── cleaning/
@@ -202,6 +206,10 @@ Punto de entrada de la aplicación que expone el modelo mediante endpoints.
 ### Estructura del proyecto (expand)
 
 ```bash
+/root
+├── README.md
+├── docs/
+├── └── documento_tecnico.pdf
 src/
 ├── Documento_técnico.pdf
 |
