@@ -3,8 +3,7 @@
 
 ## Descripción
 
-El sistema permite predecir la probabilidad de que un cliente abandone el servicio(Churn) en una empresa de telecomunicaciones utilizando técnicas de machine learning, a apartir de datos historicos de clientes. El sistema ingesta los datos, procesa ,limpia ,transforma y analiza la información para generar predicciones que luego pueden ser consumidas a trávez de API.
-Ademas, el proyecto es reproducible y escalable.
+El sistema permite predecir la probabilidad de que un cliente abandone el servicio (churn) en una empresa de telecomunicaciones, utilizando técnicas de machine learning a partir de datos históricos de clientes. El sistema ingesta los datos, los procesa, limpia, transforma y analiza la información para generar predicciones que luego pueden ser consumidas a través de una API. Además, el proyecto es reproducible y escalable.
 
 Integra herramientas como GitHub, Codespaces, Docker y Render, garantizando un entorno:
 
