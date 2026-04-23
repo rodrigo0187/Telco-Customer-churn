@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: postgres_churn
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: churn_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  ingestion:
+    build: .
+    container_name: pipeline_ingestion
+    volumes:
+      - ./ingestion:/app/ingestion
+    depends_on:
+      - db
+    env_file:
+      - .env
+    command: ["python", "ingestion/main.py"]
+
+volumes:
+  postgres_data:

@@ -1,5 +1,8 @@
 # Dependencias se instalaran las librerias que se utilizaran solo en el proyecto.
-pytest==9.0.2
-scikit-learn==1.3.0
-pandas==2.0.3
-numpy==2.0.3
+scikit-learn
+pandas
+numpy
+seaborn
+psycopg2-binary
+sqlalchemy
+python-dotenv

@@ -260,6 +260,7 @@ src/
 ├── Dockerfile
 ├── README.md
 ├── app.py # archivo principal de la aplicación
+├── docker-compose.yml # orquestador de los contenedores
 ├── requirements.txt
 └── pipeline.py  # Orquestador del flujo de datos
 ```
@@ -267,7 +268,16 @@ src/
 [Visita el Documento Diseño técnico](https://github.com/rodrigo0187/Telco-Customer-churn/blob/main/root/docs/Documento_Diseno_T%C3%A9cnico.pdf)
 
 ---
-
+## Ejecucion del Pipeline
+```
+docker-compose up --build 
+```
+- verificación de los datos en postgresql
+Al terminar la carga, puedes entrar al contenedo para ver la tabla
+```
+docker exec -it postgresql_churn psql _U admin -d churn_db -c "SELECT * FROM clientes_churn LIMIT 5;"
+```
+---
 ## Autores
 
 - Rodrigo Ignacio Aedo Contreras
