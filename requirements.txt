@@ -1,8 +1,7 @@
-# Dependencias se instalaran las librerias que se utilizaran solo en el proyecto.
 scikit-learn
 pandas
 numpy
 seaborn
 psycopg2-binary
 sqlalchemy
-python-dotenvestamo
+python-dotenv

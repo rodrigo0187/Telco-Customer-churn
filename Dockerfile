@@ -1,12 +1,6 @@
 FROM python:3.11-slim
 
-# Dependencias sistema
-RUN apt-get update && apt-get install -y \
-    libpq-dev \
-    gcc \
-    && rm -rf /var/lib/apt/lists/*
-
-WORKDIR /app/src/...
+WORKDIR /app
 
 # Instalar dependencias Python
 COPY requirements.txt .
