@@ -15,13 +15,19 @@ def subir_a_postgres(df, nombre_tabla):
 
     try:
         engine = create_engine(url)
-        with engine.connect() as conn:
-            print('Conexion exitosa')
-            
-        if 'customer_id' in df.columns():
+
+        print("Conexion exitosa")
+
+        df = df.reset_index(drop=True)
+
+        if 'customer_id' in df.columns:
             df = df.drop_duplicates(subset=['customer_id'])
-        
+
+        df.columns = [str(c).strip() for c in df.columns]
+
         df.to_sql(nombre_tabla, engine, if_exists='append', index=False)
+
         print(f"Datos insertados en la tabla: {nombre_tabla}")
+
     except Exception as e:
-        print(f"Error al subir a BD a psotgreSQl: {e}")
+        print(f"Error al subir a BD en PostgreSQL: {e}")

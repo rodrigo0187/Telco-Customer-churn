@@ -28,7 +28,7 @@ services:
     working_dir: /app
     volumes:
       - ./src:/app/src
-      - ./data:/app
+      - ./data:/app/data
     depends_on:
       db:
         condition: service_healthy

@@ -3,3 +3,5 @@ data/
 .env
 docker-compose.yml
 Dockerfile
+__pycache__/
+*.pyc
