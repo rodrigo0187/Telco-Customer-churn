@@ -27,14 +27,14 @@ services:
     container_name: pipeline_ingestion
     working_dir: /app
     volumes:
-      - ./ingestion:/app/ingestion
-      - ./data:/app/data
+      - ./src:/app/src
+      - ./data:/app
     depends_on:
       db:
         condition: service_healthy
     env_file:
       - .env
-    command: ["python", "ingestion/load_csv.py"]
+    command: ["python", "src/pipeline.py"]
 
 volumes:
   postgres_data:

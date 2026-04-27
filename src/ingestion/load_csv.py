@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+ruta_csv = 'data/raw/churn.csv'
 def cargar_y_limpiar_csv(ruta_csv, carpeta_backup='copy_churn_csv'):
     try:
         if not os.path.exists(ruta_csv):

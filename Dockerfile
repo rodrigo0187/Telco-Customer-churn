@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y \
     gcc \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /app
+WORKDIR /app/src/...
 
 # Instalar dependencias Python
 COPY requirements.txt .
