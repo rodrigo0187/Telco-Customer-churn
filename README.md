@@ -233,6 +233,8 @@ python app.py
 /root
 ├── docs/
 ├── └── documento_tecnico.pdf
+├── db/
+├── └── init.sql
 src/
 │
 ├── ingestion/
