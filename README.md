@@ -15,6 +15,8 @@ Integra herramientas como GitHub, Codespaces, Docker y Render, garantizando un e
 ```/root
 ├── docs/
 ├── └── documento_tecnico.pdf
+├── db/
+├── └── init.sql
 src/
 ├── ingestion/
 ├── cleaning/
@@ -25,6 +27,7 @@ src/
 ├── .env
 ├── .gitignore
 ├── app.py
+├── docker-compose.yml
 ├── Dockerfile
 ├── README.md
 └── requirements.txt
@@ -230,6 +233,8 @@ python app.py
 /root
 ├── docs/
 ├── └── documento_tecnico.pdf
+├── db/
+├── └── init.sql
 src/
 │
 ├── ingestion/
