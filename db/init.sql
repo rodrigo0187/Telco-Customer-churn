@@ -1,5 +1,5 @@
-CREATE TABLE customer_pipeline (
-    customer_id VARCHAR(50),
+CREATE TABLE cliente (
+    customer_id VARCHAR(50) PRIMARY KEY,
     gender VARCHAR(10),
     SeniorCitizen INT,
     Partner VARCHAR(3),
@@ -17,7 +17,7 @@ CREATE TABLE customer_pipeline (
     Contract VARCHAR(20),
     PaperlessBilling VARCHAR(3),
     PaymentMethod VARCHAR(40),
-    MonthlyCharges FLOAT,
-    TotalCharges FLOAT,
+    MonthlyCharges NUMERIC(10,2),
+    TotalCharges NUMERIC(10,2),
     Churn VARCHAR(3)
 );

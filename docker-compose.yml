@@ -5,26 +5,36 @@ services:
     image: postgres:15
     container_name: postgres_churn
     restart: always
+    env_file:
+      - .env
     environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin
-      POSTGRES_DB: churn_db
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   ingestion:
     build: .
     container_name: pipeline_ingestion
+    working_dir: /app
     volumes:
       - ./ingestion:/app/ingestion
+      - ./data:/app/data
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     env_file:
       - .env
-    command: ["python", "ingestion/main.py"]
+    command: ["python", "ingestion/load_csv.py"]
 
 volumes:
   postgres_data:

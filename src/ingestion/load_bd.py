@@ -1,9 +1,6 @@
 import os
 import pandas as pd
 from sqlalchemy import create_engine
-from dotenv import load_dotenv
-
-load_dotenv()
 
 def cargar_datos(ruta_csv, carpeta_backup='copy_churn_csv'):
     try:

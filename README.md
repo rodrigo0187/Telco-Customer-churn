@@ -62,7 +62,7 @@ Esto permite la separación de responsabilidades y la escalabilidad del sistema.
 
 - Las versiones indicadas son referenciales y pueden cambiar con el tiempo; se recomienda validarlas y ajustar según el entorno y las dependencias del proyecto.
   
-- Pandas 3.0.x    [Pandas](https://pandas.pydata.org/docs/getting_started/install.html)
+- Pandas 3.13.x    [Pandas](https://pandas.pydata.org/docs/getting_started/install.html)
 - Scikit 1.7.x    [Scikit](https://scikit-learn.org/stable/install.html)
 - Numpy 2.3.4     [Numpy](https://numpy.org/install/)
 - Scipy 1.16.3    [Scipy](https://scipy.org/install/)

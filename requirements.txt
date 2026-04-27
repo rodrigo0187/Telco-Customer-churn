@@ -5,4 +5,4 @@ numpy
 seaborn
 psycopg2-binary
 sqlalchemy
-python-dotenv
+python-dotenvestamo
