@@ -5,6 +5,7 @@
 El sistema permite predecir la probabilidad de que un cliente abandone el servicio (churn) en una empresa de telecomunicaciones, utilizando técnicas de machine learning a partir de datos históricos.
 
 El sistema:
+
 - ingesta datos
 - procesa
 - limpia
@@ -14,6 +15,7 @@ El sistema:
 Además, el proyecto es reproducible y escalable.
 
 Integra herramientas como:
+
 - GitHub
 - Docker
 - Render
@@ -37,6 +39,7 @@ telco-customer-churn/
 │   └── pipeline.py
 ├── .dockerignore
 ├── .env
+├── .env.example
 ├── .gitignore
 ├── app.py
 ├── docker-compose.yml
@@ -47,7 +50,7 @@ telco-customer-churn/
 
 ---
 
-##  Arquitectura
+## Arquitectura
 
 Arquitectura tipo **pipeline híbrido modular (batch)**:
 
@@ -59,7 +62,8 @@ Arquitectura tipo **pipeline híbrido modular (batch)**:
 - API
 
 Permite:
-- separación de responsabilidades  
+
+- separación de responsabilidades
 - escalabilidad  
 - mantenibilidad  
 
@@ -68,31 +72,40 @@ Permite:
 ##  Tecnologías
 
 ### Lenguaje
+
 - Python 3.x
 
 ### Librerías
-- pandas
-- numpy
-- scikit-learn
-- seaborn
-- psycopg2-binary
-- sqlalchemy
-- python-dotenv
+
+- Las versiones indicadas son referenciales y pueden cambiar con el tiempo; se recomienda validarlas y ajustar según el entorno y las dependencias del proyecto.
+
+- Pandas 3.13.x [Pandas](https://pandas.pydata.org/docs/getting_started/install.html)
+- Scikit 1.7.x [Scikit](https://scikit-learn.org/stable/install.html)
+- Numpy 2.3.4 [Numpy](https://numpy.org/install/)
+- Scipy 1.16.3 [Scipy](https://scipy.org/install/)
+- Seaborn 0.13.2 [Seaborn](https://seaborn.pydata.org/installing.html)
+- psycopg2-binary 2.9.12 [Psycopg2](https://pypi.org/project/psycopg2-binary/)
+- sqlalchemy 2.0.49 [SqlAlchemy](https://pypi.org/project/SQLAlchemy/)
+- python-dotenv 1.2.2 [Python-dotenv](https://pypi.org/project/python-dotenv/)
 
 ### Base de datos
+
 - PostgreSQL
 
 ### Contenerización
+
 - Docker
 
 ### Control de versiones
-- Git / GitHub
+
+- Git / GitHub / GitHub Actions: automatización de flujos (CI/CD)
 
 ---
 
-#  Ejecución con Docker (Recomendado)
+# Ejecución con Docker (Recomendado)
 
 ## Requisitos
+
 - Docker
 - Docker Compose
 
@@ -160,7 +173,9 @@ docker-compose down -v
 
 # Ejecución sin Docker
 
+
 ## Requisitos
+
 - Python 3.x
 - PostgreSQL
 
@@ -224,24 +239,29 @@ La tabla `cliente` debería contener aproximadamente **7000 registros**.
 ## Flujo del pipeline
 
 ### Ingestion
+
 - lectura CSV
 - validación
 - carga inicial
 
 ### Cleaning
+
 - eliminación de nulos
 - eliminación de duplicados
 - corrección de tipos
 
 ### Feature Engineering
+
 - encoding
 - scaling
 - nuevas variables
 
 ### Storage
+
 - almacenamiento en PostgreSQL
 
 ### Model
+
 - entrenamiento
 - predicción
 
@@ -261,9 +281,54 @@ La tabla `cliente` debería contener aproximadamente **7000 registros**.
 
 ## Documento técnico
 
-https://github.com/rodrigo0187/Telco-Customer-churn/blob/main/root/docs/Documento_Diseno_T%C3%A9cnico.pdf
+[Documento Técnico](https://github.com/rodrigo0187/Telco-Customer-churn/blob/main/root/docs/Documento_Diseno_T%C3%A9cnico.pdf)
 
 ---
+
+### Estructura del proyecto (expand)
+
+```bash
+/root
+├── docs/
+├── └── documento_tecnico.pdf
+├── db/
+├── └── init.sql
+src/
+│
+├── ingestion/
+│   └── load_csv.py
+│
+├── cleaning/
+│   ├── fix_data_types.py
+│   ├── remove_duplicates.py
+│   └── remove_nulls.py
+│
+├── feature_engineering/
+│   ├── encoding.py
+│   ├── feature_creation.py
+│   └── scaling.py
+│
+├── storage/
+│   ├── load_bd.py
+│   └── storage_bd.py
+│
+├── model/
+│   ├── train.py
+│   ├── predict.py
+│   └── evaluate.py
+└── pipeline.py  # Orquestador del flujo de datos
+│
+├── .dockerignore
+├── .env
+├── .env.example
+├── .gitignore
+├── app.py # archivo principal de la aplicación
+├── docker-compose.yml # orquestador de los contenedores
+├── Dockerfile
+├── README.md
+└── requirements.txt
+
+```
 
 ## Autores
 
