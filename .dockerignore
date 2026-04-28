@@ -1,4 +1,8 @@
 .gitignore
 .git
 /test
-docker-compose
+docker-composey
+.env
+__pycache__/
+*.pyc
+venv/
