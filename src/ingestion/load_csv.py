@@ -17,9 +17,6 @@ def cargar_y_limpiar_csv(ruta_csv, carpeta_backup='copy_churn_csv'):
         df = pd.read_csv(ruta_csv, low_memory=False, sep=',')
         print(f"CSV cargado: {len(df)} filas detectadas.")
 
-        # ==============================
-        # 🔹 NORMALIZACIÓN DE COLUMNAS
-        # ==============================
         df.columns = df.columns.str.strip().str.lower()
 
         # Renombrar columnas para coincidir con PostgreSQL
@@ -27,24 +24,16 @@ def cargar_y_limpiar_csv(ruta_csv, carpeta_backup='copy_churn_csv'):
             'customerid': 'customer_id'
         })
 
-        # ==============================
-        # 🔹 VALIDACIONES CLAVE
-        # ==============================
         df = df.dropna(subset=["customer_id"])
         df = df.drop_duplicates(subset=["customer_id"])
 
-        # ==============================
-        # 🔹 CONVERSIÓN DE TIPOS
-        # ==============================
+
         df['totalcharges'] = pd.to_numeric(df['totalcharges'], errors='coerce')
         df['monthlycharges'] = pd.to_numeric(df['monthlycharges'], errors='coerce')
 
         # Eliminar nulos en columnas críticas
         df = df.dropna(subset=['totalcharges'])
 
-        # ==============================
-        # 🔹 BACKUP (opcional)
-        # ==============================
         if not os.path.exists(carpeta_backup):
             os.makedirs(carpeta_backup)
             print(f'Carpeta de backup "{carpeta_backup}" lista.')
