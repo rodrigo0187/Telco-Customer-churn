@@ -22,7 +22,7 @@ Integra herramientas como:
 
 ---
 
-##  Estructura del proyecto
+## Estructura del proyecto
 
 ```bash
 telco-customer-churn/
@@ -36,6 +36,7 @@ telco-customer-churn/
 │   ├── ingestion/
 │   ├── model/
 │   ├── storage/
+│   ├── utils/
 │   └── pipeline.py
 ├── .dockerignore
 ├── .env
@@ -69,7 +70,7 @@ Permite:
 
 ---
 
-##  Tecnologías
+## Tecnologías
 
 ### Lenguaje
 
@@ -149,6 +150,12 @@ docker-compose up --build
 docker exec -it postgres_churn psql -U admin -d churn_db
 ```
 
+ver tabla
+
+```bash
+\d {nombre_tabla}
+```
+
 Dentro de PostgreSQL:
 
 ```sql
@@ -161,20 +168,30 @@ SELECT * FROM cliente LIMIT 10;
 ## 5. Detener servicios
 
 ```bash
+docker-compose stop
 docker-compose down
 ```
 
+## 6. Iniciar servvicios
+
+```bash
+docker-compose stop
+docker-compose down
+```
+
+## 7. Eliminar volumenes, registro de la base de datos y conexion de red creada
+
 > Para eliminar datos:
+
 ```bash
 docker-compose down -v
 ```
 
 ---
 
-# Ejecución sin Docker
+## Ejecución sin Docker
 
-
-## Requisitos
+# Requisitos
 
 - Python 3.x
 - PostgreSQL
@@ -247,6 +264,7 @@ La tabla `cliente` debería contener aproximadamente **7000 registros**.
 ### Cleaning
 
 - eliminación de nulos
+- quality_check
 - eliminación de duplicados
 - corrección de tipos
 
@@ -259,6 +277,10 @@ La tabla `cliente` debería contener aproximadamente **7000 registros**.
 ### Storage
 
 - almacenamiento en PostgreSQL
+
+### Utils
+
+- logging
 
 ### Model
 
@@ -288,35 +310,49 @@ La tabla `cliente` debería contener aproximadamente **7000 registros**.
 ### Estructura del proyecto (expand)
 
 ```bash
-/root
-├── docs/
-├── └── documento_tecnico.pdf
+Telco-customer-churn
+│
+├── data/
+│   ├── backup/
+│   │   └── # backup de churn con timestamp
+│   └── raw/
+│       └── churn.csv
+│   
 ├── db/
-├── └── init.sql
-src/
+├── └── init.sql # tabla
 │
-├── ingestion/
-│   └── load_csv.py
+├── root/
+│   └── docs
+│       └── Documento_Diseno_Técnico.pdf
 │
-├── cleaning/
-│   ├── fix_data_types.py
-│   ├── remove_duplicates.py
-│   └── remove_nulls.py
-│
-├── feature_engineering/
-│   ├── encoding.py
-│   ├── feature_creation.py
-│   └── scaling.py
-│
-├── storage/
-│   ├── load_bd.py
-│   └── storage_bd.py
-│
-├── model/
-│   ├── train.py
-│   ├── predict.py
-│   └── evaluate.py
-└── pipeline.py  # Orquestador del flujo de datos
+├── src/
+│   │
+│   ├── cleaning/
+│   │   ├── fix_data_types.py
+│   │   ├── quality_check.py
+│   │   ├── remove_duplicates.py
+│   │   └── remove_nulls.py
+│   │
+│   ├── feature_engineering/
+│   │   ├── encoding.py
+│   │   ├── feature_creation.py
+│   │   └── scaling.py
+│   │
+│   ├── ingestion/
+│   │   └── load_csv.py
+│   │
+│   ├── model/
+│   │   ├── train.py
+│   │   ├── predict.py
+│   │   └── evaluate.py
+│   │
+│   ├── storage/
+│   │   └──load_bd.py
+│   │   
+│   ├── utils/
+│   │   └──logging.py # registro de logs (como opción futura)
+│   │
+│   └── pipeline.py  # Orquestador del flujo de datos
 │
 ├── .dockerignore
 ├── .env
