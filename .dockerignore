@@ -6,3 +6,4 @@ docker-composey
 __pycache__/
 *.pyc
 venv/
+data/backup/raw/

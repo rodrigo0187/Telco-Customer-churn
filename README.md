@@ -26,6 +26,7 @@ Integra herramientas como:
 
 ```bash
 telco-customer-churn/
+├── data/
 ├── db/
 ├── root/
 │   └── docs/
@@ -172,16 +173,16 @@ docker-compose stop
 docker-compose down
 ```
 
-## 6. Iniciar servvicios
+## 6. Crea nuevamente el contenedor o encender contenedor ya creado
 
 ```bash
-docker-compose stop
-docker-compose down
+docker-compose up
+docker-compose start
 ```
 
-## 7. Eliminar volumenes, registro de la base de datos y conexion de red creada
+## 7. Elimina y detiene contenedor,volúmenes
 
-> Para eliminar datos:
+> Elimina toda la base de datos, tablas, registro y conexion creada
 
 ```bash
 docker-compose down -v
@@ -191,7 +192,7 @@ docker-compose down -v
 
 ## Ejecución sin Docker
 
-# Requisitos
+## Requisitos sin docker
 
 - Python 3.x
 - PostgreSQL
@@ -316,10 +317,10 @@ Telco-customer-churn
 │   ├── backup/
 │   │   └── # backup de churn con timestamp
 │   └── raw/
-│       └── churn.csv
+│       └── churn.csv # csv Crudo
 │   
 ├── db/
-├── └── init.sql # tabla
+├── └── init.sql # construccion de la tabla
 │
 ├── root/
 │   └── docs

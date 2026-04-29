@@ -5,3 +5,4 @@ docker-compose.yml
 Dockerfile
 __pycache__/
 *.pyc
+data/backup/raw/
