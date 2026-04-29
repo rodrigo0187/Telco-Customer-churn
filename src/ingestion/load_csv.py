@@ -2,13 +2,17 @@ import os
 import pandas as pd
 from sqlalchemy import create_engine
 from dotenv import load_dotenv
+import shutil
+from datetime import datetime
+from cleaning.quality_check import QualityCheck
 
 # Cargar variables de entorno
 load_dotenv()
 
 
-def cargar_y_limpiar_csv(ruta_csv, carpeta_backup='copy_churn_csv'):
+def cargar_csv(ruta_csv, carpeta_backup='data/backup/raw'):
     try:
+        
         # Verificar existencia del archivo
         if not os.path.exists(ruta_csv):
             raise FileNotFoundError(f"No se encontró el archivo en: {ruta_csv}")
@@ -16,28 +20,22 @@ def cargar_y_limpiar_csv(ruta_csv, carpeta_backup='copy_churn_csv'):
         # Leer CSV
         df = pd.read_csv(ruta_csv, low_memory=False, sep=',')
         print(f"CSV cargado: {len(df)} filas detectadas.")
-
-        df.columns = df.columns.str.strip().str.lower()
-
-        # Renombrar columnas para coincidir con PostgreSQL
-        df = df.rename(columns={
-            'customerid': 'customer_id'
-        })
-
-        df = df.dropna(subset=["customer_id"])
-        df = df.drop_duplicates(subset=["customer_id"])
-
-
+        
+        # lower en columnas
+        df.columns = df.columns.str.lower()
+        # cambiar el tipo de datos en la columna Total_Charges(Object) a float\
         df['totalcharges'] = pd.to_numeric(df['totalcharges'], errors='coerce')
-        df['monthlycharges'] = pd.to_numeric(df['monthlycharges'], errors='coerce')
-
-        # Eliminar nulos en columnas críticas
-        df = df.dropna(subset=['totalcharges'])
-
+        
+        # crear la carpeta backup en caso de que no existiera
         if not os.path.exists(carpeta_backup):
             os.makedirs(carpeta_backup)
             print(f'Carpeta de backup "{carpeta_backup}" lista.')
-
+        # implementacion de buckup con el tiempo de respaldo
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        nombre_archivo= f'churn_{timestamp}.csv'
+        ruta_backup = os.path.join(carpeta_backup,nombre_archivo)
+        df.to_csv(ruta_backup,index=False)
+        
         return df
 
     except Exception as e:
@@ -66,16 +64,32 @@ def subir_a_postgres(df, nombre_tabla):
 
     except Exception as e:
         print(f"Error al subir a BD en PostgreSQL: {e}")
-        raise  # 🔥 importante: no ocultar errores
+        raise
 
 
 if __name__ == "__main__":
     # Ruta correcta dentro del contenedor
-    data = cargar_y_limpiar_csv("data/raw/churn.csv")
+    try:
+        data = cargar_csv("data/raw/churn.csv")
 
-    if data is not None:
-        print("Datos cargados, iniciando inserción en db")
-        subir_a_postgres(data, "cliente")
-        print("Pipeline finalizado correctamente")
-    else:
-        print("No se pudo cargar el CSV")
+        if data is not None:
+            qc = QualityCheck(data)
+            report = qc.quality_report()
+            score = qc.quality_score_weight()
+            print('quality report:',report)
+            print('quality score:',score)
+            if score < 80:
+                print('Dataset con mala calidad, no se inserta en la BD')
+                exit(1)
+                
+            print("Datos cargados, iniciando inserción en db")
+            subir_a_postgres(data, "cliente")
+            print("Pipeline finalizado correctamente")
+            
+    except FileNotFoundError as e:
+        print(f'Archivo no encontrado: {e}')
+        exit(1)
+    except Exception as e:
+        print(f'Error al generar el Pipeline {e}')
+        exit(1)
+    
