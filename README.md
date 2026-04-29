@@ -61,7 +61,6 @@ Arquitectura tipo **pipeline híbrido modular (batch)**:
 - Feature Engineering
 - Storage
 - Model
-- API
 
 Permite:
 
@@ -244,7 +243,7 @@ python src/pipeline.py
 
 ## Validación
 
-La tabla `cliente` debería contener aproximadamente **7000 registros**.
+La tabla `cliente` debe contener en crudo **7043 registros** con **21 columnas**
 
 ---
 
