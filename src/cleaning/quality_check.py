@@ -112,8 +112,8 @@ class QualityCheck:
         df= self.data.select_dtypes(include=['number'])
         df =df.drop(columns=self.exclude_inconsistencies,errors='ignore')
         
-        Q1= df.quantile(25)
-        Q3= df.quantile(75)
+        Q1= df.quantile(0.25)
+        Q3= df.quantile(0.75)
         IQR = Q3 - Q1
         lower_bound = Q1 - 1.5 * IQR
         upper_bound = Q3 + 1.5 * IQR
@@ -135,7 +135,7 @@ class QualityCheck:
         
         for col in cat_cols.columns:
             values = cat_cols[col].dropna().astype(str)
-            normalized = values.str.trip().str.lower()
+            normalized = values.str.strip().str.lower()
             
             if len(values.unique()) != len(normalized.unique()):
                 result[col] = {
