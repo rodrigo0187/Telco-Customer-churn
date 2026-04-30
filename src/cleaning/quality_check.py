@@ -73,10 +73,10 @@ class QualityCheck:
     # calcular el score de calidad
     def quality_score_weight(self) ->float:
         weights ={
-            "Nulos/faltantes" : 0.2,
+            "Nulos/faltantes" : 0.1,
             "Valores_duplicados": 0.2,
-            "Outliers": 0.3,
-            "Inconsistencias":0.3            
+            "Outliers": 0.1,
+            "Inconsistencias":0.6
         }
         checks = {
            "Nulos/faltantes" : self.has_nulls(),

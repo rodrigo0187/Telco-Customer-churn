@@ -12,14 +12,14 @@ def main():
         score =qc.quality_score_weight()
         print('Quality report:',report)
         print('Quality score:',score)
-        if score < 80:
+        if score >= 50:
+            print('Datos cargados, iniciando inserción en db')
+            subir_a_postgres(df, "cliente")
+            print('Pipeline finalizado correctamente')
+        else:
             print('Dataset con mala calidad, no se inserta en la BD.')
-            
-        print('Datos cargados, iniciando inserción en db')
-        subir_a_postgres(df, "cliente")
-        print('Pipeline finalizado correctamente')
     else:
-        print('No se pudo cargar el CVS')
+        print('No se pudo cargar el CSV')
 
 if __name__ == "__main__":
     main()
