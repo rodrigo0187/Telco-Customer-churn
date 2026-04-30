@@ -103,7 +103,7 @@ Permite:
 
 ---
 
-# Ejecución con Docker (Recomendado)
+## Ejecución con Docker (Recomendado)
 
 ## Requisitos
 

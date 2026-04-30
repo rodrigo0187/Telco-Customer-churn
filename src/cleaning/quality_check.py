@@ -13,16 +13,18 @@ class QualityCheck:
             self.exclude_inconsistencies = exclude_inconsistencies
             
     # valores faltantes
-    def half_nulls(self) ->bool:
+    def has_nulls(self) ->bool:
         return self.data.isna().any().any()
     
     # valores duplicados
-    def half_duplicates(self) -> bool:
+    def has_duplicates(self) -> bool:
         return self.data.duplicated().any()
     
     # Atipicos Q1, Q3 : IQR
     def outliers(self)-> bool:
-        df = self.data.select_dtypes(include=['number'])
+        df = self.data.select_dtypes(include=['number']).drop(
+            columns=self.exclude_inconsistencies,errors="ignore"
+        )
         Q1 =df.quantile(0.25)
         Q3  =df.quantile(0.75)
         IQR = Q3 - Q1
@@ -35,7 +37,7 @@ class QualityCheck:
     # valores negativos 
     def has_negative_values(self)-> bool:
         numeric_col = self.data.select_dtypes(include=['number'])
-        # elimina solo las filas que contenga valor negativo
+        # excluye columna del análisis
         numeric_col = numeric_col.drop(
             columns=self.exclude_inconsistencies,errors="ignore")
         return (numeric_col < 0).any().any()
@@ -53,18 +55,21 @@ class QualityCheck:
     
     # Inconsistencias generales
     def has_inconsistencies(self) -> bool:
-        return self.has_negative_values() or self.has_categorical_inconsitencies()
+        neg = self.has_negative_values()
+        cat = self.has_categorical_inconsitencies()
+        return neg or cat
     
     # completed report
     def quality_report(self) -> dict:
         return {
-            "Nulos/faltantes" : bool(self.half_nulls()),
-            "Valores_duplicados": bool(self.half_duplicates()),
+            "Nulos/faltantes" : bool(self.has_nulls()),
+            "Valores_duplicados": bool(self.has_duplicates()),
             "Outliers":bool(self.outliers()),
             "Valores_negativos": bool(self.has_negative_values()),
             "Inconsistencias cat": bool(self.has_categorical_inconsitencies()),
             "Inconsistencias gen":bool(self.has_inconsistencies()),
         }
+        
     # calcular el score de calidad
     def quality_score_weight(self) ->float:
         weights ={
@@ -74,16 +79,16 @@ class QualityCheck:
             "Inconsistencias":0.3            
         }
         checks = {
-           "Nulos/faltantes" : self.half_nulls(),
-            "Valores_duplicados": self.half_duplicates(),
+           "Nulos/faltantes" : self.has_nulls(),
+            "Valores_duplicados": self.has_duplicates(),
             "Outliers": self.outliers(),
             "Inconsistencias": self.has_inconsistencies()    
         }
         penalty = 0
-        
+        total_weight = sum(weights.values())
         for key in checks:
             if checks[key]:
                 penalty +=weights[key]
-                total_weight = sum(weights.values())
-        quality = (1 - (penalty/total_weight)) * 100
+                
+        quality = max(0,(1 - (penalty/total_weight)) * 100)
         return round(quality,2)

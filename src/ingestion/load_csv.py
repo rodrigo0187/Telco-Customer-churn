@@ -4,11 +4,9 @@ from sqlalchemy import create_engine
 from dotenv import load_dotenv
 import shutil
 from datetime import datetime
-from cleaning.quality_check import QualityCheck
 
 # Cargar variables de entorno
 load_dotenv()
-
 
 def cargar_csv(ruta_csv, carpeta_backup='data/backup/raw'):
     try:
@@ -73,15 +71,6 @@ if __name__ == "__main__":
         data = cargar_csv("data/raw/churn.csv")
 
         if data is not None:
-            qc = QualityCheck(data)
-            report = qc.quality_report()
-            score = qc.quality_score_weight()
-            print('quality report:',report)
-            print('quality score:',score)
-            if score < 80:
-                print('Dataset con mala calidad, no se inserta en la BD')
-                exit(1)
-                
             print("Datos cargados, iniciando inserción en db")
             subir_a_postgres(data, "cliente")
             print("Pipeline finalizado correctamente")
