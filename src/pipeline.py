@@ -12,6 +12,10 @@ def main():
         score =qc.quality_score_weight()
         print('Quality report:',report)
         print('Quality score:',score)
+      
+        report_details = qc.quality_report_details()
+        print('Quality report details:',report_details)
+        
         if score >= 50:
             print('Datos cargados, iniciando inserción en db')
             subir_a_postgres(df, "cliente")
