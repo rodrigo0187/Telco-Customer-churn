@@ -98,9 +98,37 @@ class QualityCheck:
     # indicador de columna en conflicto
     
     # null details
-    def null_details(self) -> dict:
-        nulls_count = self.data.isna().sum()
-        return nulls_count[nulls_count>0].to_dict()
+    def null_details(self,id_column='customerid') -> dict:
+        result = {}
+        for col in self.data.columns:
+            mask = self.data[col].isna()
+            
+            if mask.any():
+                subset =self.data.loc[mask]
+                
+                ids = subset[id_column].to_list() if id_column in subset.columns else []
+                if 'tenure' in subset.columns:
+                    expected_mask = subset['tenure'] == 0
+                    unexpected_mask = subset['tenure'] > 0
+
+                    expected = int(expected_mask.sum())
+                    unexpected = int(unexpected_mask.sum())
+
+                    unexpected_ids = subset.loc[unexpected_mask, id_column].tolist() if id_column in subset.columns else []
+                else:
+                    expected = None
+                    unexpected = None
+                    unexpected_ids = []
+
+                result[col] = {
+                    "count": int(mask.sum()),
+                    "ids": ids,
+                    "expected_nulls": expected,
+                    "unexpected_nulls": unexpected,
+                    "unexpected_ids": unexpected_ids
+            }
+
+        return result
     
     # duplicated details
     def duplicated_details(self) ->dict:
