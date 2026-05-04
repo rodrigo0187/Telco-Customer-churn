@@ -314,10 +314,17 @@ Telco-customer-churn
 │
 ├── data/
 │   ├── backup/
-│   │   └── # backup de churn con timestamp
-│   └── raw/
-│       └── churn.csv # csv Crudo
-│   
+│   │   ├── raw # backup de churn con timestamp
+│   │   └── churn.csv # csv crudo
+│   │   
+│   │   # Trazabilidad cleaned y feature_engineered
+│   └── processed/
+│       │── cleaned/
+│       │    └── cleaned_churn.csv
+│       │
+│       └── feature_engineered/
+│            └── fe_churn.csv
+│
 ├── db/
 ├── └── init.sql # construccion de la tabla
 │

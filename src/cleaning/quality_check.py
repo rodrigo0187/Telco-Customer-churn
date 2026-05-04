@@ -99,6 +99,8 @@ class QualityCheck:
     
     # null details
     def null_details(self,id_column='customerid') -> dict:
+        if id_column not in self.data.columns:
+            raise ValueError(f'Columna {id_column} no existe en el dataFrame')
         result = {}
         for col in self.data.columns:
             mask = self.data[col].isna()
@@ -106,7 +108,7 @@ class QualityCheck:
             if mask.any():
                 subset =self.data.loc[mask]
                 
-                ids = subset[id_column].to_list() if id_column in subset.columns else []
+                ids = subset[id_column].to_list()
                 if 'tenure' in subset.columns:
                     expected_mask = subset['tenure'] == 0
                     unexpected_mask = subset['tenure'] > 0

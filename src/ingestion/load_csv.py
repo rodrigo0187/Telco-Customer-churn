@@ -20,7 +20,10 @@ def cargar_csv(ruta_csv, carpeta_backup='data/backup/raw'):
         print(f"CSV cargado: {len(df)} filas detectadas.")
         
         # lower en columnas
-        df.columns = df.columns.str.lower()
+        df.columns = df.columns.str.strip().str.lower()
+        df = df.rename(columns={
+            'customer_id':'customerid'
+        })
         # cambiar el tipo de datos en la columna Total_Charges(Object) a float\
         df['totalcharges'] = pd.to_numeric(df['totalcharges'], errors='coerce')
         

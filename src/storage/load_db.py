@@ -24,8 +24,8 @@ def subir_a_postgres(df, nombre_tabla):
             df = df.drop_duplicates(subset=['customer_id'])
 
         df.columns = [str(c).strip() for c in df.columns]
-
-        df.to_sql(nombre_tabla, engine, if_exists='append', index=False)
+# Reemplaza los nombres de las columnas si existen nuevas
+        df.to_sql(nombre_tabla, engine, if_exists='replace', index=False)
 
         print(f"Datos insertados en la tabla: {nombre_tabla}")
 
