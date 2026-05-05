@@ -12,22 +12,24 @@ def encode_features(df:pd.DataFrame)-> pd.DataFrame:
             
     # categoricas especiales multiclases
     special_col = ['multiplelines','onlinesecurity','onlinebackup','deviceprotection',
-                   'techsupport','streamintv','streamingmovies']
-    
+                   'techsupport','streamingtv','streamingmovies']
+        
     for col in special_col:
         if col in df.columns:
             df[col] = df[col].replace({'No internet service':'No','No phone service':'No'})
-            
+            # mapeo
+            df[col] = df[col].map({'Yes':1,{'No':0})
     # one-hot automatico
     categorical_cols = df.select_dtypes(include='object').columns.to_list()
     
     # columna no feature
-    exclude_cols= df['customerid']
+    exclude_cols= ['customerid']
     categorical_cols = [col for col in categorical_cols if col not in exclude_cols]
     df = pd.get_dummies(df,columns=categorical_cols,drop_first=True)
         
     # validacion o restriccion
-    if df.select_dtypes(include='object').shape[1] > 0:
+    remaings_cat =[c for c in df.select_dtypes(include='object').columns() if c != 'customerid']
+    if len(remaings_cat) > 0:
         print('!Restriccion quedan columna categóricas sin encoding')
     
     if df.isna().sum().sum() > 0:
