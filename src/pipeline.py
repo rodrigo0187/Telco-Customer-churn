@@ -51,13 +51,18 @@ def main():
     
     print('Quality report After cleaning:',report)
     print('Quality score After cleaning:',score) 
+    print("Columnas actuales:")
+    print(df.columns.tolist())
+
+    print("\nIndex:")
+    print(df.index.name)
     
     report_details = qc_after_cleaning.quality_report_details()
     print('Quality report details:',report_details)
     # Fin de evaluación
     
     # decisión de carga, en funcion de MIN_QUALITY_SCORE
-    if score >= 50:
+    if score >= 70:
         print('Datos cargados, iniciando inserción en db')
         subir_a_postgres(df, "cliente")
         print('Pipeline finalizado correctamente')

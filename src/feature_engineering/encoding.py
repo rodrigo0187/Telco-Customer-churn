@@ -19,8 +19,12 @@ def encode_features(df:pd.DataFrame)-> pd.DataFrame:
             df[col] = df[col].replace({'No internet service':'No','No phone service':'No'})
             
     # one-hot automatico
-    categorical_col = df.select_dtypes(include='object').columns.to_list()
-    df = pd.get_dummies(df,columns=categorical_col,drop_first=True)
+    categorical_cols = df.select_dtypes(include='object').columns.to_list()
+    
+    # columna no feature
+    exclude_cols= df['customerid']
+    categorical_cols = [col for col in categorical_cols if col not in exclude_cols]
+    df = pd.get_dummies(df,columns=categorical_cols,drop_first=True)
         
     # validacion o restriccion
     if df.select_dtypes(include='object').shape[1] > 0:
