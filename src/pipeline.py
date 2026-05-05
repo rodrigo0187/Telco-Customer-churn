@@ -7,6 +7,7 @@ from src.cleaning.remove_duplicates import remove_customer_duplicates
 from src.feature_engineering.creation_features import create_features
 from src.utils.saved_dataset import saved_dataset
 from src.feature_engineering.encoding import encode_features
+from src.feature_engineering.handle_nulls import handle_nulls_post_fe
 
 MIN_QUALITY_SCORE = 50
 
@@ -32,6 +33,7 @@ def main():
     
     # Feature engineering creacion
     df = create_features(df)
+    df = handle_nulls_post_fe(df)
     # trazabilidad de feature engineering
     saved_dataset(df,'feature_engineering','fe_churn.csv')
     
