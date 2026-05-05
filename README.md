@@ -255,37 +255,35 @@ La tabla `cliente` debe contener en crudo **7043 registros** con **21 columnas**
 
 ## Flujo del pipeline
 
-### Ingestion
-
-- lectura CSV
-- validación
-- carga inicial
-
 ### Cleaning
 
-- eliminación de nulos
+- arreglar tipos de datos
 - quality_check
 - eliminación de duplicados
-- corrección de tipos
+- eliminación de nulos
 
 ### Feature Engineering
 
-- encoding
-- scaling
-- nuevas variables
+- creation_features.py
+- encoding.py
 
-### Storage
+### Ingestion
 
-- almacenamiento en PostgreSQL
-
-### Utils
-
-- logging
+- load_csv.py
 
 ### Model
 
-- entrenamiento
-- predicción
+- dir/prepocessing/scaling.py
+
+### Storage
+
+- load_db.py
+
+### Utils
+
+- logging.py # contener log o registros ver a futuro
+- normalize_text.py
+- saved_dataset.py
 
 ---
 
@@ -317,21 +315,25 @@ Telco-customer-churn
 │   │   ├── raw # backup de churn con timestamp
 │   │   └── churn.csv # csv crudo
 │   │   
-│   │   # Trazabilidad cleaned y feature_engineered
+│   │   # Trazabilidad cleaned y feature_engineered se crean archivos csv por etapas de processed
 │   └── processed/
-│       │── cleaned/
-│       │    └── cleaned_churn.csv
+│       ├── cleaned/
+│       │   └── cleaned_churn.csv
 │       │
-│       └── feature_engineered/
-│            └── fe_churn.csv
-│
+│       ├── feature_engineered/
+│       │   └── fe_churn.csv
+│       │
+│       └── encoded/
+│           └── encoded_churn.csv
+│       
 ├── db/
 ├── └── init.sql # construccion de la tabla
 │
 ├── root/
 │   └── docs
-│       └── Documento_Diseno_Técnico.pdf
-│
+│   │   ├── Documento_Diseno_Técnico.pdf
+│   │   └── diccionario_Metadata.txt
+│   │
 ├── src/
 │   │
 │   ├── cleaning/
@@ -341,23 +343,29 @@ Telco-customer-churn
 │   │   └── remove_nulls.py
 │   │
 │   ├── feature_engineering/
-│   │   ├── encoding.py
-│   │   ├── feature_creation.py
-│   │   └── scaling.py
+│   │    ├── creation_features.py
+│   │    └── encoding.py
+│   │
 │   │
 │   ├── ingestion/
 │   │   └── load_csv.py
 │   │
 │   ├── model/
+│   │   ├── preprocessing/
+│   │   │   ├── scaling.py 
+│   │   │   └── #
+│   │   │  
 │   │   ├── train.py
 │   │   ├── predict.py
-│   │   └── evaluate.py
+│   │   └── # 
 │   │
 │   ├── storage/
 │   │   └──load_bd.py
 │   │   
 │   ├── utils/
-│   │   └──logging.py # registro de logs (como opción futura)
+│   │   ├── logging.py # registro de logs (como opción futura)
+│   │   ├── normalize_text.py
+│   │   └── saved_dataset.py # Trazabilidad [persistencia]
 │   │
 │   └── pipeline.py  # Orquestador del flujo de datos
 │
