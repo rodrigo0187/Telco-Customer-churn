@@ -1,10 +1,17 @@
-data/
-*.ipynb
-.env
-docker-compose.yml
-Dockerfile
+# datos
+data/backup/
+data/processed/
+
+# python
 __pycache__/
 *.pyc
-data/backup/raw/
-data/raw/test.ipynb
-data/procesed/
+
+# entorno
+.env
+
+# notebooks
+*.ipynb
+
+# docker
+docker-compose.yml
+Dockerfile
