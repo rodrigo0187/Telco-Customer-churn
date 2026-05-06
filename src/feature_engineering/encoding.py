@@ -18,7 +18,7 @@ def encode_features(df:pd.DataFrame)-> pd.DataFrame:
         if col in df.columns:
             df[col] = df[col].replace({'No internet service':'No','No phone service':'No'})
             # mapeo
-            df[col] = df[col].map({'Yes':1,{'No':0})
+            df[col] = df[col].map({'Yes':1,'No':0})
     # one-hot automatico
     categorical_cols = df.select_dtypes(include='object').columns.to_list()
     
