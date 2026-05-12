@@ -1,7 +1,7 @@
-scikit-learn
-pandas
-numpy
-seaborn
-psycopg2-binary
-sqlalchemy
-python-dotenv
+scikit-learn==1.4.*
+pandas==2.2.*
+numpy==1.26.*
+seaborn==0.13.*
+psycopg2-binary==2.9.*
+sqlalchemy==2.0.*
+python-dotenv==1.0.*
