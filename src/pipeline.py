@@ -4,36 +4,40 @@ from src.cleaning.quality_check import QualityCheck
 from src.cleaning.remove_null import remove_nulls
 from src.utils.normalize_text import normalize_text
 from src.cleaning.remove_duplicates import remove_customer_duplicates
-# from src.feature_engineering.creation_features import create_features
 from src.utils.saved_dataset import saved_dataset
 from src.feature_engineering.encoding import encode_features
-# from src.feature_engineering.handle_nulls import handle_nulls_post_fe
-from src.model.preprocessing import Winsorizer
+from src.model.preprocessing.winsorizer import Winsorizer
 
 MIN_QUALITY_SCORE = 50
+
 
 def main():
     """
     Orquesta el pipeline de preparación de datos para el dataset de churn.
 
-    El flujo ejecuta las siguientes etapas:
+    Este pipeline implementa un flujo de data engineering y preparación de
+    datos para Machine Learning, separando claramente la capa de datos de negocio
+    (almacenada en base de datos) de la capa de datos para modelos ML.
+
+    Flujo del pipeline:
 
     1. Ingesta del dataset desde archivo CSV.
-    2. Evaluación inicial de calidad del dataset.
+    2. Evaluación inicial de calidad de los datos.
     3. Limpieza de datos:
         - Normalización de texto
         - Eliminación de valores nulos
         - Eliminación de duplicados de clientes
-    4. Persistencia del dataset limpio.
-    5. Aplicación de winsorización para tratamiento de outliers.
-    6. Persistencia del dataset winsorizado.
-    7. Codificación de variables categóricas.
-    8. Persistencia del dataset codificado.
-    9. Evaluación final de calidad del dataset.
-    10. Decisión de carga en base de datos según score de calidad.
+    4. Evaluación de calidad sobre datos limpios.
+    5. Persistencia de datos limpios en base de datos (PostgreSQL).
+    6. Aplicación de winsorización para tratamiento de outliers.
+    7. Codificación de variables categóricas (preparación para ML).
+    8. Persistencia de dataset procesado para Machine Learning.
+    9. Evaluación final de calidad del dataset ML.
 
-    El objetivo del pipeline es generar un dataset consistente,
-    limpio y preparado para ser utilizado en modelos de Machine Learning.
+    Importante:
+    - La base de datos "cliente" almacena únicamente datos limpios y originales.
+    - El dataset codificado es utilizado exclusivamente para Machine Learning.
+    - Se mantiene separación entre capa de negocio y capa de modelado.
 
     Returns:
         None
@@ -43,6 +47,7 @@ def main():
 
     # 1. Ingesta
     df = cargar_csv("data/raw/churn.csv")
+
     if df is None:
         print("No se puede cargar el csv")
         return
@@ -55,45 +60,43 @@ def main():
     df = remove_nulls(df)
     df = remove_customer_duplicates(df)
 
-    saved_dataset(df, "cleaned", "cleaned_churn.csv")
+    qc_clean = QualityCheck(df)
 
-    # 3. Feature Engineering (opcional)
-    # df = create_features(df)
+    # Guardado en BD solo si cumple calidad mínima
+    if qc_clean.quality_score_weight() >= MIN_QUALITY_SCORE:
 
-    # 4. Winsorizer (ANTES de encoding es más coherente conceptualmente)
+        saved_dataset(df, "cleaned", "cleaned_churn.csv")
+        subir_a_postgres(df, "cliente")
+
+    else:
+        print("Datos rechazados antes de BD")
+        return
+
+    # 3. Winsorizer
     winsorizer = Winsorizer(
         limits=(0.05, 0.05),
         exclude_cols=["customerid", "churn"]
     )
+
+    winsorizer.fit(df)
     df = winsorizer.transform(df)
 
     saved_dataset(df, "winsorized", "winsorized_churn.csv")
 
-    # 5. Encoding
+    # 4. Encoding (solo para ML)
     df = encode_features(df)
 
     saved_dataset(df, "encoded", "encoded_churn.csv")
 
     print("Preprocessing completado correctamente")
 
-    # 6. Quality Check final
-    qc_after = QualityCheck(df)
-
-    report = qc_after.quality_report()
-    score = qc_after.quality_score_weight()
-
-    print("Quality report After cleaning:", report)
-    print("Quality score After cleaning:", score)
+    # 5. Quality check final (dataset ML)
+    qc_ml = QualityCheck(df)
+    print("Quality score ML dataset:", qc_ml.quality_score_weight())
 
     print("Columnas finales:")
     print(df.columns.tolist())
 
-    # 7. Decisión de carga
-    if score >= 70:
-        print("Datos cargados en BD")
-        subir_a_postgres(df, "cliente")
-    else:
-        print(f"Dataset con mala calidad ({score}), no se inserta en BD.")
-        
+
 if __name__ == "__main__":
     main()

@@ -256,10 +256,9 @@ La tabla `cliente` debe contener en crudo **7043 registros** con **21 columnas**
 
 ### Cleaning
 
-- arreglar tipos de datos
-- quality_check
-- eliminación de duplicados
-- eliminación de nulos
+- corregir los tipos de datos incorrectos
+- quality_check (calidad de los datos)
+- analiza valores nulos
 
 ### Feature Engineering
 

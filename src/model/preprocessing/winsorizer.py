@@ -18,34 +18,34 @@ class Winsorizer(BaseEstimator,TransformerMixin):
             self.exclude_cols = exclude_cols
        
         self.limits = limits
-    
-    def fit(self,X, y=None ):
-        """_summary_
+        
+       
+    def fit(self, X, y=None):
+        """Aprende los limites de winsorización para variables númericas
 
         Args:
-            X (_type_): _description_
-            y (_type_, optional): _description_. Defaults to None.
+            X (_type_): dataset de entrada
+            y (_type_, optional): variable objetivo (no utilizado)
 
         Returns:
-            _type_: _description_
+            _type_: Instancia del transformer con los limites aprendidos.
         """ 
+
         if isinstance(X, pd.DataFrame):
             self.columns_ = X.columns
         else:
             self.columns_ = np.arange(X.shape[1])
-        
-        # 
+
         self.bounds_ = {}
-        cols_nums = self.columns_
-        for col in cols_nums:
-            col_data = X[col]
-            lower = col_data.quantile(self.limits[0])
-            upper = col_data.quantile(1 - self.limits[1])
-            
-            self.bounds_[col]= (lower,upper)
-            pass
-            
-        
+
+        num_cols = X.select_dtypes(include=['number']).columns
+
+        for col in num_cols:
+            lower = X[col].quantile(self.limits[0])
+            upper = X[col].quantile(1 - self.limits[1])
+
+            self.bounds_[col] = (lower, upper)
+
         return self
         
 
@@ -70,7 +70,7 @@ class Winsorizer(BaseEstimator,TransformerMixin):
         ]
         # usa quantile de fit
         for col in nums_col:
-            lower , upper = self.bounds_[0]
+            lower , upper = self.bounds_[col]
             df[col] = np.clip(df[col],lower,upper)
             
         return df
