@@ -80,12 +80,11 @@ Permite:
 
 - Las versiones indicadas son referenciales y pueden cambiar con el tiempo; se recomienda validarlas y ajustar según el entorno y las dependencias del proyecto.
 
-- Pandas 3.13.x [Pandas](https://pandas.pydata.org/docs/getting_started/install.html)
-- Scikit 1.7.x [Scikit](https://scikit-learn.org/stable/install.html)
-- Numpy 2.3.4 [Numpy](https://numpy.org/install/)
-- Scipy 1.16.3 [Scipy](https://scipy.org/install/)
+- Scikit 1.4.2 [Scikit](https://scikit-learn.org/stable/install.html)
+- Pandas 2.2.2 [Pandas](https://pandas.pydata.org/docs/getting_started/install.html)
+- Numpy 2.4.4 [Numpy](https://numpy.org/install/)
 - Seaborn 0.13.2 [Seaborn](https://seaborn.pydata.org/installing.html)
-- psycopg2-binary 2.9.12 [Psycopg2](https://pypi.org/project/psycopg2-binary/)
+- psycopg2-binary 2.9.9 [Psycopg2](https://pypi.org/project/psycopg2-binary/)
 - sqlalchemy 2.0.49 [SqlAlchemy](https://pypi.org/project/SQLAlchemy/)
 - python-dotenv 1.2.2 [Python-dotenv](https://pypi.org/project/python-dotenv/)
 

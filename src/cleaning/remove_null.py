@@ -1,6 +1,14 @@
-def remove_nulls(df):
-    # identificar los valores posibles de null en la colmna TotalCharges
-    
+import pandas as pd
+
+def remove_nulls(df:pd.DataFrame)-> pd.DataFrame:
+    """Valida y analiza los valores nulos en la columna TotalCharges.
+
+    Args:
+        df (pd.DataFrame): DataFrame churn.
+
+    Returns:
+        pd.DataFrame: DataFrame sin registro con nulos inválidos
+    """
     mask_null = df['totalcharges'].isna()
     
     # validar los nulls validos y no validos
@@ -10,6 +18,5 @@ def remove_nulls(df):
     print(f'Nulos validos: {len(valid_nulls)}')
     print(f'Nulos invalidos : {len(invalid_nulls)}')
     
-    # eliminar solo los invalidos
     df = df.drop(invalid_nulls.index)
     return df

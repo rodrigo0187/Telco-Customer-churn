@@ -5,6 +5,17 @@ import numpy as np
 class QualityCheck:
     # Region qualitycheck
     def __init__(self,data:pd.DataFrame,exclude_inconsistencies:np.array = None):
+        
+        """Realizar validaciones de calidad de los datos en un conjunto de datos.
+
+       Incluye validacion para:
+       - nulls values
+       - duplicados
+       - outliers(valores atípicos)
+       - valores negativos
+       - inconsistencias categóricas
+        """
+        
         self.data =data
         # verificar si se excluyen columnas
         if exclude_inconsistencies is None:
@@ -14,14 +25,29 @@ class QualityCheck:
     
     # valores faltantes
     def has_nulls(self) ->bool:
+        """Analiza si existe valores nulos en el DataFrame
+
+        Returns:
+            bool: Retorna verdadero o falso de la existencia de nulos
+        """        
         return self.data.isna().any().any()
     
     # valores duplicados
     def has_duplicates(self) -> bool:
+        """Analiza la existencia de valores duplicados en el DataFrame
+
+        Returns:
+            bool: Retorna verdadero o falso de la existencia de duplicados
+        """        
         return self.data.duplicated().any()
     
     # Atipicos Q1, Q3 : IQR
     def outliers(self)-> bool:
+        """Analiza valores atípicos(númericas) con metodo rango interquantile de 25% y 75%.
+
+        Returns:
+            bool: Retorna verdadero(True) o Falso(False) si existe o no atípicos.
+        """        
         df = self.data.select_dtypes(include=['number']).drop(
             columns=self.exclude_inconsistencies,errors="ignore"
         )
@@ -36,6 +62,12 @@ class QualityCheck:
     
     # valores negativos 
     def has_negative_values(self)-> bool:
+        """Analiza valores negativos en el DataFrame
+
+        Returns:
+            bool: Retorna verdadero(True) si existe valores atípicos.
+            Falso(False) caso contrario
+        """        
         numeric_col = self.data.select_dtypes(include=['number'])
         # excluye columna del análisis
         numeric_col = numeric_col.drop(
@@ -45,6 +77,12 @@ class QualityCheck:
     
     # inconsistencia categoricas
     def has_categorical_inconsitencies(self) -> bool:
+        """Analiza inconsistencia de variables categóricas
+
+        Returns:
+            bool: Retorna verdadero(True) si existe variables categóricas
+            False caso contrario
+        """        
         cat_cols = self.data.select_dtypes(include=["object"])
         for col in cat_cols.columns:
             values = cat_cols[col].dropna().astype(str)
@@ -55,12 +93,30 @@ class QualityCheck:
     
     # Inconsistencias generales
     def has_inconsistencies(self) -> bool:
+        """Evalua inconsistencia númericas y categóricas
+
+        Returns:
+            bool: Retorna verdadero si hay valores negativos
+            caso contrario no existe valores negativos.
+            bool: Retonar verdadero si hay valores incosistentes
+            caso contrario no existe valores inconsistentes
+        """        
         neg = self.has_negative_values()
         cat = self.has_categorical_inconsitencies()
         return neg or cat
     
     # completed report
     def quality_report(self) -> dict:
+        """Genera un reporte final del conjunto de datos analizados
+
+        Returns:
+            dict: 
+            - nulls values
+            - duplicados
+            - outliers(valores atípicos)
+            - valores negativos
+            - inconsistencias categóricas
+        """        
         return {
             "Nulos/faltantes" : bool(self.has_nulls()),
             "Valores_duplicados": bool(self.has_duplicates()),
@@ -72,6 +128,11 @@ class QualityCheck:
         
     # calcular el score de calidad
     def quality_score_weight(self) ->float:
+        """Calcula un puntaje de la calidad de los datos ponderadas aplicando penalización
+
+        Returns:
+            float: Puntaje de calidad de datos de 0 y 100
+        """        
         weights ={
             "Nulos/faltantes" : 0.1,
             "Valores_duplicados": 0.2,
@@ -99,6 +160,17 @@ class QualityCheck:
     
     # null details
     def null_details(self,id_column='customerid') -> dict:
+        """Obtiene los detalles de los nulos por columna
+
+        Args:
+            id_column (str, optional): Nombre de la columna identificadora 'customerid'
+
+        Raises:
+            ValueError: se generá sí la columna identificadora no existe en el DataFrame
+
+        Returns:
+            dict: Diccionario con el conteo de nulos,Id's afectados, nulos esperados e inesperados por columna.
+        """        
         if id_column not in self.data.columns:
             raise ValueError(f'Columna {id_column} no existe en el dataFrame')
         result = {}
@@ -134,11 +206,21 @@ class QualityCheck:
     
     # duplicated details
     def duplicated_details(self) ->dict:
+        """Cuenta la cantidad de duplicados encontrados
+
+        Returns:
+            dict: Retorna la cantidad de duplicados
+        """        
         counts = self.data.duplicated().sum()
         return {"duplicated_rows": int(counts)} if counts > 0 else{}
     
     # atypical details
     def outliers_details(self) ->dict:
+        """Obtiene el conteo de valores atípicos por columna mediante metodo IQR.
+
+        Returns:
+            dict: Retorna la cantidad de atípicos por columna.
+        """        
         df= self.data.select_dtypes(include=['number'])
         df =df.drop(columns=self.exclude_inconsistencies,errors='ignore')
         
@@ -152,6 +234,11 @@ class QualityCheck:
     
     # negative for columns
     def columns_negative_details(self) ->dict:
+        """Cuenta la cantidad de negativos encontrados
+
+        Returns:
+            dict: Retorna la cantidad de negativos por columna identificados como númericos.
+        """        
         df = self.data.select_dtypes(include=['number'])
         df = df.drop(columns=self.exclude_inconsistencies,errors='ignore')
         
@@ -160,6 +247,11 @@ class QualityCheck:
     
     # categorical_inconsistencies
     def categoric_inconsistencies_details(self) ->dict:
+        """ Detecta incosistencia de formatos en variables categóricas.
+
+        Returns:
+            dict: columnas categóricas con diferencia entre valores categóricos e incosistente.
+        """        
         cat_cols = self.data.select_dtypes(include=["object"])
         result = {}
         
@@ -168,7 +260,7 @@ class QualityCheck:
             normalized = values.str.strip().str.lower()
             
             if len(values.unique()) != len(normalized.unique()):
-                result[col] = {
+                result[col] = { 
                     "original": list(values.unique()),
                     "normalizes": list(normalized.unique())
                 }
@@ -176,6 +268,11 @@ class QualityCheck:
     
     # quality report
     def quality_report_details(self)-> dict:
+        """Genera un reporte de la calidad de los datos
+
+        Returns:
+            dict: Resultado consolidado de validaciones y análisis inconsistente.
+        """        
         return{
             "nulls":self.null_details(),
             "duplicated":self.duplicated_details(),

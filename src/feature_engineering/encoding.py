@@ -1,6 +1,15 @@
 import pandas as pd
 
 def encode_features(df:pd.DataFrame)-> pd.DataFrame:
+    """Codifica variables categóricas para modelos de machine learning.
+
+    Args:
+        df (pd.DataFrame): Entrada del dataframe que contiene datos de cliente
+
+    Returns:
+        pd.DataFrame: Retorna un dataframe listo para el modelado
+    """   
+     
     df = df.copy()
     
     # binarios
@@ -20,7 +29,7 @@ def encode_features(df:pd.DataFrame)-> pd.DataFrame:
             # mapeo
             df[col] = df[col].map({'Yes':1,'No':0})
     # one-hot automatico
-    categorical_cols = df.select_dtypes(include='object').columns.to_list()
+    categorical_cols = df.select_dtypes(include="object").columns.to_list()
     
     # columna no feature
     exclude_cols= ['customerid']
@@ -28,7 +37,7 @@ def encode_features(df:pd.DataFrame)-> pd.DataFrame:
     df = pd.get_dummies(df,columns=categorical_cols,drop_first=True)
         
     # validacion o restriccion
-    remaings_cat =[c for c in df.select_dtypes(include='object').columns() if c != 'customerid']
+    remaings_cat =[c for c in df.select_dtypes(include="object").columns if c != 'customerid']
     if len(remaings_cat) > 0:
         print('!Restriccion quedan columna categóricas sin encoding')
     
