@@ -1,13 +1,13 @@
 import pandas as pd
 
 def create_features(df: pd.DataFrame) -> pd.DataFrame:
-    """Creación de variables categoricas para modelo de machine learning
+    """Creación de variables categoricas para modelo de machine learning.
 
     Args:
-        df (pd.DataFrame): Entrada del dataframe que contiene datos de clientes
+        df (pd.DataFrame): Entrada del dataframe churn.
 
     Returns:
-        pd.DataFrame: Agrega nuevas variables categoricas al dataframe
+        pd.DataFrame: Agrega nuevas variables categoricas al dataframe.
     """    
     df = df.copy()
 

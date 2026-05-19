@@ -6,7 +6,7 @@ from datetime import datetime
 
 def cargar_csv(ruta_csv: str,carpeta_backup: str = 'data/backup/raw') -> pd.DataFrame:
     """
-    Carga y normaliza un archivo CSV.
+    Carga y normalizar un archivo CSV.
 
     Args:
         ruta_csv (str): Ruta del archivo CSV.
