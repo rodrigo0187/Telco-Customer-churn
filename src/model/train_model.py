@@ -11,7 +11,7 @@ RESULTS_DIR= "results"
 os.makedirs(RESULTS_DIR, exist_ok=True)
 
 #---CARGAR DATOS---
-data = pd.read_csv(data/backup/raw/churn_20260609_191546.csv)
+data = pd.read_csv("data/backup/raw/churn.csv")
 
 #--Variable Objetivo--
 churn= "Yes"
@@ -33,6 +33,12 @@ plt.savefig(
     bbox_inches="tight"
 )
 plt.close()
+
+#--Variable categóricas y numéricas--
+
+#--Variable categórica
+categorical_cols =  X.select_dtypes(include=["object", "string"]).columns.tolist()
+#--Variable numérica
 
 
 
