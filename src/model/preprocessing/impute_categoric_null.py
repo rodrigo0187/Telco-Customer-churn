@@ -1,6 +1,6 @@
 import pandas as pd
 
-def impute_categoric_nulls(pd: pd.DataFrame)-> pd.DataFrame:
+def impute_categoric_nulls(df: pd.DataFrame)-> pd.DataFrame:
     """Analiza valores nulos en el dataset
 
     Args:
