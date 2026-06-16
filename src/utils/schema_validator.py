@@ -1,7 +1,7 @@
 import pandas as pd
 from src.utils.logging import get_logger
 
-logger = get_logger('schema_valitador')
+logger = get_logger('auditar_validar_dataset')
 
 
 EXPECTED_SCHEMA = {
@@ -59,9 +59,9 @@ def auditar_validar_dataset(df:pd.DataFrame)-> bool:
     # tasa de nulos > 50%
     total_filas = len(df)
     for col in df.columns:
-        nulos_col = df[col].isna().sum() + (df[col]=='') + (df[col]==' ').sum()
+        nulos_col = df[col].isna().sum() + (df[col]=='').sum() + (df[col]==' ').sum()
         tasa_nulos = (nulos_col/ total_filas) *100
-        if tasa_nulos >50:
+        if tasa_nulos > 50:
             logger.error(f'Alerta de calidad, la columna {col} tiene una tasa de nulos {tasa_nulos:.2f} nulos. mayor al 50%')
     logger.info('Auditoria completada, El data set cumple con los requisitos minimos de estructura.')
     return True

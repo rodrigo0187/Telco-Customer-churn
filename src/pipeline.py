@@ -53,22 +53,21 @@ def main():
     
     ruta_archivo = archivos_raw[0]
     logger.info(f'Archivo detectado, procesando {ruta_archivo}')
-
+    
     # Ingesta
     df = cargar_csv(ruta_archivo)
     logger.info(f'Arvhivo cargado: {len(df)} filas')
-    
     if df is None:
         logger.error("No se puede cargar el csv")
         return
-
+    logger.info(f'Archivo cargado con éxito {len(df)} filas.')
+    
     # validador de schema, regla de negocio
     if not auditar_validar_dataset(df):
-        logger.critical('El archivo actual no es compatible con la estructura actual')
+        logger.critical('El archivo actual no es compatible con el contrato de datos.')
         return
     
     qc_before = QualityCheck(df)
-   
     logger.info(f"Quality score Before cleaning: {qc_before.quality_score_weight()}")
 
     # Cleaning

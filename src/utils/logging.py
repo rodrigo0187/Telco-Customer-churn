@@ -27,14 +27,14 @@ def get_logger(name):
         logger.addHandler(console_handler)
         
         ruta_logs_dir = 'results/logs'
-        os.mkdirs(ruta_logs_dir,exits_ok = True)
+        os.makedirs(ruta_logs_dir,exist_ok = True)
         ruta_archivo_log = os.path.join(ruta_logs_dir,'Errores_pipeling.log')
         
         # configuracion del Findhandler (manejador de archivos)
         file_handler = logging.FileHandler(ruta_archivo_log,mode='a',encoding='utf-8')
         file_handler.setFormatter(formatter)
         
-        file_handler.setLevel(logging.warning)
+        file_handler.setLevel(logging.WARNING)
         logger.addHandler(file_handler)
         
         logger.setLevel(logging.INFO)
