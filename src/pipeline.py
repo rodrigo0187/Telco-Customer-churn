@@ -1,5 +1,5 @@
 # src/pipeline.py
-import os
+# import os
 import glob
 from src.cleaning.duplicates import remove_duplicates_customers
 from src.cleaning.normalize_text import normalize_text

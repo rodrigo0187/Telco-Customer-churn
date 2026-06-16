@@ -1,6 +1,5 @@
 import logging
 import os
-from datetime import datetime
 
 def get_logger(name):
     """Configura y retorna un objeto Logger unificado para la aplicación.

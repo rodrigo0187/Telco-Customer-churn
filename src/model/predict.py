@@ -13,9 +13,7 @@ from sklearn.metrics import (
     roc_auc_score,
     classification_report,
     confusion_matrix,
-    roc_curve,
-    precision_recall_curve,
-    auc
+    roc_curve
 )
 
 def evaluate_model():
