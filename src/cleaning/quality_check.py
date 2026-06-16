@@ -1,5 +1,9 @@
 import pandas as pd
 import numpy as np
+from utils.outliers import outliers
+from utils.negative_values import has_negative_values
+from utils.inconsistencies_cat import categorical_inconsistencies
+
 # validar si existe (inconsistencia,atipicos,nulos,duplicados)
 # contar e imprimir
 class QualityCheck:
@@ -41,38 +45,25 @@ class QualityCheck:
         """        
         return self.data.duplicated().any()
     
-    # Atipicos Q1, Q3 : IQR
-    def outliers(self)-> bool:
-        """Analiza valores atípicos(númericas) con metodo rango interquantile de 25% y 75%.
+    # outliers
+    def has_outliers(self):
+        """Analiza valores atipicos utlizando IQR
 
         Returns:
-            bool: Retorna verdadero(True) o Falso(False) si existe o no atípicos.
+            _type_: True si existen outliers
         """        
-        df = self.data.select_dtypes(include=['number']).drop(
-            columns=self.exclude_inconsistencies,errors="ignore"
-        )
-        Q1 =df.quantile(0.25)
-        Q3  =df.quantile(0.75)
-        IQR = Q3 - Q1
-            
-        lower_bound = Q1 - 1.5 * IQR
-        upper_bound = Q3 + 1.5 * IQR
-        return ((df < lower_bound)|(df> upper_bound)).any().any()
-        
+        return outliers(self.data)
+    
     
     # valores negativos 
-    def has_negative_values(self)-> bool:
-        """Analiza valores negativos en el DataFrame
+    def has_negative_values(self):
+        """Analiza valores negativos
 
         Returns:
-            bool: Retorna verdadero(True) si existe valores atípicos.
-            Falso(False) caso contrario
+            _type_: True si exite valores negativos,
+            caso contrario False
         """        
-        numeric_col = self.data.select_dtypes(include=['number'])
-        # excluye columna del análisis
-        numeric_col = numeric_col.drop(
-            columns=self.exclude_inconsistencies,errors="ignore")
-        return (numeric_col < 0).any().any()
+        return has_negative_values(self.data)
             
     
     # inconsistencia categoricas
@@ -83,13 +74,7 @@ class QualityCheck:
             bool: Retorna verdadero(True) si existe variables categóricas
             False caso contrario
         """        
-        cat_cols = self.data.select_dtypes(include=["object"])
-        for col in cat_cols.columns:
-            values = cat_cols[col].dropna().astype(str)
-            normalize = values.str.strip().str.lower()
-            if len(values.unique()) != len(normalize.unique()):
-                return True
-        return False
+        return categorical_inconsistencies(self.data)
     
     # Inconsistencias generales
     def has_inconsistencies(self) -> bool:
@@ -120,7 +105,7 @@ class QualityCheck:
         return {
             "Nulos/faltantes" : bool(self.has_nulls()),
             "Valores_duplicados": bool(self.has_duplicates()),
-            "Outliers":bool(self.outliers()),
+            "Outliers":bool(self.has_outliers()),
             "Valores_negativos": bool(self.has_negative_values()),
             "Inconsistencias cat": bool(self.has_categorical_inconsitencies()),
             "Inconsistencias gen":bool(self.has_inconsistencies()),
@@ -142,7 +127,7 @@ class QualityCheck:
         checks = {
            "Nulos/faltantes" : self.has_nulls(),
             "Valores_duplicados": self.has_duplicates(),
-            "Outliers": self.outliers(),
+            "Outliers": self.has_outliers(),
             "Inconsistencias": self.has_inconsistencies()    
         }
         penalty = 0

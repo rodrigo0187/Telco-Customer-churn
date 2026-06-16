@@ -314,18 +314,34 @@ Telco-customer-churn
 │   │   └── churn.csv # csv crudo
 │   │   
 │   │   # Trazabilidad cleaned y feature_engineered se crean archivos csv por etapas de processed
-│   └── processed/
-│       ├── cleaned/
-│       │   └── cleaned_churn.csv
-│       │
-│       ├── feature_engineered/
-│       │   └── fe_churn.csv
-│       │
-│       └── encoded/
-│           └── encoded_churn.csv
-│       
+│   ├── processed/
+│   │    ├── cleaned/
+│   │    │   └── cleaned_churn.csv
+│   │    │
+│   │    ├── encoded/
+│   │    │   └── encoded_churn.csv
+│   │    │
+│   │    ├── feature_engineering/
+│   │    │   └── fe_.csv # pendiente
+│   │    │
+│   │    └── winsorized/
+│   │        └── winsorized_churn.csv
+│   │
+│   └── raw/
+│        └── churn.py
+│
 ├── db/
 ├── └── init.sql # construccion de la tabla
+
+├── models/
+├── └── modelo_churn.pkl
+│
+├── results/
+│    ├── curva_roc.png
+│    ├── distribucion_clases.png
+│    ├── importancia_variables.png
+│    ├── matriz_confusion.png
+│    └── metricas.json
 │
 ├── root/
 │   └── docs
@@ -335,14 +351,16 @@ Telco-customer-churn
 ├── src/
 │   │
 │   ├── cleaning/
-│   │   ├── fix_data_types.py
+│   │   ├── duplicates.py
+│   │   ├── normalize_text.py
+│   │   ├── null.py
 │   │   ├── quality_check.py
-│   │   ├── remove_duplicates.py
-│   │   └── remove_nulls.py
+│   │   └── types.py
 │   │
 │   ├── feature_engineering/
-│   │    ├── creation_features.py
-│   │    └── encoding.py
+│   │    ├── create_features.py
+│   │    ├── encoding.py
+│   │    └── handle_nulls_post_fe.py
 │   │
 │   │
 │   ├── ingestion/
@@ -350,19 +368,23 @@ Telco-customer-churn
 │   │
 │   ├── model/
 │   │   ├── preprocessing/
+│   │   │   ├── impute_categoric_null.py 
+│   │   │   ├── impute_numeric_null.py 
 │   │   │   ├── scaling.py 
-│   │   │   └── #
+│   │   │   └── winsorizer.py
 │   │   │  
 │   │   ├── train.py
 │   │   ├── predict.py
-│   │   └── # 
+│   │   └── verificacion_cm
 │   │
 │   ├── storage/
 │   │   └──load_bd.py
 │   │   
 │   ├── utils/
+│   │   ├── inconsistencies_cat.py
 │   │   ├── logging.py # registro de logs (como opción futura)
-│   │   ├── normalize_text.py
+│   │   ├── negative_values.py
+│   │   ├── outliers.py
 │   │   └── saved_dataset.py # Trazabilidad [persistencia]
 │   │
 │   └── pipeline.py  # Orquestador del flujo de datos
