@@ -4,9 +4,9 @@ on:
   # genera un push o pull request a main para ejecutar el workflow
 
   push:
-    branches: ["main"]
+    branches: ["copper"]
   pull_request:
-    branches: ["main"]
+    branches: ["copper"]
 
 permissions:
   contents: read
