@@ -8,6 +8,6 @@ __pycache__/
 venv/
 data/backup/raw/
 data/raw/test.ipynb
-data/raw/
+data/raw/*.csv
 results
 models/*.pkl

@@ -1,6 +1,7 @@
 # datos
 data/backup/
 data/processed/
+data/raw/*.csv
 results
 
 # python
