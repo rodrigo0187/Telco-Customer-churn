@@ -38,7 +38,11 @@ services:
         condition: service_healthy
     env_file:
       - .env
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DATA_SOURCE_URL : https://docs.google.com/uc?export=download&id=1MTd5JOHsuZtw-2lDPbGZ_kmKD6mJGDz9
     command: ["python", "src/pipeline.py"]
 
 volumes:
   postgres_data:
+  
