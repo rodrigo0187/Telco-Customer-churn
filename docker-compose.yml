@@ -32,15 +32,15 @@ services:
       - ./results:/app/results
       - ./results:/app/results/logs
       - ./models:/app/models
-
     depends_on:
       db:
         condition: service_healthy
     env_file:
       - .env
+    # diccionario. 
     environment:
-      - PYTHONUNBUFFERED: "1"
-      - DATA_SOURCE_URL : "https://docs.google.com/uc?export=download&id=1MTd5JOHsuZtw-2lDPbGZ_kmKD6mJGDz9"
+      PYTHONUNBUFFERED: "1"
+      DATA_SOURCE_URL: "https://docs.google.com/uc?export=download&id=1MTd5JOHsuZtw-2lDPbGZ_kmKD6mJGDz9"
     command: ["python", "src/pipeline.py"]
 
 volumes:

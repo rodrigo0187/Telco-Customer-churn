@@ -43,16 +43,21 @@ def main():
     Returns:
         None
     """
+    # declaración de la ruta local como constante
+    RUTA_LOCAL_PATTERN = 'data/raw/*.csv'  
+    
     logger.info('Pipeline_principal')
     
     logger.info("Incializando pipeline de datos")
     
-    archivos_raw = glob.glob('data/raw/*.csv')
-    if not archivos_raw:
-        logger.error('No se encontró ningún archivo CSV en directorio "data/raw/" ')
-    
-    ruta_archivo = archivos_raw[0]
-    logger.info(f'Archivo detectado, procesando {ruta_archivo}')
+    archivos_raw = glob.glob(RUTA_LOCAL_PATTERN)
+    if archivos_raw:
+        ruta_archivo = archivos_raw[0]
+        logger.info(f'Archivo detectado localmente en : {archivos_raw}')
+    else:
+        # se descarga el archivo localmente desde la nube y se generar por defecto el nombre de ingesta_actual.csv
+        ruta_archivo = 'data/raw/ingesta_actual.csv'
+        logger.info(f'Directorio encontrado data/raw/ {ruta_archivo}')
     
     # Ingesta
     df = cargar_csv(ruta_archivo)
