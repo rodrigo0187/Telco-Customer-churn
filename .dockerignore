@@ -9,5 +9,5 @@ venv/
 data/backup/raw/
 data/raw/test.ipynb
 data/raw/
-results/
+results
 models/*.pkl
