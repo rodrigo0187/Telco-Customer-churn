@@ -111,9 +111,8 @@ def main():
     logger.info(f"Columnas finales: {df.columns.tolist()}")
     logger.info('Pipeline de datos finalizado con éxito')
     
-    # ========================
+    
     # FASE DE MACHINE LEARNING
-    # ========================
     logger.info('Iniciando fase de Machine Learning')
     
     try:

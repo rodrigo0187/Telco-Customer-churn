@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 # Importamos las funciones de los otros archivos del mismo directorio
 from src.feature_engineering.create_features import create_features
 from src.feature_engineering.handle_nulls_post_fe import handle_nulls_post_fe
@@ -17,7 +18,7 @@ def encode_features(df: pd.DataFrame) -> pd.DataFrame:
     for col in binary_cols:
         if col in df.columns:
             # Protegemos "desconocido" asignándolo por defecto a 0
-            df[col] = df[col].replace({'yes': 1, 'no': 0, 'desconocido': 0}).astype(int)
+            df[col] = df[col].replace({'yes': 1, 'no': 0, 'desconocido': 0,np.nan:0}).astype(int)
             
     # 2. Categóricas especiales multiclases
     special_cols = ['multiplelines', 'onlinesecurity', 'onlinebackup', 'deviceprotection',

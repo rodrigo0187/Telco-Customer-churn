@@ -107,7 +107,7 @@ Permite:
 ## Requisitos
 
 - Docker
-- Docker Compose
+- Docker Compose corroborar versionado de docker
 
 ---
 
@@ -335,7 +335,7 @@ Telco-customer-churn
 
 ├── models/
 ├── └── modelo_churn.pkl
-│
+│   # se crearán las img con resultados de aprendizajes
 ├── results/
 │    ├── curva_roc.png
 │    ├── distribucion_clases.png
@@ -397,6 +397,7 @@ Telco-customer-churn
 ├── docker-compose.yml # orquestador de los contenedores
 ├── Dockerfile
 ├── README.md
+├── render.yaml
 └── requirements.txt
 
 ```

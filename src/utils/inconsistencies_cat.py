@@ -1,7 +1,14 @@
 import pandas as pd
 
 def categorical_inconsistencies(df:pd.DataFrame)-> bool:
-    
+    """_summary_
+
+    Args:
+        df (pd.DataFrame): _description_
+
+    Returns:
+        bool: _description_
+    """    
     df = df.copy()
     
     cat_cols = df.select_dtypes(include=['object']).columns

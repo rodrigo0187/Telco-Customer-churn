@@ -15,3 +15,5 @@ __pycache__/
 # docker
 docker-compose.yml
 Dockerfile
+results/
+models/*.pkl

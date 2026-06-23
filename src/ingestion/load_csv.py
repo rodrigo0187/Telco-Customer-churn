@@ -2,7 +2,10 @@
 import os
 import pandas as pd
 from datetime import datetime
+import urllib.request
+import logging
 
+logger = logging.getLogger(__name__)
 
 def cargar_csv(ruta_csv: str,carpeta_backup: str = 'data/backup/raw') -> pd.DataFrame:
     """
@@ -10,47 +13,42 @@ def cargar_csv(ruta_csv: str,carpeta_backup: str = 'data/backup/raw') -> pd.Data
 
     Args:
         ruta_csv (str): Ruta del archivo CSV.
+        url_datos(url): Ruta del achivo en la nube (OneDrive)
         carpeta_backup (str, optional): Carpeta de respaldo.
 
     Returns:
         pd.DataFrame: DataFrame procesado.
-    """
-
+    """   
     try:
-
+        url_datos =os.environ.get('DATA_SOURCE_URL')
         # validar archivo
+        if not os.path.exists(ruta_csv) and url_datos:
+            logger.warning(f'Archivo local no encontrado, Descargando origen desde la nube..')
+            os.makedirs(os.path.dirname(ruta_csv),exist_ok=True)
+            
+            urllib.request.urlretrieve(url_datos,ruta_csv)
+            logger.info(f'Descarga completada con éxito y guardada en: {ruta_csv}')
+        
         if not os.path.exists(ruta_csv):
-            raise FileNotFoundError(f'No se encontró el archivo: {ruta_csv}')
-
-        # leer csv
+            raise FileNotFoundError(f'No se encontro el archivo: {ruta_csv}')
+        
         df = pd.read_csv(ruta_csv,low_memory=False,sep=',')
-
-        print(f'CSV cargado: {len(df)} filas.')
-
+        logger.info(f'CSV cargado: {len(df)} filas.')
         # normalizar columnas
         df.columns = (df.columns.str.strip().str.lower())
-
+        # leer csv
         # renombrar columnas
         df = df.rename(columns={'customer_id': 'customerid'})
-
         # convertir tipos
         df['totalcharges'] = pd.to_numeric(df['totalcharges'],errors='coerce')
-
         # crear backup
         os.makedirs(carpeta_backup, exist_ok=True)
-
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-
         nombre_archivo = f'churn_{timestamp}.csv'
-
         ruta_backup = os.path.join(carpeta_backup,nombre_archivo)
-
         df.to_csv(ruta_backup, index=False)
-
-        print(f'Backup generado: {ruta_backup}')
-
+        logger.info(f'Backup generado: {ruta_backup}')
         return df
-
     except Exception as e:
-        print(f'Error al cargar CSV: {e}')
+        logger.error(f'Error al cargar CSV: {e}')
         raise

@@ -1,0 +1,25 @@
+services:
+  - type: cron
+    name: pipeline-churn-ingestion
+    env: docker
+    dockerfilePath: ./Dockerfile
+    schedule: "0 0 1 * *"
+    region: ohio
+    plan: starter
+    envVars:
+      - key: PYTHONUNBUFFERED
+        value: "1"
+      # url de la fuente de datos
+      - key: DATA_SOURCE_URL
+        value: "https://docs.google.com/uc?export=download&id=1MTd5JOHsuZtw-2lDPbGZ_kmKD6mJGDz9"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: postgres-churn-db
+          property: connectionString
+
+databases:
+  - name: postgres-churn-db
+    databaseName: churn_prod
+    user: admin_churn
+    region: ohio
+    plan: free

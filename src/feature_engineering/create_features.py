@@ -10,11 +10,10 @@ def create_features(df: pd.DataFrame) -> pd.DataFrame:
     # Variable nueva: antigüedad
     df["is_new_customer"] = (df["tenure"] < 6).astype(int)
 
-    # CORRECCIÓN: Coma agregada en 'internetservice' y búsqueda en minúsculas
     service_cols = [
         "phoneservice",
         "multiplelines",
-        "internetservice",  # <-- ¡Coma corregida!
+        "internetservice",
         "onlinesecurity",
         "onlinebackup",
         "deviceprotection",
@@ -28,7 +27,7 @@ def create_features(df: pd.DataFrame) -> pd.DataFrame:
         lambda row: sum(str(val).strip().lower() == "yes" for val in row), axis=1
     )
 
-    # Variables nuevas: pago (en minúsculas por la capa de limpieza)
+    # Variables nuevas:
     if "paymentmethod" in df.columns:
         df["is_auto_payment"] = df["paymentmethod"].isin(
             ["bank transfer (automatic)", "credit card (automatic)"]
