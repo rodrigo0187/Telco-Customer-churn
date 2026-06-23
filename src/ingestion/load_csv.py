@@ -23,7 +23,7 @@ def cargar_csv(ruta_csv: str,carpeta_backup: str = 'data/backup/raw') -> pd.Data
         url_datos =os.environ.get('DATA_SOURCE_URL')
         # validar archivo
         if not os.path.exists(ruta_csv) and url_datos:
-            logger.warning(f'Archivo local no encontrado, Descargando origen desde la nube..')
+            logger.warning('Archivo local no encontrado, Descargando origen desde la nube..')
             os.makedirs(os.path.dirname(ruta_csv),exist_ok=True)
             
             urllib.request.urlretrieve(url_datos,ruta_csv)
