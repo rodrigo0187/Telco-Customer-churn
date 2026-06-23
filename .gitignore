@@ -1,6 +1,7 @@
 # datos
 data/backup/
 data/processed/
+results
 
 # python
 __pycache__/
@@ -15,5 +16,4 @@ __pycache__/
 # docker
 docker-compose.yml
 Dockerfile
-results
 models/*.pkl
