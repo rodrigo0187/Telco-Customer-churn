@@ -10,7 +10,7 @@ logger = get_logger('graficar_matriz_real')
 
 # Definir rutas de los archivos generados por tu pipeline
 X_TEST_PATH = 'data/processed/X_test.csv'
-Y_TEST_PATH = 'data/processed/y_test.csv'
+Y_TEST_PATH = 'data/processed/Y_test.csv'
 MODEL_PATH = 'models/modelo_churn.pkl'
 
 def graficar_matriz_real():
@@ -21,7 +21,7 @@ def graficar_matriz_real():
 
     # 2. Cargar los datos de prueba y el modelo entrenado
     X_test = pd.read_csv(X_TEST_PATH)
-    y_test = pd.read_csv(Y_TEST_PATH)
+    Y_test = pd.read_csv(Y_TEST_PATH)
     
     with open(MODEL_PATH, 'rb') as f:
         pipeline = pickle.load(f)
@@ -30,7 +30,7 @@ def graficar_matriz_real():
     y_pred = pipeline.predict(X_test)
 
     # 4. Calcular la matriz de confusión matemática
-    cm = confusion_matrix(y_test, y_pred)
+    cm = confusion_matrix(Y_test, y_pred)
     
     # 5. Diseñar el gráfico visual (Mapa de Calor)
     plt.figure(figsize=(7, 5))
