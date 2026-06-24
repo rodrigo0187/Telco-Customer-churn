@@ -1,7 +1,6 @@
 # Carga variables de entorno
 import os
 import pandas as pd
-from sqlalchemy import create_engine
 from dotenv import load_dotenv
 import logging
 from sqlalchemy import create_engine
@@ -34,7 +33,7 @@ def get_engine():
         return create_engine(url)
     
     except SQLAlchemyError as e:
-        logger.error(f'Error critico al inicializar el engine SQLAlchemy')
+        logger.error('Error critico al inicializar el engine SQLAlchemy')
         raise e
 
 def subir_a_postgres(df: pd.DataFrame,nombre_tabla: str,if_exists: str = 'append') -> None:
