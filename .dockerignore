@@ -11,3 +11,4 @@ data/raw/test.ipynb
 data/raw/*.csv
 results
 models/*.pkl
+test/test_modelo.py

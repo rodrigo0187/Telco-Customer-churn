@@ -64,3 +64,6 @@ jobs:
           path: |
             results/
             models/*.pkl
+      #  pytest
+      - name: Run pytest and generate coverage report
+        run: pytest test/test_modelo.py --cov=src --cov-report=xml --cov-report=html
