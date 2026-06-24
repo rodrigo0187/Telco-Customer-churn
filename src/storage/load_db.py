@@ -3,25 +3,39 @@ import os
 import pandas as pd
 from sqlalchemy import create_engine
 from dotenv import load_dotenv
+import logging
+from sqlalchemy import create_engine
+from sqlalchemy.exc import SQLAlchemyError
+
 
 load_dotenv()
+
+logger = logging.getLogger(__name__)
 
 def get_engine():
     """Genera un engine de conexion para PostgreSQL
 
     Returns:
         _type_: Instancia con sqlAlchemy engine conectada a la base de datos.
-    """    
-    user = os.getenv('POSTGRES_USER')
-    password = os.getenv('POSTGRES_PASSWORD')
-    host = os.getenv('DB_HOST')
-    port = os.getenv('DB_PORT')
-    db_name = os.getenv('POSTGRES_DB')
-
-    url = (f'postgresql://{user}:{password}'f'@{host}:{port}/{db_name}')
-
-    return create_engine(url)
-
+    """
+    REQUIRED_DB_VARS = ['POSTGRES_USER','POSTGRES_PASSWORD','DB_HOST','DB_PORT','POSTGRES_DB']
+    
+    env_vars = {var: os.getenv(var) for var in REQUIRED_DB_VARS}
+    
+    missing_var = [var for var, val in env_vars.items() if not val]
+    
+    if missing_var:
+        error_msg = f'Faltan variables de entorno de configuración {", " .join(missing_var)}'
+        logger.error(error_msg)
+        raise ValueError(error_msg)
+    
+    try:
+        url = (f"postgresql://{env_vars['POSTGRES_USER']}:{env_vars['POSTGRES_PASSWORD']}@{env_vars['DB_HOST']}:{env_vars['DB_PORT']}/{env_vars['POSTGRES_DB']}")
+        return create_engine(url)
+    
+    except SQLAlchemyError as e:
+        logger.error(f'Error critico al inicializar el engine SQLAlchemy')
+        raise e
 
 def subir_a_postgres(df: pd.DataFrame,nombre_tabla: str,if_exists: str = 'append') -> None:
     """
@@ -37,7 +51,7 @@ def subir_a_postgres(df: pd.DataFrame,nombre_tabla: str,if_exists: str = 'append
 
         engine = get_engine()
 
-        print('Conexión PostgreSQL exitosa.')
+        logger.info('Conexión PostgreSQL exitosa.')
 
         df = df.reset_index(drop=True)
 
@@ -51,8 +65,8 @@ def subir_a_postgres(df: pd.DataFrame,nombre_tabla: str,if_exists: str = 'append
         # insertar
         df.to_sql(nombre_tabla,engine,if_exists=if_exists,index=False)
 
-        print(f'Datos insertados en tabla: {nombre_tabla}')
+        logger.info(f'Datos insertados en tabla: {nombre_tabla}')
 
     except Exception as e:
-        print(f'Error PostgreSQL: {e}')
+        logger.error(f'Error PostgreSQL: {e}')
         raise

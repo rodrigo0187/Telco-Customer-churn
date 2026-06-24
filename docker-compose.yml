@@ -40,7 +40,8 @@ services:
     # diccionario. 
     environment:
       PYTHONUNBUFFERED: "1"
-      DATA_SOURCE_URL: "https://docs.google.com/uc?export=download&id=1MTd5JOHsuZtw-2lDPbGZ_kmKD6mJGDz9"
+      # En la sección de entorno (environment) de tu docker-compose.yml:
+      DATA_SOURCE_URL: "https://docs.google.com/spreadsheets/d/1iKCXJcI2d8KFdLdERYVFDEuDs7YL5VW25agxGW3vMmc/edit?usp=drive_link"
     command: ["python", "src/pipeline.py"]
 
 volumes:
