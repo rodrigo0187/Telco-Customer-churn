@@ -41,7 +41,7 @@ def evaluate_model():
     
     print(" Loading test datasets...")
     X_test = pd.read_csv("data/processed/X_test.csv")
-    y_test = pd.read_csv("data/processed/y_test.csv").squeeze()
+    Y_test = pd.read_csv("data/processed/Y_test.csv").squeeze()
     
     MODEL_PATH = "models/modelo_churn.pkl"
     print(f" Loading model from: {MODEL_PATH}")
@@ -53,11 +53,11 @@ def evaluate_model():
     y_prob = model.predict_proba(X_test)[:, 1]
     
     # 2. Cálculo de Métricas Clave
-    accuracy = accuracy_score(y_test, y_pred)
-    precision = precision_score(y_test, y_pred)
-    recall = recall_score(y_test, y_pred)
-    f1 = f1_score(y_test, y_pred)
-    roc_auc = roc_auc_score(y_test, y_prob)
+    accuracy = accuracy_score(Y_test, y_pred)
+    precision = precision_score(Y_test, y_pred)
+    recall = recall_score(Y_test, y_pred)
+    f1 = f1_score(Y_test, y_pred)
+    roc_auc = roc_auc_score(Y_test, y_prob)
     
     print(" «« CLASIFICACIÓN MÉTRICAS »» ")
     print(f"Accuracy : {accuracy:.4f}")
@@ -67,10 +67,10 @@ def evaluate_model():
     print(f"ROC-AUC  : {roc_auc:.4f}")
     
     print(" «« DETALLE REPORTE »» ")
-    print(classification_report(y_test, y_pred, target_names=["Retained", "Churn"]))
+    print(classification_report(Y_test, y_pred, target_names=["Retained", "Churn"]))
     
     # 3. Gráfico de Matriz de Confusión Visual
-    cm = confusion_matrix(y_test, y_pred)
+    cm = confusion_matrix(Y_test, y_pred)
     plt.figure(figsize=(6, 5))
     sns.heatmap(
         cm, annot=True, fmt="d", cmap="Blues",
@@ -85,7 +85,7 @@ def evaluate_model():
     plt.close()
     
     # 4. Gráfico Curva ROC
-    fpr, tpr, _ = roc_curve(y_test, y_prob)
+    fpr, tpr, _ = roc_curve(Y_test, y_prob)
     plt.figure(figsize=(8, 6))
     plt.plot(fpr, tpr, color='darkorange', label=f"AUC = {roc_auc:.4f}")
     plt.plot([0, 1], [0, 1], color='navy', linestyle="--")
@@ -124,7 +124,7 @@ def evaluate_model():
         "recall": float(recall),
         "f1_score": float(f1),
         "roc_auc": float(roc_auc),
-        "classification_report": classification_report(y_test, y_pred, output_dict=True)
+        "classification_report": classification_report(Y_test, y_pred, output_dict=True)
     }
     with open(os.path.join(RESULTS_DIR, "metricas.json"), "w", encoding="utf-8") as f:
         json.dump(metricas, f, indent=4, ensure_ascii=False)
