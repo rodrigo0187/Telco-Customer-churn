@@ -62,11 +62,11 @@ def train_model():
     plt.close()
     
     # División estratificada (80% entrenamiento y 20% test)
-    X_train, X_test, y_train, y_test = train_test_split(
+    X_train, X_test, y_train, Y_test = train_test_split(
         X, y, test_size=0.2, random_state=29, stratify=y
     )
     X_test.to_csv('data/processed/X_test.csv', index=False)
-    y_test.to_csv('data/processed/y_test.csv', index=False)
+    Y_test.to_csv('data/processed/Y_test.csv', index=False)
     
     # Pipeline y configuración del Bosque aleatorio
     logger.info('Entrenamiento del clasificador de bosque aleatorio')

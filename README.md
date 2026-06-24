@@ -38,7 +38,11 @@ telco-customer-churn/
 │   ├── model/
 │   ├── storage/
 │   ├── utils/
-│   └── pipeline.py
+│   └── pipeline.
+│
+├── test/
+│   └── test_modelo.py
+│
 ├── .dockerignore
 ├── .env
 ├── .env.example
@@ -307,6 +311,9 @@ La tabla `cliente` debe contener en crudo **7043 registros** con **21 columnas**
 
 ```bash
 Telco-customer-churn
+
+├── .github/workflows/
+│    └── ci_cd.yaml # Entorno de configuración para la implementación de GitHub Actions
 │
 ├── data/
 │   ├── backup/
@@ -373,8 +380,8 @@ Telco-customer-churn
 │   │   │   ├── scaling.py 
 │   │   │   └── winsorizer.py
 │   │   │  
-│   │   ├── train.py
 │   │   ├── predict.py
+│   │   ├── train.py
 │   │   └── verificacion_cm
 │   │
 │   ├── storage/
@@ -389,9 +396,12 @@ Telco-customer-churn
 │   │
 │   └── pipeline.py  # Orquestador del flujo de datos
 │
+├── test/
+│    └── test_modelo.py
+│
 ├── .dockerignore
 ├── .env
-├── .env.example
+├── .env.example # ejemplo de configuracion de credenciales
 ├── .gitignore
 ├── app.py # archivo principal de la aplicación
 ├── docker-compose.yml # orquestador de los contenedores
