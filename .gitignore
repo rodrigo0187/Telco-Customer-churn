@@ -1,6 +1,8 @@
 # datos
 data/backup/
-data/processed/
+data/processed/cleaned/*.csv
+data/processed/encoded/*.csv
+data/processed/winsorized/*.csv
 data/raw/*.csv
 results
 
