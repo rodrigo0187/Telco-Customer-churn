@@ -1,6 +1,7 @@
 # src/pipeline.py
-# import os
+import os
 import glob
+from datetime import datetime
 from src.cleaning.duplicates import remove_duplicates_customers
 from src.cleaning.normalize_text import normalize_text
 from src.cleaning.null import normalize_nulls
@@ -52,12 +53,13 @@ def main():
     
     archivos_raw = glob.glob(RUTA_LOCAL_PATTERN)
     if archivos_raw:
-        ruta_archivo = archivos_raw[0]
-        logger.info(f'Archivo detectado localmente en : {archivos_raw}')
+        ruta_archivo = max(archivos_raw,key=os.path.getmtime)
+        logger.info(f'Archivo detectado localmente en {len(archivos_raw)} Procesando el mas reciente: {ruta_archivo}')
     else:
         # se descarga el archivo localmente desde la nube y se generar por defecto el nombre de ingesta_actual.csv
-        ruta_archivo = 'data/raw/ingesta_actual.csv'
-        logger.info(f'Directorio encontrado data/raw/ {ruta_archivo}')
+        timestime_ingesta = datetime.now().strftime("%Y%m%d_%H%M%S")
+        ruta_archivo = f'data/raw/ingesta_{timestime_ingesta}.csv'
+        logger.info(f'Modo OneDrive, se generar archivo en Directorio data/raw/ {ruta_archivo}')
     
     # Ingesta
     df = cargar_csv(ruta_archivo)

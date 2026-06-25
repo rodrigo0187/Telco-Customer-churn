@@ -8,7 +8,21 @@ import logging
 logger = logging.getLogger(__name__)
 
 def cargar_csv(ruta_csv: str, carpeta_backup: str = 'data/backup/raw') -> pd.DataFrame:
-    """Carga un archivo desde una URL (CSV o Google Sheets) y lo normaliza."""
+    """Realiza la carga de un archivo CSV de forma local o es obtenida desde OneDrive(sheetstyle).
+
+    Args:
+        ruta_csv (str): Obtiene los datos crudos desde un csv local o desde la nube(OneDrive).
+        carpeta_backup (str, optional): Genera una copia del archivo CSV como respaldo. por defecto se alamacena en 'data/backup/raw'.
+
+    Raises:
+        ValueError:  valida si el identificador unico del archivo es diferente
+        ValueError: genera un error si el ID unico del archivo es diferente.
+        FileNotFoundError: Si no se encuentra el archivo en la ruta especifica
+        e: Genera un error al cargar o procesar el csv
+
+    Returns:
+        pd.DataFrame: Devuelve el csv obtenedio desde la URL o local.
+    """    
     try:
         url_datos = os.environ.get('DATA_SOURCE_URL')
 
