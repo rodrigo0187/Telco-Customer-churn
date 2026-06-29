@@ -57,11 +57,12 @@ def auditar_validar_dataset(df:pd.DataFrame)-> bool:
         logger.critical(f'Rechazo de archivo: Faltan columnas criticas en el csv: {list(missing_cols)}')
         return False  
     # tasa de nulos > 20%
+    MIN_NULOS = 20
     total_filas = len(df)
     for col in df.columns:
         nulos_col = df[col].isna().sum() + (df[col]=='').sum() + (df[col]==' ').sum()
         tasa_nulos = (nulos_col/ total_filas) *100
-        if tasa_nulos > 50:
+        if tasa_nulos > MIN_NULOS:
             logger.error(f'Alerta de calidad, la columna {col} tiene una tasa de nulos {tasa_nulos:.2f} nulos. mayor al 50%')
     logger.info('Auditoria completada, El data set cumple con los requisitos minimos de estructura.')
     return True

@@ -28,6 +28,7 @@ Integra herramientas como:
 telco-customer-churn/
 ├── data/
 ├── db/
+├── documentation/
 ├── root/
 │   └── docs/
 ├── src/
@@ -111,7 +112,6 @@ Permite:
 ## Requisitos
 
 - Docker
-- Docker Compose corroborar versionado de docker
 
 ---
 
@@ -339,7 +339,11 @@ Telco-customer-churn
 │
 ├── db/
 ├── └── init.sql # construccion de la tabla
-
+│
+│
+├── documentation/
+│   └── html/index.html # pagina de documentación    
+│
 ├── models/
 ├── └── modelo_churn.pkl
 │   # se crearán las img con resultados de aprendizajes

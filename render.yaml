@@ -16,10 +16,3 @@ services:
         fromDatabase:
           name: postgres-churn-db
           property: connectionString
-
-databases:
-  - name: postgres-churn-db
-    databaseName: churn_prod
-    user: admin_churn
-    region: ohio
-    plan: free
