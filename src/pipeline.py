@@ -1,6 +1,7 @@
 # src/pipeline.py
 import os
 import glob
+import time
 from datetime import datetime
 from src.cleaning.duplicates import remove_duplicates_customers
 from src.cleaning.normalize_text import normalize_text
@@ -13,7 +14,7 @@ from src.model.predict import evaluate_model
 from src.model.preprocessing.winsorizer import Winsorizer
 from src.model.train import train_model
 from src.storage.load_db import subir_a_postgres
-from src.utils.logging import get_logger
+from src.utils.logging_config import get_logger
 from src.utils.saved_dataset import saved_dataset
 from src.utils.schema_validator import auditar_validar_dataset
 
@@ -131,6 +132,10 @@ def main():
         
         logger.info('Proceso de Machine Learning completado exitosamente')
         logger.info('Reportes gráficos guardados correctamente en "results/"')
+        
+        logger.info('Manteniendo contenedor activo para estabilizar el Web service de Render')
+        while True:
+            time.sleep(3600)
         
     except Exception as e:
         # Optimización: exc_info=True guarda el reporte detallado del error en logs

@@ -1,5 +1,5 @@
 import pandas as pd
-from src.utils.logging import get_logger
+from src.utils.logging_config import get_logger
 
 logger = get_logger('auditar_validar_dataset')
 

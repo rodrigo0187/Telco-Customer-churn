@@ -5,7 +5,7 @@ import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
-from src.utils.logging import get_logger
+from src.utils.logging_config import get_logger
 
 logger = get_logger('train_model')
 

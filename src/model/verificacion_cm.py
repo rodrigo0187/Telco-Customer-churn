@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 from sklearn.metrics import confusion_matrix
-from src.utils.logging import get_logger
+from src.utils.logging_config import get_logger
 
 logger = get_logger('graficar_matriz_real')
 
