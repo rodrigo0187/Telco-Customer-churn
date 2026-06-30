@@ -68,7 +68,7 @@ def main():
         logger.info(f'Modo OneDrive, se generar archivo en Directorio data/raw/ {ruta_archivo}')
     
     # Ingesta
-    df = cargar_csv(ruta_archivo,sep=None,engine='PYTHON')
+    df = cargar_csv(ruta_archivo)
     logger.info(f'Arvhivo cargado: {len(df)} filas' if df is not None else "Archivo vacío o no encontrado")
     if df is None:
         logger.error("No se puede cargar el csv")
