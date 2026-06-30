@@ -16,7 +16,6 @@ from src.storage.load_db import subir_a_postgres
 from src.utils.logging_config import get_logger
 from src.utils.saved_dataset import saved_dataset
 from src.utils.schema_validator import auditar_validar_dataset
-from src.utils.url_transforme import transformar_link_onedrive
 
 MIN_QUALITY_SCORE = 70
 logger = get_logger('main_app')
