@@ -2,6 +2,9 @@
 import os
 import glob
 import time
+import http.server
+import socketserver
+import threading
 from datetime import datetime
 from src.cleaning.duplicates import remove_duplicates_customers
 from src.cleaning.normalize_text import normalize_text
@@ -134,6 +137,27 @@ def main():
         logger.info('Reportes gráficos guardados correctamente en "results/"')
         
         logger.info('Manteniendo contenedor activo para estabilizar el Web service de Render')
+
+        PORT = int(os.getenv("PORT", 10000)) # Render asigna el puerto automáticamente
+        
+        class QuietHandler(http.server.SimpleHTTPRequestHandler):
+            def log_message(self, format, *args):
+                pass # Evita llenar tus logs con peticiones de control de Render
+
+        def iniciar_servidor_fantasma():
+            with socketserver.TCPServer(("", PORT), QuietHandler) as httpd:
+                logger.info(f"Servidor de control activo en el puerto {PORT} para mantener Render Live.")
+                httpd.serve_forever()
+
+        # Iniciamos el servidor en un hilo secundario para que no bloquee nada
+        threading.Thread(target=iniciar_servidor_fantasma, daemon=True).start()
+        
+        # Mantenemos el hilo principal vivo de forma indefinida
+        logger.info('Pipeline estabilizado en la nube de forma permanente.')
+        while True:
+            time.sleep(3600)
+        
+    except Exception as e:
         while True:
             time.sleep(3600)
         
