@@ -1,0 +1,166 @@
+2026-06-30 19:44:12 [ERROR]Error al ejecutar el pipeline desde Streamlit: Execution failed on sql 'INSERT INTO cliente (customerid, gender, seniorcitizen, partner, dependents, tenure, phoneservice, multiplelines, internetservice, onlinesecurity, onlinebackup, deviceprotection, techsupport, streamingtv, streamingmovies, contract, paperlessbilling, paymentmethod, monthlycharges, totalcharges, churn) VALUES (:customerid, :gender, :seniorcitizen, :partner, :dependents, :tenure, :phoneservice, :multiplelines, :internetservice, :onlinesecurity, :onlinebackup, :deviceprotection, :techsupport, :streamingtv, :streamingmovies, :contract, :paperlessbilling, :paymentmethod, :monthlycharges, :totalcharges, :churn)': (psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "cliente_pkey"
+DETAIL:  Key (customerid)=(0002orfbo) already exists.
+
+[SQL: INSERT INTO cliente (customerid, gender, seniorcitizen, partner, dependents, tenure, phoneservice, multiplelines, internetservice, onlinesecurity, onlinebackup, deviceprotection, techsupport, streamingtv, streamingmovies, contract, paperlessbilling,  ... 469647 characters truncated ... ling__999)s, %(paymentmethod__999)s, %(monthlycharges__999)s, %(totalcharges__999)s, %(churn__999)s)]
+[parameters: {'streamingmovies__0': 'no', 'paymentmethod__0': 'mailed check', 'deviceprotection__0': 'no', 'streamingtv__0': 'yes', 'tenure__0': 9.0, 'paperlessbilling__0': 'yes', 'onlinesecurity__0': 'no', 'customerid__0': '0002orfbo', 'totalcharges__0': 593.3, 'multiplelines__0': 'no', 'churn__0': 'no', 'onlinebackup__0': 'yes', 'monthlycharges__0': 65.6, 'techsupport__0': 'yes', 'dependents__0': 'yes', 'internetservice__0': 'dsl', 'gender__0': 'female', 'partner__0': 'yes', 'phoneservice__0': 'yes', 'seniorcitizen__0': 0.0, 'contract__0': 'one year', 'streamingmovies__1': 'yes', 'paymentmethod__1': 'mailed check', 'deviceprotection__1': 'no', 'streamingtv__1': 'no', 'tenure__1': 9.0, 'paperlessbilling__1': 'no', 'onlinesecurity__1': 'no', 'customerid__1': '0003mknfe', 'totalcharges__1': 542.4, 'multiplelines__1': 'yes', 'churn__1': 'no', 'onlinebackup__1': 'no', 'monthlycharges__1': 59.9, 'techsupport__1': 'no', 'dependents__1': 'no', 'internetservice__1': 'dsl', 'gender__1': 'male', 'partner__1': 'no', 'phoneservice__1': 'yes', 'seniorcitizen__1': 0.0, 'contract__1': 'monthtomonth', 'streamingmovies__2': 'no', 'paymentmethod__2': 'electronic check', 'deviceprotection__2': 'yes', 'streamingtv__2': 'no', 'tenure__2': 4.0, 'paperlessbilling__2': 'yes', 'onlinesecurity__2': 'no', 'customerid__2': '0004tlhlj' ... 20900 parameters truncated ... 'techsupport__997': 'no', 'dependents__997': 'yes', 'internetservice__997': 'fiber optic', 'gender__997': 'female', 'partner__997': 'yes', 'phoneservice__997': 'yes', 'seniorcitizen__997': 0.0, 'contract__997': 'one year', 'streamingmovies__998': 'yes', 'paymentmethod__998': 'electronic check', 'deviceprotection__998': 'no', 'streamingtv__998': 'no', 'tenure__998': 1.0, 'paperlessbilling__998': 'no', 'onlinesecurity__998': 'no', 'customerid__998': '1448pwkye', 'totalcharges__998': 80.0, 'multiplelines__998': 'no', 'churn__998': 'yes', 'onlinebackup__998': 'no', 'monthlycharges__998': 80.0, 'techsupport__998': 'no', 'dependents__998': 'yes', 'internetservice__998': 'fiber optic', 'gender__998': 'male', 'partner__998': 'yes', 'phoneservice__998': 'yes', 'seniorcitizen__998': 0.0, 'contract__998': 'monthtomonth', 'streamingmovies__999': 'no internet service', 'paymentmethod__999': 'mailed check', 'deviceprotection__999': 'no internet service', 'streamingtv__999': 'no internet service', 'tenure__999': 3.0, 'paperlessbilling__999': 'yes', 'onlinesecurity__999': 'no internet service', 'customerid__999': '1449xqemt', 'totalcharges__999': 58.15, 'multiplelines__999': 'no', 'churn__999': 'yes', 'onlinebackup__999': 'no internet service', 'monthlycharges__999': 19.8, 'techsupport__999': 'no internet service', 'dependents__999': 'no', 'internetservice__999': 'no', 'gender__999': 'male', 'partner__999': 'no', 'phoneservice__999': 'yes', 'seniorcitizen__999': 0.0, 'contract__999': 'monthtomonth'}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2127, in _exec_insertmany_context
+    dialect.do_execute(
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "cliente_pkey"
+DETAIL:  Key (customerid)=(0002orfbo) already exists.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/pandas/io/sql.py", line 1679, in execute
+    return execute_function(sql, *args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_insertmany_context(dialect, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2135, in _exec_insertmany_context
+    self._handle_dbapi_exception(
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2127, in _exec_insertmany_context
+    dialect.do_execute(
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "cliente_pkey"
+DETAIL:  Key (customerid)=(0002orfbo) already exists.
+
+[SQL: INSERT INTO cliente (customerid, gender, seniorcitizen, partner, dependents, tenure, phoneservice, multiplelines, internetservice, onlinesecurity, onlinebackup, deviceprotection, techsupport, streamingtv, streamingmovies, contract, paperlessbilling,  ... 469647 characters truncated ... ling__999)s, %(paymentmethod__999)s, %(monthlycharges__999)s, %(totalcharges__999)s, %(churn__999)s)]
+[parameters: {'streamingmovies__0': 'no', 'paymentmethod__0': 'mailed check', 'deviceprotection__0': 'no', 'streamingtv__0': 'yes', 'tenure__0': 9.0, 'paperlessbilling__0': 'yes', 'onlinesecurity__0': 'no', 'customerid__0': '0002orfbo', 'totalcharges__0': 593.3, 'multiplelines__0': 'no', 'churn__0': 'no', 'onlinebackup__0': 'yes', 'monthlycharges__0': 65.6, 'techsupport__0': 'yes', 'dependents__0': 'yes', 'internetservice__0': 'dsl', 'gender__0': 'female', 'partner__0': 'yes', 'phoneservice__0': 'yes', 'seniorcitizen__0': 0.0, 'contract__0': 'one year', 'streamingmovies__1': 'yes', 'paymentmethod__1': 'mailed check', 'deviceprotection__1': 'no', 'streamingtv__1': 'no', 'tenure__1': 9.0, 'paperlessbilling__1': 'no', 'onlinesecurity__1': 'no', 'customerid__1': '0003mknfe', 'totalcharges__1': 542.4, 'multiplelines__1': 'yes', 'churn__1': 'no', 'onlinebackup__1': 'no', 'monthlycharges__1': 59.9, 'techsupport__1': 'no', 'dependents__1': 'no', 'internetservice__1': 'dsl', 'gender__1': 'male', 'partner__1': 'no', 'phoneservice__1': 'yes', 'seniorcitizen__1': 0.0, 'contract__1': 'monthtomonth', 'streamingmovies__2': 'no', 'paymentmethod__2': 'electronic check', 'deviceprotection__2': 'yes', 'streamingtv__2': 'no', 'tenure__2': 4.0, 'paperlessbilling__2': 'yes', 'onlinesecurity__2': 'no', 'customerid__2': '0004tlhlj' ... 20900 parameters truncated ... 'techsupport__997': 'no', 'dependents__997': 'yes', 'internetservice__997': 'fiber optic', 'gender__997': 'female', 'partner__997': 'yes', 'phoneservice__997': 'yes', 'seniorcitizen__997': 0.0, 'contract__997': 'one year', 'streamingmovies__998': 'yes', 'paymentmethod__998': 'electronic check', 'deviceprotection__998': 'no', 'streamingtv__998': 'no', 'tenure__998': 1.0, 'paperlessbilling__998': 'no', 'onlinesecurity__998': 'no', 'customerid__998': '1448pwkye', 'totalcharges__998': 80.0, 'multiplelines__998': 'no', 'churn__998': 'yes', 'onlinebackup__998': 'no', 'monthlycharges__998': 80.0, 'techsupport__998': 'no', 'dependents__998': 'yes', 'internetservice__998': 'fiber optic', 'gender__998': 'male', 'partner__998': 'yes', 'phoneservice__998': 'yes', 'seniorcitizen__998': 0.0, 'contract__998': 'monthtomonth', 'streamingmovies__999': 'no internet service', 'paymentmethod__999': 'mailed check', 'deviceprotection__999': 'no internet service', 'streamingtv__999': 'no internet service', 'tenure__999': 3.0, 'paperlessbilling__999': 'yes', 'onlinesecurity__999': 'no internet service', 'customerid__999': '1449xqemt', 'totalcharges__999': 58.15, 'multiplelines__999': 'no', 'churn__999': 'yes', 'onlinebackup__999': 'no internet service', 'monthlycharges__999': 19.8, 'techsupport__999': 'no internet service', 'dependents__999': 'no', 'internetservice__999': 'no', 'gender__999': 'male', 'partner__999': 'no', 'phoneservice__999': 'yes', 'seniorcitizen__999': 0.0, 'contract__999': 'monthtomonth'}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/app/app.py", line 64, in <module>
+    ejecutar_pipeline()
+  File "/app/src/pipeline.py", line 79, in main
+    subir_a_postgres(df, "cliente")
+  File "/app/src/storage/load_db.py", line 70, in subir_a_postgres
+    df_to_insert.to_sql(nombre_tabla, engine, if_exists=if_exists, index=False)
+  File "/usr/local/lib/python3.11/site-packages/pandas/core/generic.py", line 3052, in to_sql
+    return sql.to_sql(
+           ^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/pandas/io/sql.py", line 841, in to_sql
+    return pandas_sql.to_sql(
+           ^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/pandas/io/sql.py", line 2037, in to_sql
+    total_inserted = sql_engine.insert_records(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/pandas/io/sql.py", line 1571, in insert_records
+    return table.insert(chunksize=chunksize, method=method)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/pandas/io/sql.py", line 1122, in insert
+    num_inserted = exec_insert(conn, keys, chunk_iter)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/pandas/io/sql.py", line 1014, in _execute_insert
+    result = self.pd_sql.execute(self.table.insert(), data)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/pandas/io/sql.py", line 1681, in execute
+    raise DatabaseError(f"Execution failed on sql '{sql}': {exc}") from exc
+pandas.errors.DatabaseError: Execution failed on sql 'INSERT INTO cliente (customerid, gender, seniorcitizen, partner, dependents, tenure, phoneservice, multiplelines, internetservice, onlinesecurity, onlinebackup, deviceprotection, techsupport, streamingtv, streamingmovies, contract, paperlessbilling, paymentmethod, monthlycharges, totalcharges, churn) VALUES (:customerid, :gender, :seniorcitizen, :partner, :dependents, :tenure, :phoneservice, :multiplelines, :internetservice, :onlinesecurity, :onlinebackup, :deviceprotection, :techsupport, :streamingtv, :streamingmovies, :contract, :paperlessbilling, :paymentmethod, :monthlycharges, :totalcharges, :churn)': (psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "cliente_pkey"
+DETAIL:  Key (customerid)=(0002orfbo) already exists.
+
+[SQL: INSERT INTO cliente (customerid, gender, seniorcitizen, partner, dependents, tenure, phoneservice, multiplelines, internetservice, onlinesecurity, onlinebackup, deviceprotection, techsupport, streamingtv, streamingmovies, contract, paperlessbilling,  ... 469647 characters truncated ... ling__999)s, %(paymentmethod__999)s, %(monthlycharges__999)s, %(totalcharges__999)s, %(churn__999)s)]
+[parameters: {'streamingmovies__0': 'no', 'paymentmethod__0': 'mailed check', 'deviceprotection__0': 'no', 'streamingtv__0': 'yes', 'tenure__0': 9.0, 'paperlessbilling__0': 'yes', 'onlinesecurity__0': 'no', 'customerid__0': '0002orfbo', 'totalcharges__0': 593.3, 'multiplelines__0': 'no', 'churn__0': 'no', 'onlinebackup__0': 'yes', 'monthlycharges__0': 65.6, 'techsupport__0': 'yes', 'dependents__0': 'yes', 'internetservice__0': 'dsl', 'gender__0': 'female', 'partner__0': 'yes', 'phoneservice__0': 'yes', 'seniorcitizen__0': 0.0, 'contract__0': 'one year', 'streamingmovies__1': 'yes', 'paymentmethod__1': 'mailed check', 'deviceprotection__1': 'no', 'streamingtv__1': 'no', 'tenure__1': 9.0, 'paperlessbilling__1': 'no', 'onlinesecurity__1': 'no', 'customerid__1': '0003mknfe', 'totalcharges__1': 542.4, 'multiplelines__1': 'yes', 'churn__1': 'no', 'onlinebackup__1': 'no', 'monthlycharges__1': 59.9, 'techsupport__1': 'no', 'dependents__1': 'no', 'internetservice__1': 'dsl', 'gender__1': 'male', 'partner__1': 'no', 'phoneservice__1': 'yes', 'seniorcitizen__1': 0.0, 'contract__1': 'monthtomonth', 'streamingmovies__2': 'no', 'paymentmethod__2': 'electronic check', 'deviceprotection__2': 'yes', 'streamingtv__2': 'no', 'tenure__2': 4.0, 'paperlessbilling__2': 'yes', 'onlinesecurity__2': 'no', 'customerid__2': '0004tlhlj' ... 20900 parameters truncated ... 'techsupport__997': 'no', 'dependents__997': 'yes', 'internetservice__997': 'fiber optic', 'gender__997': 'female', 'partner__997': 'yes', 'phoneservice__997': 'yes', 'seniorcitizen__997': 0.0, 'contract__997': 'one year', 'streamingmovies__998': 'yes', 'paymentmethod__998': 'electronic check', 'deviceprotection__998': 'no', 'streamingtv__998': 'no', 'tenure__998': 1.0, 'paperlessbilling__998': 'no', 'onlinesecurity__998': 'no', 'customerid__998': '1448pwkye', 'totalcharges__998': 80.0, 'multiplelines__998': 'no', 'churn__998': 'yes', 'onlinebackup__998': 'no', 'monthlycharges__998': 80.0, 'techsupport__998': 'no', 'dependents__998': 'yes', 'internetservice__998': 'fiber optic', 'gender__998': 'male', 'partner__998': 'yes', 'phoneservice__998': 'yes', 'seniorcitizen__998': 0.0, 'contract__998': 'monthtomonth', 'streamingmovies__999': 'no internet service', 'paymentmethod__999': 'mailed check', 'deviceprotection__999': 'no internet service', 'streamingtv__999': 'no internet service', 'tenure__999': 3.0, 'paperlessbilling__999': 'yes', 'onlinesecurity__999': 'no internet service', 'customerid__999': '1449xqemt', 'totalcharges__999': 58.15, 'multiplelines__999': 'no', 'churn__999': 'yes', 'onlinebackup__999': 'no internet service', 'monthlycharges__999': 19.8, 'techsupport__999': 'no internet service', 'dependents__999': 'no', 'internetservice__999': 'no', 'gender__999': 'male', 'partner__999': 'no', 'phoneservice__999': 'yes', 'seniorcitizen__999': 0.0, 'contract__999': 'monthtomonth'}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-06-30 19:52:56 [ERROR]Error al ejecutar el pipeline desde Streamlit: Execution failed on sql 'INSERT INTO cliente (customerid, gender, seniorcitizen, partner, dependents, tenure, phoneservice, multiplelines, internetservice, onlinesecurity, onlinebackup, deviceprotection, techsupport, streamingtv, streamingmovies, contract, paperlessbilling, paymentmethod, monthlycharges, totalcharges, churn) VALUES (:customerid, :gender, :seniorcitizen, :partner, :dependents, :tenure, :phoneservice, :multiplelines, :internetservice, :onlinesecurity, :onlinebackup, :deviceprotection, :techsupport, :streamingtv, :streamingmovies, :contract, :paperlessbilling, :paymentmethod, :monthlycharges, :totalcharges, :churn)': (psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "cliente_pkey"
+DETAIL:  Key (customerid)=(0002orfbo) already exists.
+
+[SQL: INSERT INTO cliente (customerid, gender, seniorcitizen, partner, dependents, tenure, phoneservice, multiplelines, internetservice, onlinesecurity, onlinebackup, deviceprotection, techsupport, streamingtv, streamingmovies, contract, paperlessbilling,  ... 469647 characters truncated ... ling__999)s, %(paymentmethod__999)s, %(monthlycharges__999)s, %(totalcharges__999)s, %(churn__999)s)]
+[parameters: {'streamingmovies__0': 'no', 'paymentmethod__0': 'mailed check', 'deviceprotection__0': 'no', 'streamingtv__0': 'yes', 'tenure__0': 9.0, 'paperlessbilling__0': 'yes', 'onlinesecurity__0': 'no', 'customerid__0': '0002orfbo', 'totalcharges__0': 593.3, 'multiplelines__0': 'no', 'churn__0': 'no', 'onlinebackup__0': 'yes', 'monthlycharges__0': 65.6, 'techsupport__0': 'yes', 'dependents__0': 'yes', 'internetservice__0': 'dsl', 'gender__0': 'female', 'partner__0': 'yes', 'phoneservice__0': 'yes', 'seniorcitizen__0': 0.0, 'contract__0': 'one year', 'streamingmovies__1': 'yes', 'paymentmethod__1': 'mailed check', 'deviceprotection__1': 'no', 'streamingtv__1': 'no', 'tenure__1': 9.0, 'paperlessbilling__1': 'no', 'onlinesecurity__1': 'no', 'customerid__1': '0003mknfe', 'totalcharges__1': 542.4, 'multiplelines__1': 'yes', 'churn__1': 'no', 'onlinebackup__1': 'no', 'monthlycharges__1': 59.9, 'techsupport__1': 'no', 'dependents__1': 'no', 'internetservice__1': 'dsl', 'gender__1': 'male', 'partner__1': 'no', 'phoneservice__1': 'yes', 'seniorcitizen__1': 0.0, 'contract__1': 'monthtomonth', 'streamingmovies__2': 'no', 'paymentmethod__2': 'electronic check', 'deviceprotection__2': 'yes', 'streamingtv__2': 'no', 'tenure__2': 4.0, 'paperlessbilling__2': 'yes', 'onlinesecurity__2': 'no', 'customerid__2': '0004tlhlj' ... 20900 parameters truncated ... 'techsupport__997': 'no', 'dependents__997': 'yes', 'internetservice__997': 'fiber optic', 'gender__997': 'female', 'partner__997': 'yes', 'phoneservice__997': 'yes', 'seniorcitizen__997': 0.0, 'contract__997': 'one year', 'streamingmovies__998': 'yes', 'paymentmethod__998': 'electronic check', 'deviceprotection__998': 'no', 'streamingtv__998': 'no', 'tenure__998': 1.0, 'paperlessbilling__998': 'no', 'onlinesecurity__998': 'no', 'customerid__998': '1448pwkye', 'totalcharges__998': 80.0, 'multiplelines__998': 'no', 'churn__998': 'yes', 'onlinebackup__998': 'no', 'monthlycharges__998': 80.0, 'techsupport__998': 'no', 'dependents__998': 'yes', 'internetservice__998': 'fiber optic', 'gender__998': 'male', 'partner__998': 'yes', 'phoneservice__998': 'yes', 'seniorcitizen__998': 0.0, 'contract__998': 'monthtomonth', 'streamingmovies__999': 'no internet service', 'paymentmethod__999': 'mailed check', 'deviceprotection__999': 'no internet service', 'streamingtv__999': 'no internet service', 'tenure__999': 3.0, 'paperlessbilling__999': 'yes', 'onlinesecurity__999': 'no internet service', 'customerid__999': '1449xqemt', 'totalcharges__999': 58.15, 'multiplelines__999': 'no', 'churn__999': 'yes', 'onlinebackup__999': 'no internet service', 'monthlycharges__999': 19.8, 'techsupport__999': 'no internet service', 'dependents__999': 'no', 'internetservice__999': 'no', 'gender__999': 'male', 'partner__999': 'no', 'phoneservice__999': 'yes', 'seniorcitizen__999': 0.0, 'contract__999': 'monthtomonth'}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2127, in _exec_insertmany_context
+    dialect.do_execute(
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "cliente_pkey"
+DETAIL:  Key (customerid)=(0002orfbo) already exists.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/pandas/io/sql.py", line 1679, in execute
+    return execute_function(sql, *args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_insertmany_context(dialect, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2135, in _exec_insertmany_context
+    self._handle_dbapi_exception(
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2127, in _exec_insertmany_context
+    dialect.do_execute(
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "cliente_pkey"
+DETAIL:  Key (customerid)=(0002orfbo) already exists.
+
+[SQL: INSERT INTO cliente (customerid, gender, seniorcitizen, partner, dependents, tenure, phoneservice, multiplelines, internetservice, onlinesecurity, onlinebackup, deviceprotection, techsupport, streamingtv, streamingmovies, contract, paperlessbilling,  ... 469647 characters truncated ... ling__999)s, %(paymentmethod__999)s, %(monthlycharges__999)s, %(totalcharges__999)s, %(churn__999)s)]
+[parameters: {'streamingmovies__0': 'no', 'paymentmethod__0': 'mailed check', 'deviceprotection__0': 'no', 'streamingtv__0': 'yes', 'tenure__0': 9.0, 'paperlessbilling__0': 'yes', 'onlinesecurity__0': 'no', 'customerid__0': '0002orfbo', 'totalcharges__0': 593.3, 'multiplelines__0': 'no', 'churn__0': 'no', 'onlinebackup__0': 'yes', 'monthlycharges__0': 65.6, 'techsupport__0': 'yes', 'dependents__0': 'yes', 'internetservice__0': 'dsl', 'gender__0': 'female', 'partner__0': 'yes', 'phoneservice__0': 'yes', 'seniorcitizen__0': 0.0, 'contract__0': 'one year', 'streamingmovies__1': 'yes', 'paymentmethod__1': 'mailed check', 'deviceprotection__1': 'no', 'streamingtv__1': 'no', 'tenure__1': 9.0, 'paperlessbilling__1': 'no', 'onlinesecurity__1': 'no', 'customerid__1': '0003mknfe', 'totalcharges__1': 542.4, 'multiplelines__1': 'yes', 'churn__1': 'no', 'onlinebackup__1': 'no', 'monthlycharges__1': 59.9, 'techsupport__1': 'no', 'dependents__1': 'no', 'internetservice__1': 'dsl', 'gender__1': 'male', 'partner__1': 'no', 'phoneservice__1': 'yes', 'seniorcitizen__1': 0.0, 'contract__1': 'monthtomonth', 'streamingmovies__2': 'no', 'paymentmethod__2': 'electronic check', 'deviceprotection__2': 'yes', 'streamingtv__2': 'no', 'tenure__2': 4.0, 'paperlessbilling__2': 'yes', 'onlinesecurity__2': 'no', 'customerid__2': '0004tlhlj' ... 20900 parameters truncated ... 'techsupport__997': 'no', 'dependents__997': 'yes', 'internetservice__997': 'fiber optic', 'gender__997': 'female', 'partner__997': 'yes', 'phoneservice__997': 'yes', 'seniorcitizen__997': 0.0, 'contract__997': 'one year', 'streamingmovies__998': 'yes', 'paymentmethod__998': 'electronic check', 'deviceprotection__998': 'no', 'streamingtv__998': 'no', 'tenure__998': 1.0, 'paperlessbilling__998': 'no', 'onlinesecurity__998': 'no', 'customerid__998': '1448pwkye', 'totalcharges__998': 80.0, 'multiplelines__998': 'no', 'churn__998': 'yes', 'onlinebackup__998': 'no', 'monthlycharges__998': 80.0, 'techsupport__998': 'no', 'dependents__998': 'yes', 'internetservice__998': 'fiber optic', 'gender__998': 'male', 'partner__998': 'yes', 'phoneservice__998': 'yes', 'seniorcitizen__998': 0.0, 'contract__998': 'monthtomonth', 'streamingmovies__999': 'no internet service', 'paymentmethod__999': 'mailed check', 'deviceprotection__999': 'no internet service', 'streamingtv__999': 'no internet service', 'tenure__999': 3.0, 'paperlessbilling__999': 'yes', 'onlinesecurity__999': 'no internet service', 'customerid__999': '1449xqemt', 'totalcharges__999': 58.15, 'multiplelines__999': 'no', 'churn__999': 'yes', 'onlinebackup__999': 'no internet service', 'monthlycharges__999': 19.8, 'techsupport__999': 'no internet service', 'dependents__999': 'no', 'internetservice__999': 'no', 'gender__999': 'male', 'partner__999': 'no', 'phoneservice__999': 'yes', 'seniorcitizen__999': 0.0, 'contract__999': 'monthtomonth'}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/app/app.py", line 64, in <module>
+    ejecutar_pipeline()
+  File "/app/src/pipeline.py", line 79, in main
+    subir_a_postgres(df, "cliente")
+  File "/app/src/storage/load_db.py", line 70, in subir_a_postgres
+    df_to_insert.to_sql(nombre_tabla, engine, if_exists=if_exists, index=False)
+  File "/usr/local/lib/python3.11/site-packages/pandas/core/generic.py", line 3052, in to_sql
+    return sql.to_sql(
+           ^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/pandas/io/sql.py", line 841, in to_sql
+    return pandas_sql.to_sql(
+           ^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/pandas/io/sql.py", line 2037, in to_sql
+    total_inserted = sql_engine.insert_records(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/pandas/io/sql.py", line 1571, in insert_records
+    return table.insert(chunksize=chunksize, method=method)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/pandas/io/sql.py", line 1122, in insert
+    num_inserted = exec_insert(conn, keys, chunk_iter)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/pandas/io/sql.py", line 1014, in _execute_insert
+    result = self.pd_sql.execute(self.table.insert(), data)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/pandas/io/sql.py", line 1681, in execute
+    raise DatabaseError(f"Execution failed on sql '{sql}': {exc}") from exc
+pandas.errors.DatabaseError: Execution failed on sql 'INSERT INTO cliente (customerid, gender, seniorcitizen, partner, dependents, tenure, phoneservice, multiplelines, internetservice, onlinesecurity, onlinebackup, deviceprotection, techsupport, streamingtv, streamingmovies, contract, paperlessbilling, paymentmethod, monthlycharges, totalcharges, churn) VALUES (:customerid, :gender, :seniorcitizen, :partner, :dependents, :tenure, :phoneservice, :multiplelines, :internetservice, :onlinesecurity, :onlinebackup, :deviceprotection, :techsupport, :streamingtv, :streamingmovies, :contract, :paperlessbilling, :paymentmethod, :monthlycharges, :totalcharges, :churn)': (psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "cliente_pkey"
+DETAIL:  Key (customerid)=(0002orfbo) already exists.
+
+[SQL: INSERT INTO cliente (customerid, gender, seniorcitizen, partner, dependents, tenure, phoneservice, multiplelines, internetservice, onlinesecurity, onlinebackup, deviceprotection, techsupport, streamingtv, streamingmovies, contract, paperlessbilling,  ... 469647 characters truncated ... ling__999)s, %(paymentmethod__999)s, %(monthlycharges__999)s, %(totalcharges__999)s, %(churn__999)s)]
+[parameters: {'streamingmovies__0': 'no', 'paymentmethod__0': 'mailed check', 'deviceprotection__0': 'no', 'streamingtv__0': 'yes', 'tenure__0': 9.0, 'paperlessbilling__0': 'yes', 'onlinesecurity__0': 'no', 'customerid__0': '0002orfbo', 'totalcharges__0': 593.3, 'multiplelines__0': 'no', 'churn__0': 'no', 'onlinebackup__0': 'yes', 'monthlycharges__0': 65.6, 'techsupport__0': 'yes', 'dependents__0': 'yes', 'internetservice__0': 'dsl', 'gender__0': 'female', 'partner__0': 'yes', 'phoneservice__0': 'yes', 'seniorcitizen__0': 0.0, 'contract__0': 'one year', 'streamingmovies__1': 'yes', 'paymentmethod__1': 'mailed check', 'deviceprotection__1': 'no', 'streamingtv__1': 'no', 'tenure__1': 9.0, 'paperlessbilling__1': 'no', 'onlinesecurity__1': 'no', 'customerid__1': '0003mknfe', 'totalcharges__1': 542.4, 'multiplelines__1': 'yes', 'churn__1': 'no', 'onlinebackup__1': 'no', 'monthlycharges__1': 59.9, 'techsupport__1': 'no', 'dependents__1': 'no', 'internetservice__1': 'dsl', 'gender__1': 'male', 'partner__1': 'no', 'phoneservice__1': 'yes', 'seniorcitizen__1': 0.0, 'contract__1': 'monthtomonth', 'streamingmovies__2': 'no', 'paymentmethod__2': 'electronic check', 'deviceprotection__2': 'yes', 'streamingtv__2': 'no', 'tenure__2': 4.0, 'paperlessbilling__2': 'yes', 'onlinesecurity__2': 'no', 'customerid__2': '0004tlhlj' ... 20900 parameters truncated ... 'techsupport__997': 'no', 'dependents__997': 'yes', 'internetservice__997': 'fiber optic', 'gender__997': 'female', 'partner__997': 'yes', 'phoneservice__997': 'yes', 'seniorcitizen__997': 0.0, 'contract__997': 'one year', 'streamingmovies__998': 'yes', 'paymentmethod__998': 'electronic check', 'deviceprotection__998': 'no', 'streamingtv__998': 'no', 'tenure__998': 1.0, 'paperlessbilling__998': 'no', 'onlinesecurity__998': 'no', 'customerid__998': '1448pwkye', 'totalcharges__998': 80.0, 'multiplelines__998': 'no', 'churn__998': 'yes', 'onlinebackup__998': 'no', 'monthlycharges__998': 80.0, 'techsupport__998': 'no', 'dependents__998': 'yes', 'internetservice__998': 'fiber optic', 'gender__998': 'male', 'partner__998': 'yes', 'phoneservice__998': 'yes', 'seniorcitizen__998': 0.0, 'contract__998': 'monthtomonth', 'streamingmovies__999': 'no internet service', 'paymentmethod__999': 'mailed check', 'deviceprotection__999': 'no internet service', 'streamingtv__999': 'no internet service', 'tenure__999': 3.0, 'paperlessbilling__999': 'yes', 'onlinesecurity__999': 'no internet service', 'customerid__999': '1449xqemt', 'totalcharges__999': 58.15, 'multiplelines__999': 'no', 'churn__999': 'yes', 'onlinebackup__999': 'no internet service', 'monthlycharges__999': 19.8, 'techsupport__999': 'no internet service', 'dependents__999': 'no', 'internetservice__999': 'no', 'gender__999': 'male', 'partner__999': 'no', 'phoneservice__999': 'yes', 'seniorcitizen__999': 0.0, 'contract__999': 'monthtomonth'}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
