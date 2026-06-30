@@ -176,6 +176,11 @@ Incluye validacion para:
 - outliers(valores atípicos)
 - valores negativos
 - inconsistencias categóricas
+
+Args: 
+    data (pd.DataFrame): El conjunto de datos a validar.
+    exclude_inconsistencies (np.array, optional): columnas numericas a excluir
+    del análisis de outliers y negativos. Por defecto en None.
 </pre> 
 </div>
 </div>
@@ -194,10 +199,12 @@ Incluye validacion para:
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment"> Detecta incosistencia de formatos en variables categóricas.
+<pre class="fragment"> Detecta incosistencia de formato (espacios o diferencias de mayúsculas/minúsculas)
+en variables categóricas.
 
 Returns:
-    dict: columnas categóricas con diferencia entre valores categóricos e incosistente.
+    dict: Diccionario donde las llaves son las columnas afectadas y los valores son
+    sub-diccionarios {} conteniendo las listas de los valores original y normalizes.
 </pre> 
 </div>
 </div>
@@ -215,10 +222,11 @@ Returns:
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Cuenta la cantidad de negativos encontrados
+<pre class="fragment">Cuenta la cantidad de negativos encontrados por columna numérica.
 
 Returns:
-    dict: Retorna la cantidad de negativos por columna identificados como númericos.
+    dict: Diccionario donde las llaves son los nombres de las columnas numéricas
+    y los valores son la cantidad de negativos hallados (solo incluye columnas con conteo &gt;0).
 </pre> 
 </div>
 </div>
@@ -236,10 +244,11 @@ Returns:
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Cuenta la cantidad de duplicados encontrados
+<pre class="fragment">Cuenta la cantidad de filas duplicadas encontradas en el DataFrame.
 
 Returns:
-    dict: Retorna la cantidad de duplicados
+    dict: un diccionario con la llave 'duplicate_rows' y la cantidad total,
+    o un diccionario vacio {} si no hay duplicados.
 </pre> 
 </div>
 </div>
@@ -260,7 +269,7 @@ Returns:
 <pre class="fragment">Analiza inconsistencia de variables categóricas
 
 Returns:
-    bool: Retorna verdadero(True) si existe variables categóricas
+    bool: Retorna verdadero(True) si existen incosistencias categóricas,
     False caso contrario
 </pre> 
 </div>
@@ -300,13 +309,10 @@ Returns:
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Evalua inconsistencia númericas y categóricas
-
+<pre class="fragment">Evalua si el DataFrame presenta inconsistencias numéricas (negativos) o categóricos.
 Returns:
-    bool: Retorna verdadero si hay valores negativos
-    caso contrario no existe valores negativos.
-    bool: Retonar verdadero si hay valores incosistentes
-    caso contrario no existe valores inconsistentes
+    bool: True si detecta al menos una inconsistencia (negativa o categorica)
+    False si los datos están limpios de ambas manera de manera general.
 </pre> 
 </div>
 </div>
@@ -324,11 +330,10 @@ Returns:
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Analiza valores negativos
+<pre class="fragment">Analiza si existen valores negativos en el DataFrame.
 
 Returns:
-    _type_: True si exite valores negativos,
-    caso contrario False
+    bool : True si existen valores negativos, caso contrario False.
 </pre> 
 </div>
 </div>
@@ -367,10 +372,11 @@ Returns:
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Analiza valores atipicos utlizando IQR
+<pre class="fragment">Analiza si existen valores atípicos utilizando IQR en el DataFrame.
 
 Returns:
-    _type_: True si existen outliers
+    bool : True si existen outliers,
+    False caso contrario.
 </pre> 
 </div>
 </div>
@@ -392,16 +398,17 @@ Returns:
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Obtiene los detalles de los nulos por columna
+<pre class="fragment">Obtiene los detalles de los nulos por columna incluyendo un análisis de nulos esperados
+según la variable 'tenure'.
 
 Args:
     id_column (str, optional): Nombre de la columna identificadora 'customerid'
 
 Raises:
-    ValueError: se generá sí la columna identificadora no existe en el DataFrame
+    ValueError: si la columna identificadora ('id_column') no existe en el DataFrame.
 
 Returns:
-    dict: Diccionario con el conteo de nulos,Id's afectados, nulos esperados e inesperados por columna.
+    dict: Diccionario por columna con el conteo de nulos, IDs afectados, nulos esperados e inesperados.
 </pre> 
 </div>
 </div>
@@ -422,7 +429,9 @@ Returns:
 <pre class="fragment">Obtiene el conteo de valores atípicos por columna mediante metodo IQR.
 
 Returns:
-    dict: Retorna la cantidad de atípicos por columna.
+    dict: Diccionario donde las llaves son los nombres de las columnas numéricas
+    y los valores representan la cantidad de outliers detectados solo incluye
+    columnas con conteo &gt; 0.
 </pre> 
 </div>
 </div>
@@ -440,15 +449,11 @@ Returns:
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Genera un reporte final del conjunto de datos analizados
+<pre class="fragment">Genera un reporte final consolidado en formato de indicadores booleanos.
 
 Returns:
-    dict: 
-    - nulls values
-    - duplicados
-    - outliers(valores atípicos)
-    - valores negativos
-    - inconsistencias categóricas
+    dict : Diccionario cuyas llaves son la prueba de la calidad realizadas
+    ('Nulos/faltantes','Outliers',etc) y sus valores indican presencia como TRUE o ausencia False de fallos.
 </pre> 
 </div>
 </div>
@@ -466,10 +471,12 @@ Returns:
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Genera un reporte de la calidad de los datos
+<pre class="fragment">Genera un reporte detallado y estructurado de la calidad de los datos.
 
 Returns:
-    dict: Resultado consolidado de validaciones y análisis inconsistente.
+    dict: Diccionario consolidado con los resultados detallados de cada validación.
+        Contiene las llaves: 'nulls','categorical nulls', 'duplicated', 'outliers', 'negative' y 
+        'categorical_issues'.
 </pre> 
 </div>
 </div>
@@ -487,10 +494,10 @@ Returns:
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Calcula un puntaje de la calidad de los datos ponderadas aplicando penalización
+<pre class="fragment">Calcula un puntaje de la calidad de los datos ponderadas aplicando penalización.
 
 Returns:
-    float: Puntaje de calidad de datos de 0 y 100
+    float: Puntaje final de calidad de datos acotado entre 0 y 100.
 </pre> 
 </div>
 </div>

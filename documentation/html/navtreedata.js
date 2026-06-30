@@ -54,9 +54,9 @@ var NAVTREE =
       [ "Validación", "md__r_e_a_d_m_e.html#autotoc_md40", null ],
       [ "Despliegue", "md__r_e_a_d_m_e.html#autotoc_md42", null ],
       [ "Flujo del pipeline", "md__r_e_a_d_m_e.html#autotoc_md44", [
-        [ "Cleaning", "md__r_e_a_d_m_e.html#autotoc_md45", null ],
-        [ "Feature Engineering", "md__r_e_a_d_m_e.html#autotoc_md46", null ],
-        [ "Ingestion", "md__r_e_a_d_m_e.html#autotoc_md47", null ],
+        [ "Ingestion", "md__r_e_a_d_m_e.html#autotoc_md45", null ],
+        [ "Cleaning", "md__r_e_a_d_m_e.html#autotoc_md46", null ],
+        [ "Feature Engineering", "md__r_e_a_d_m_e.html#autotoc_md47", null ],
         [ "Model", "md__r_e_a_d_m_e.html#autotoc_md48", null ],
         [ "Storage", "md__r_e_a_d_m_e.html#autotoc_md49", null ],
         [ "Utils", "md__r_e_a_d_m_e.html#autotoc_md50", null ]

@@ -8,7 +8,7 @@ var searchData=
   ['en_20postgresql_5',['4. Verificar datos en PostgreSQL',['../md__r_e_a_d_m_e.html#autotoc_md23',1,'']]],
   ['en_20servicios_20de_20telecomunicaciones_6',['Modelo predictivo de riesgo de abandono de clientes en servicios de telecomunicaciones',['../md__r_e_a_d_m_e.html',1,'']]],
   ['encender_20contenedor_20ya_20creado_7',['6. Crea nuevamente el contenedor o encender contenedor ya creado',['../md__r_e_a_d_m_e.html#autotoc_md26',1,'']]],
-  ['engineering_8',['Feature Engineering',['../md__r_e_a_d_m_e.html#autotoc_md46',1,'']]],
+  ['engineering_8',['Feature Engineering',['../md__r_e_a_d_m_e.html#autotoc_md47',1,'']]],
   ['entorno_9',['2. Configurar entorno',['../md__r_e_a_d_m_e.html#autotoc_md19',1,'']]],
   ['entorno_20virtual_10',['1. Crear entorno virtual',['../md__r_e_a_d_m_e.html#autotoc_md32',1,'']]],
   ['estructura_20del_20proyecto_11',['Estructura del proyecto',['../md__r_e_a_d_m_e.html#autotoc_md3',1,'']]],

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['cleaning_0',['Cleaning',['../md__r_e_a_d_m_e.html#autotoc_md45',1,'']]],
+  ['cleaning_0',['Cleaning',['../md__r_e_a_d_m_e.html#autotoc_md46',1,'']]],
   ['clientes_20en_20servicios_20de_20telecomunicaciones_1',['Modelo predictivo de riesgo de abandono de clientes en servicios de telecomunicaciones',['../md__r_e_a_d_m_e.html',1,'']]],
   ['clonar_20repositorio_2',['1. Clonar repositorio',['../md__r_e_a_d_m_e.html#autotoc_md17',1,'']]],
   ['con_20docker_20recomendado_3',['Ejecución con Docker (Recomendado)',['../md__r_e_a_d_m_e.html#autotoc_md14',1,'']]],

@@ -143,6 +143,7 @@ Estructura del proyecto</h1>
 <div class="fragment"><div class="line">telco-customer-churn/</div>
 <div class="line">├── data/</div>
 <div class="line">├── db/</div>
+<div class="line">├── documentation/</div>
 <div class="line">├── root/</div>
 <div class="line">│   └── docs/</div>
 <div class="line">├── src/</div>
@@ -228,7 +229,6 @@ Ejecución con Docker (Recomendado)</h1>
 Requisitos</h1>
 <ul>
 <li>Docker</li>
-<li>Docker Compose corroborar versionado de docker</li>
 </ul>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="autotoc_md17"></a>
@@ -316,39 +316,43 @@ Despliegue</h1>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md44"></a>
 Flujo del pipeline</h1>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md45"></a>
-Cleaning</h2>
-<ul>
-<li>corregir los tipos de datos incorrectos</li>
-<li>quality_check (calidad de los datos)</li>
-<li>analiza valores nulos</li>
-</ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md46"></a>
-Feature Engineering</h2>
-<ul>
-<li>creation_features.py</li>
-<li>encoding.py</li>
-</ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md47"></a>
 Ingestion</h2>
 <ul>
-<li>load_csv.py</li>
+<li>load_csv.py, realiza la carga de un archivo CSV tanto local(data/raw) como en la nube(OneDrive).</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md46"></a>
+Cleaning</h2>
+<ul>
+<li>duplicates, consolida registros ducplicados basados en el id, garantizando un id unico.</li>
+<li>normalize_text, normaliza y unifica las columnas de tipo texto en el DataFrame</li>
+<li>null , identifica e imputa valores faltantes</li>
+<li>quality_check (calidad de los datos)</li>
+<li>types(fix_data_types), corrige los tipos de datos incorrectos del DataFrame</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md47"></a>
+Feature Engineering</h2>
+<ul>
+<li>creation_features, Genera variables categóricas, numéricas e interecciones de negocio para el modelo churn.</li>
+<li>encoding, orquesta la preparacion final y códifica las variables categóricas a numéricas.</li>
 </ul>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md48"></a>
 Model</h2>
-<ul>
-<li>dir/prepocessing/scaling.py</li>
-</ul>
+<p>predict, evalua el rendimiento del modelo serializado utilizando datos no vistos. train, ejecuta el pipeline de entramiento para posteriormente generar un análisis visual. verificacion_cm, Carga el modelo entrenado y los datos de prueba para graficar la Matriz de Confusión.</p>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md49"></a>
 Storage</h2>
 <ul>
-<li>load_db.py</li>
+<li>load_db.py, Genera un motor (engine) de conexión para una base de datos PostgreSQL.</li>
 </ul>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md50"></a>
 Utils</h2>
 <ul>
-<li>logging.py # contener log o registros ver a futuro</li>
-<li>normalize_text.py</li>
-<li>saved_dataset.py</li>
+<li>categorical_null,Calcula la proporción de valores nulos especificamente en las columnas categóricas.</li>
+<li>inconsistencies_cat,Detecta de forma temprana si existen inconsistencias de formato en columnas categóricas.</li>
+<li>logging,Configura y retorna un objeto Logger unificado para la aplicación.</li>
+<li>negative_values,Analiza si existen valores negativos en las columnas numéricas del DataFrame.</li>
+<li>outliers,Analiza si existen valores atípicos en las columnas numéricas usando el método IQR.</li>
+<li>saved_dataset,Guarda del DataFrame en formato csv dentro de la ruta correpondiente a su etapa.</li>
+<li>schema_validator,Audita la estructura y el contrato de datos del dataset frente al esquema esperado.</li>
 </ul>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="autotoc_md52"></a>
@@ -368,6 +372,7 @@ Archivos importantes</h1>
 </li>
 <li><span class="tt">requirements.txt</span> → dependencias <br  />
 </li>
+<li><span class="tt">render.yaml</span>-&gt; despliegue</li>
 </ul>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="autotoc_md54"></a>
@@ -405,7 +410,11 @@ Estructura del proyecto (expand)</h2>
 <div class="line">│</div>
 <div class="line">├── db/</div>
 <div class="line">├── └── init.sql # construccion de la tabla</div>
-<div class="line"> </div>
+<div class="line">│</div>
+<div class="line">│</div>
+<div class="line">├── documentation/</div>
+<div class="line">│   └── html/index.html # pagina de documentación Docstring</div>
+<div class="line">│</div>
 <div class="line">├── models/</div>
 <div class="line">├── └── modelo_churn.pkl</div>
 <div class="line">│   # se crearán las img con resultados de aprendizajes</div>

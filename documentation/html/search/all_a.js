@@ -1,7 +1,7 @@
 var searchData=
 [
   ['categoric_5finconsistencies_5fdetails_0',['categoric_inconsistencies_details',['../classquality__check_1_1_quality_check.html#a657afdc3ba3fb13ee9371e91ba21b369',1,'quality_check::QualityCheck']]],
-  ['cleaning_1',['Cleaning',['../md__r_e_a_d_m_e.html#autotoc_md45',1,'']]],
+  ['cleaning_1',['Cleaning',['../md__r_e_a_d_m_e.html#autotoc_md46',1,'']]],
   ['clientes_20en_20servicios_20de_20telecomunicaciones_2',['Modelo predictivo de riesgo de abandono de clientes en servicios de telecomunicaciones',['../md__r_e_a_d_m_e.html',1,'']]],
   ['clonar_20repositorio_3',['1. Clonar repositorio',['../md__r_e_a_d_m_e.html#autotoc_md17',1,'']]],
   ['columns_5fnegative_5fdetails_4',['columns_negative_details',['../classquality__check_1_1_quality_check.html#ab32d9ce2bdb25992341dda5c5e1ba001',1,'quality_check::QualityCheck']]],
