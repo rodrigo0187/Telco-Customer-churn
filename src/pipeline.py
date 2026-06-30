@@ -1,7 +1,7 @@
 # src/pipeline.py
 import os
 import glob
-from datetime import datetime
+import sys
 from src.cleaning.duplicates import remove_duplicates_customers
 from src.cleaning.normalize_text import normalize_text
 from src.cleaning.null import normalize_nulls
@@ -20,129 +20,100 @@ from src.utils.schema_validator import auditar_validar_dataset
 MIN_QUALITY_SCORE = 70
 logger = get_logger('main_app')
 
-
 def main():
-    """Orquesta el pipeline de preparación de datos para el dataset de churn.
-
-    Este pipeline implementa un flujo de data engineering y preparación de
-    datos para Machine Learning, separando claramente la capa de datos de negocio
-    (almacenada en base de datos) de la capa de datos para modelos ML.
-
-    Flujo del pipeline:
-    1. Detectar de manera automatica el CSV
-    1. Ingesta del dataset desde archivo CSV.
-    2. Evaluación inicial de calidad de los datos.
-    3. Limpieza de datos.
-    4. Evaluación de calidad sobre datos limpios.
-    5. Persistencia de datos limpios en base de datos (PostgreSQL).
-    6. Aplicación de winsorización para tratamiento de outliers.
-    7. Codificación de variables categóricas (preparación para ML).
-    8. Persistencia de dataset procesado para Machine Learning.
-    9. Evaluación final de calidad del dataset ML.
-    10. Fase de Machine Learning: Entrenamiento y Evaluación del modelo.
-
-    Returns:
-        None
-    """
-    # declaración de la ruta local como constante
+    """Orquesta el pipeline local de preparación de datos y Machine Learning para Churn."""
     RUTA_LOCAL_PATTERN = 'data/raw/*.csv'  
     
-    logger.info('Pipeline_principal')
+    logger.info('=== INICIALIZANDO PIPELINE DE DATOS LOCAL/DOCKER ===')
     
-    logger.info("Incializando pipeline de datos")
-    
-    # Normalización del escaneo para evitar fallos de ruta en Docker/Render
-    # Excluye archivos temporales que empiecen con 'ingesta_'
+    # Escaneo de archivos CSV en el volumen local mapeado
     archivos_raw = [
         f for f in glob.glob(RUTA_LOCAL_PATTERN)
         if not os.path.basename(f).startswith('ingesta_')
     ]
     
     if archivos_raw:
+        # Se procesa el archivo modificado más recientemente de forma dinámica
         ruta_archivo = max(archivos_raw, key=os.path.getmtime)
-        logger.info(f'Archivo detectado localmente en {len(archivos_raw)} Procesando el mas reciente: {ruta_archivo}')
+        logger.info(f'Se detectaron {len(archivos_raw)} archivos en data/raw/. Procesando el más reciente: {ruta_archivo}')
     else:
-        # se descarga el archivo localmente desde la nube y se generar por defecto el nombre de ingesta_actual.csv
-        timestime_ingesta = datetime.now().strftime("%Y%m%d_%H%M%S")
-        ruta_archivo = f'data/raw/ingesta_{timestime_ingesta}.csv'
-        logger.info(f'Modo OneDrive, se generar archivo en Directorio data/raw/ {ruta_archivo}')
+        # Estrategia Fail-Fast: Si no hay archivos locales, el pipeline Dockerizado/CI-CD se detiene limpiamente informando el fallo.
+        logger.critical(f'Error Crítico: No se encontraron archivos CSV para procesar en "{RUTA_LOCAL_PATTERN}". Verifique el montaje de volúmenes en Docker.')
+        sys.exit(1)
     
-    # Ingesta
-    df = cargar_csv(ruta_archivo,sep=None,engine='PYTHON')
-    logger.info(f'Arvhivo cargado: {len(df)} filas' if df is not None else "Archivo vacío o no encontrado")
-    if df is None:
-        logger.error("No se puede cargar el csv")
-        return
-    logger.info(f'Archivo cargado con éxito {len(df)} filas.')
+    # Ingesta Local
+    df = cargar_csv(ruta_archivo)
     
-    # validador de schema, regla de negocio
+    if df is None or df.empty:
+        logger.error("No se pudo proceder: El DataFrame extraído está vacío.")
+        sys.exit(1)
+        
+    logger.info(f'Archivo cargado con éxito en memoria: {len(df)} registros.')
+    
+    # Validador de Schema / Reglas de negocio del contrato de datos
     if not auditar_validar_dataset(df):
-        logger.critical('El archivo actual no es compatible con el contrato de datos.')
-        return
+        logger.critical('El archivo actual NO cumple con el contrato de datos (Schema inválido). Deteniendo pipeline.')
+        sys.exit(1)
     
+    # Control de Calidad Pre-Limpieza
     qc_before = QualityCheck(df)
-    logger.info(f"Quality score Before cleaning: {qc_before.quality_score_weight()}")
+    logger.info(f"Score de Calidad Inicial (Antes de limpieza): {qc_before.quality_score_weight()}")
 
-    # Cleaning
+    # Flujo Secuencial de Limpieza (Data Cleaning)
     df = fix_data_types(df)
     df = normalize_text(df)
     df = normalize_nulls(df)
-    df = remove_duplicates_customers(df)  # Remueve nulos solo en customerid
+    df = remove_duplicates_customers(df) 
 
+    # Control de Calidad Post-Limpieza
     qc_clean = QualityCheck(df)
+    score_limpio = qc_clean.quality_score_weight()
+    logger.info(f"Score de Calidad Final (Post limpieza): {score_limpio}")
 
-    # Guardado en BD solo si cumple calidad mínima
-    if qc_clean.quality_score_weight() >= MIN_QUALITY_SCORE:
+    # Persistencia en PostgreSQL condicionado por Umbral de Calidad Mínima
+    if score_limpio >= MIN_QUALITY_SCORE:
         saved_dataset(df, "cleaned", "cleaned_churn.csv")
         subir_a_postgres(df, "cliente")
     else:
-        logger.error("¡Datos rechazados antes de BD!")
-        return
+        logger.critical(f"Pipeline Detenido: Los datos limpios no superan el umbral mínimo de calidad ({score_limpio} < {MIN_QUALITY_SCORE}). Datos rechazados antes de persistencia.")
+        sys.exit(1)
 
-    # Winsorizer
+    # Fase de Tratamiento de Outliers (Winsorizer)
     winsorizer = Winsorizer(
         limits=(0.05, 0.05),
         exclude_cols=["customerid", "churn"]
     )
-
     winsorizer.fit(df)
     df = winsorizer.transform(df)
-
     saved_dataset(df, "winsorized", "winsorized_churn.csv")
 
-    # 4. Encoding (solo para ML)
+    # Codificación de Variables Categóricas (Preparación estricta para ML)
     df = encode_features(df)
     saved_dataset(df, "encoded", "encoded_churn.csv")
+    logger.info("Fase de Preprocessing y Feature Engineering finalizada de manera exitosa.")
 
-    logger.info("Preprocessing completado correctamente")
-
-    # 5. Quality check final (dataset ML)
+    # Evaluación Final de Datos destinados a ML
     qc_ml = QualityCheck(df)
+    logger.info(f"Score de Calidad Dataset Final (ML): {qc_ml.quality_score_weight()}")
     
-    logger.info(f"Quality score ML dataset: {qc_ml.quality_score_weight()}")
-
     grid_cols = df.columns.tolist() if hasattr(df, 'columns') else []
-    logger.info(f"Columnas finales: {grid_cols}")
-    logger.info('Pipeline de datos finalizado con éxito')
+    logger.info(f"Columnas finales inyectadas al modelo: {grid_cols}")
+    logger.info('=== PIPELINE DE DATOS FINALIZADO CON ÉXITO ===')
     
-    # FASE DE MACHINE LEARNING
-    logger.info('Iniciando fase de Machine Learning')
-    
+    # FASE DE MACHINE LEARNING (Entrenamiento & Inferencia de Métricas)
+    logger.info('Iniciando fase ejecutiva de Machine Learning...')
     try:
-        logger.info('Ejecución de Fase 1: Entrenamiento del modelo')
+        logger.info('Ejecutando Fase 1: Entrenamiento del Modelo de Clasificación (Train)')
         train_model()
         
-        logger.info('Ejecución de Fase 2: Evaluación y cálculo de métricas')
+        logger.info('Ejecutando Fase 2: Evaluación General y Exportación de Métricas')
         evaluate_model()
         
-        logger.info('Proceso de Machine Learning completado exitosamente')
-        logger.info('Reportes gráficos guardados correctamente en "results/"')
+        logger.info('Ciclo de Machine Learning finalizado exitosamente. Artefactos y reportes guardados en "results/"')
         
     except Exception as e:
-        # Optimización: exc_info=True guarda el reporte detallado del error en logs
-        logger.error(f'Error crítico en la fase de Machine Learning: {str(e)}', exc_info=True)
+        logger.error(f'Error crítico no controlado en la fase de Machine Learning: {str(e)}', exc_info=True)
         raise e
-
 
 if __name__ == "__main__":
     main()

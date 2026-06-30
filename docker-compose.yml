@@ -1,8 +1,6 @@
-version: '4.73.1'
-
 services:
   db:
-    image: postgres:15
+    image: postgres:15-alpine
     container_name: postgres_churn
     restart: always
     env_file:
@@ -17,7 +15,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -30,20 +28,31 @@ services:
       - ./src:/app/src
       - ./data:/app/data
       - ./results:/app/results
-      - ./results:/app/results/logs
       - ./models:/app/models
     depends_on:
       db:
         condition: service_healthy
     env_file:
       - .env
-    # diccionario. 
-    environment:
-      PYTHONUNBUFFERED: "1"
-      # En la sección de entorno (environment) de tu docker-compose.yml:
-      DATA_SOURCE_URL: "https://docs.google.com/spreadsheets/d/1iKCXJcI2d8KFdLdERYVFDEuDs7YL5VW25agxGW3vMmc/edit?usp=drive_link"
+    # Sobrescribimos el CMD del Dockerfile para ejecutar el pipeline secuencial
     command: ["python", "src/pipeline.py"]
+
+  dashboard:
+    build: .
+    container_name: streamlit_churn
+    restart: unless-stopped
+    ports:
+      - "10000:10000"
+    volumes:
+      - ./src:/app/src
+      - ./data:/app/data
+      - ./results:/app/results
+      - ./models:/app/models
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - .env
 
 volumes:
   postgres_data:
-  
