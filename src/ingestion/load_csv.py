@@ -7,12 +7,14 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-def cargar_csv(ruta_csv: str, carpeta_backup: str = 'data/backup/raw') -> pd.DataFrame:
+# Modificado: Se agrega sep=',' como argumento opcional con valor por defecto
+def cargar_csv(ruta_csv: str, carpeta_backup: str = 'data/backup/raw', sep: str = ',') -> pd.DataFrame:
     """Realiza la carga de un archivo CSV de forma local o es obtenida desde la nube (Google Drive/Sheets).
 
     Args:
         ruta_csv (str): Obtiene los datos crudos desde un csv local o desde la nube.
         carpeta_backup (str, optional): Genera una copia del archivo CSV como respaldo. por defecto se almacena en 'data/backup/raw'.
+        sep (str, optional): Delimitador del archivo CSV. Por defecto es ','.
 
     Raises:
         ValueError: Si no se puede extraer el ID del archivo de Google Drive/Sheets.
@@ -72,8 +74,8 @@ def cargar_csv(ruta_csv: str, carpeta_backup: str = 'data/backup/raw') -> pd.Dat
         if not os.path.exists(ruta_csv):
             raise FileNotFoundError(f'No se encontró el archivo: {ruta_csv}')
 
-        # Lectura del CSV descargado
-        df = pd.read_csv(ruta_csv, low_memory=False, sep=',')
+        # Modificado: Ahora usa la variable 'sep' dinámica que le envía el orquestador
+        df = pd.read_csv(ruta_csv, low_memory=False, sep=sep)
         logger.info(f'CSV cargado exitosamente: {len(df)} filas.')
 
         # Normalización estándar (Pasar todo a minúsculas y limpiar espacios)
