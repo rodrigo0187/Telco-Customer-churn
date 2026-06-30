@@ -1,5 +1,6 @@
 # src/app.py
 import streamlit as st
+import os
 from src.pipeline import main as ejecutar_pipeline
 from src.utils.logging_config import get_logger
 
@@ -36,9 +37,9 @@ if st.sidebar.button("Ejecutar Pipeline Completo"):
 # Informacion del entorno en la barra lateral
 st.sidebar.markdown("---")
 st.sidebar.info(
-    "Entorno Hibrido Activo\n\n"
-    "El sistema prioriza datasets locales en data/raw/. "
-    "Si no encuentra archivos, activara de forma transparente la descarga desde OneDrive."
+    "Entorno Local Optimizado\n\n"
+    "El sistema procesa de forma síncrona el archivo CSV más reciente en 'data/raw/', "
+    "garantizando estabilidad y evitando bloqueos de red en Render."
 )
 
 # AREA DE VISUALIZACION PRINCIPAL
@@ -55,7 +56,14 @@ with col1:
 
 with col2:
     st.markdown("Rendimiento del Modelo de ML")
-    st.info(
-        "Espacio reservado para cargar y desplegar las imagenes de metricas o reportes graficos "
-        "que tu funcion evaluate_model() guarda en la carpeta results/."
-    )
+    
+    # Ruta típica donde se guardan matrices de confusión o curvas ROC
+    ruta_grafico = "results/confusion_matrix.png" # Ajusta al nombre real de tu gráfico
+    
+    if os.path.exists(ruta_grafico):
+        st.image(ruta_grafico, caption="Matriz de Confusión - Último Entrenamiento")
+    else:
+        st.info(
+            "No se encontraron gráficos en 'results/'. "
+            "Ejecuta el pipeline completo para generar las métricas del modelo."
+        )

@@ -1,4 +1,4 @@
-version: '4.73.1'
+version: '3.8'  # Nota: Es recomendable usar la versión de esquema '3.8' para compatibilidad estándar de Docker Compose
 
 services:
   db:
@@ -22,28 +22,29 @@ services:
       timeout: 5s
       retries: 5
 
-  ingestion:
+  app:
     build: .
-    container_name: pipeline_ingestion
+    container_name: pipeline_streamlit_app
     working_dir: /app
+    ports:
+      - "8501:8501"  # Mapeo obligatorio para acceder a Streamlit desde tu navegador
     volumes:
       - ./src:/app/src
       - ./data:/app/data
       - ./results:/app/results
-      - ./results:/app/results/logs
       - ./models:/app/models
     depends_on:
       db:
         condition: service_healthy
     env_file:
       - .env
-    # diccionario. 
     environment:
       PYTHONUNBUFFERED: "1"
-      # En la sección de entorno (environment) de tu docker-compose.yml:
-      DATA_SOURCE_URL: "https://docs.google.com/spreadsheets/d/1iKCXJcI2d8KFdLdERYVFDEuDs7YL5VW25agxGW3vMmc/edit?usp=drive_link"
-    command: ["python", "src/pipeline.py"]
+      # DB_HOST interno de la red de Docker para que la app apunte al contenedor 'db'
+      DB_HOST: db    
+      DB_PORT: 5432
+    # Modificado para levantar el servidor interactivo de Streamlit
+    command: ["streamlit", "run", "src/app.py", "--server.port=8501", "--server.address=0.0.0.0"]
 
 volumes:
   postgres_data:
-  

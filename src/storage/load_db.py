@@ -1,11 +1,10 @@
-# Carga variables de entorno
+# load_db.py
 import os
 import pandas as pd
 from dotenv import load_dotenv
 import logging
 from sqlalchemy import create_engine
 from sqlalchemy.exc import SQLAlchemyError
-
 
 load_dotenv()
 
@@ -17,19 +16,11 @@ def get_engine():
     Soporta de manera híbrida la conexión mediante una URI directa (DATABASE_URL)
     ideal para entornos de nube como Render, o mediante variables estructuradas individuales
     para entornos locales (.env).
-
-    Raises:
-        ValueError: Si no se encuentra ninguna configuración válida de base de datos.
-        SQLAlchemyError: Si ocurre un fallo de inicialización interno en SQLAlchemy.
-
-    Returns:
-        Engine: Instancia de motor de SQLAlchemy conectada a la base de datos destino.
     """
-    # Intentar primero con la URL unificada (Entorno de Nube / Render)
     database_url = os.getenv('DATABASE_URL')
     
     if database_url:
-        
+        # Corrección crítica para compatibilidad de SQLAlchemy en entornos de nube
         if database_url.startswith("postgres://"):
             database_url = database_url.replace("postgres://", "postgresql://", 1)
         
@@ -40,7 +31,7 @@ def get_engine():
             logger.error('Error crítico al inicializar el engine con DATABASE_URL')
             raise e
 
-    # Si no existe DATABASE_URL, proceder con la configuración por variables individuales (Local)
+    # Configuración por variables individuales (Fallback Local)
     REQUIRED_DB_VARS = ['POSTGRES_USER', 'POSTGRES_PASSWORD', 'DB_HOST', 'DB_PORT', 'POSTGRES_DB']
     env_vars = {var: os.getenv(var) for var in REQUIRED_DB_VARS}
     missing_var = [var for var, val in env_vars.items() if not val]
@@ -59,49 +50,43 @@ def get_engine():
         logger.error('Error crítico al inicializar el engine SQLAlchemy local')
         raise e
 
-def subir_a_postgres(df: pd.DataFrame,nombre_tabla: str,if_exists: str = 'append') -> None:
-    """Inserta un DataFrame de Pandas en una tabla específica de PostgreSQL.
+def subir_a_postgres(df: pd.DataFrame, nombre_tabla: str, if_exists: str = 'append') -> None:
+    """Inserta un DataFrame de Pandas en una tabla específica de PostgreSQL de manera optimizada.
 
-    Realiza una preparación previa de los datos: resetea el índice, remueve registros 
-    duplicados basados en la columna `customerid` (si está presente) y elimina espacios 
-    en blanco en los nombres de las columnas para evitar errores de sintaxis en SQL.
-
-    Args:
-        df (pd.DataFrame): El conjunto de datos que se desea insertar en la base de datos.
-        nombre_tabla (str): Nombre de la tabla destino en PostgreSQL.
-        if_exists (str, optional): Comportamiento si la tabla ya existe en la base de datos.
-            Opciones válidas: 'append' (añadir filas), 'replace' (recrear tabla) o 
-            'fail' (lanzar error). Por defecto es 'append'.
-
-    Raises:
-        ValueError: Si la inicialización del motor de conexión falla por variables incompletas.
-        Exception: Relanza cualquier error derivado de la inserción física en la base de datos 
-            tras registrarlo en el log.
-
-    Returns:
-        None
+    Realiza una preparación previa de los datos y ejecuta una carga por lotes (chunksize)
+    para evitar fallos por latencia de red y mejorar el rendimiento de inserción.
     """
-
     try:
-
         engine = get_engine()
-
-        logger.info('Conexión PostgreSQL exitosa.')
+        logger.info('Conexión con el motor de base de datos exitosa.')
 
         df = df.reset_index(drop=True)
 
-        # eliminar duplicados si existe customerid
+        # Eliminar duplicados si existe customerid
         if 'customerid' in df.columns:
             df = df.drop_duplicates(subset=['customerid'])
+            logger.info("Duplicados removidos basados en 'customerid'.")
 
-        # limpiar nombres columnas
-        df.columns = [str(c).strip()for c in df.columns]
+        # Limpiar nombres de columnas
+        df.columns = [str(c).strip() for c in df.columns]
 
-        # insertar
-        df.to_sql(nombre_tabla,engine,if_exists=if_exists,index=False)
+        # --- OPTIMIZACIÓN CRÍTICA PARA RENDIMIENTO EN RENDER ---
+        # 1. chunksize=1000: Envía los 7,000 registros en bloques de 1,000 en 1,000.
+        #    Previene que el socket de red se sature y que Render cancele la petición por timeout.
+        # 2. method='multi': Pasa de hacer un "INSERT" fila por fila a un "INSERT múltiple" masivo por bloque.
+        logger.info(f"Iniciando la inserción masiva en la tabla '{nombre_tabla}'...")
+        
+        df.to_sql(
+            name=nombre_tabla,
+            con=engine,
+            if_exists=if_exists,
+            index=False,
+            chunksize=1000,
+            method='multi'
+        )
 
-        logger.info(f'Datos insertados en tabla: {nombre_tabla}')
+        logger.info(f'¡Éxito! Todos los datos han sido insertados en la tabla: {nombre_tabla}')
 
     except Exception as e:
-        logger.error(f'Error PostgreSQL: {e}')
+        logger.error(f'Error crítico durante el proceso de carga en PostgreSQL: {e}')
         raise
