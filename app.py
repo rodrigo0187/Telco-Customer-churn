@@ -12,7 +12,7 @@ st.sidebar.header("Operaciones del Sistema")
 # Selector de archivos nativo de Streamlit (¡Resuelve el problema de la carpeta vacía!)
 archivo_subido = st.sidebar.file_uploader("Sube tu dataset de Churn (.csv)", type=["csv"])
 
-if st.sidebar.button("🚀 Ejecutar Pipeline en la API"):
+if st.sidebar.button("Ejecutar Pipeline en la API"):
     if archivo_subido is not None:
         with st.spinner("Enviando datos a FastAPI y ejecutando pipeline..."):
             try:
@@ -23,10 +23,10 @@ if st.sidebar.button("🚀 Ejecutar Pipeline en la API"):
                 respuesta = requests.post(f"{API_URL}/run-pipeline", files=files)
                 
                 if respuesta.status_code == 200:
-                    st.sidebar.success("✅ " + respuesta.json()["message"])
+                    st.sidebar.success("" + respuesta.json()["message"])
                     st.rerun()
                 else:
-                    st.sidebar.error(f"❌ Error de la API: {respuesta.json()['detail']}")
+                    st.sidebar.error(f"Error de la API: {respuesta.json()['detail']}")
             except Exception as e:
                 st.sidebar.error(f"No se pudo conectar con la API: {e}")
     else:
