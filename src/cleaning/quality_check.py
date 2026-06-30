@@ -1,9 +1,9 @@
 import pandas as pd
 import numpy as np
-from utils.outliers import outliers
-from utils.negative_values import has_negative_values
-from utils.inconsistencies_cat import categorical_inconsistencies
-from utils.categorical_nulls import categorical_nulls
+from src.utils.outliers import outliers
+from src.utils.negative_values import has_negative_values
+from src.utils.inconsistencies_cat import categorical_inconsistencies
+from src.utils.categorical_nulls import categorical_nulls
 
 # validar si existe (inconsistencia,atipicos,nulos,duplicados)
 # contar e imprimir
@@ -271,7 +271,7 @@ class QualityCheck:
         """      
         return{
             "nulls":self.null_details(),
-            "categorical_nulls_proportion":self.categorical_nulls(),
+            "categorical_nulls_proportion":categorical_nulls(),
             "duplicated":self.duplicated_details(),
             "outliers":self.outliers_details(),
             "negative":self.columns_negative_details(),

@@ -153,10 +153,7 @@ def main():
         threading.Thread(target=iniciar_servidor_fantasma, daemon=True).start()
         
         # Mantenemos el hilo principal vivo de forma indefinida
-        logger.info('Pipeline estabilizado en la nube de forma permanente.')
-        while True:
-            time.sleep(3600)
-        
+        logger.info('Pipeline estabilizado en la nube de forma permanente.')        
     except Exception as e:
         while True:
             time.sleep(3600)
