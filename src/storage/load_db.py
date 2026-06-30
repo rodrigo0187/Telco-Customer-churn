@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-# load_db.py
-=======
->>>>>>> linea-local-funcional
 import os
 import pandas as pd
 from dotenv import load_dotenv
