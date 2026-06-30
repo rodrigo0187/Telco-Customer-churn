@@ -1,0 +1,1 @@
+2026-06-30 17:53:28 [CRITICAL]Error Crítico: No se encontraron archivos CSV para procesar en "data/raw/*.csv". Verifique el montaje de volúmenes en Docker.

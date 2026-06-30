@@ -1,22 +1,30 @@
-# datos
+# DATOS Y ARTEFACTOS (PROTEGER ALMACENAMIENTO Y PRIVACIDAD)
+# Ignorar todos los backups y datos procesados pesados
 data/backup/
-data/processed/cleaned/*.csv
-data/processed/encoded/*.csv
-data/processed/winsorized/*.csv
-data/raw/*.csv
-results
+data/processed/
 
-# python
-__pycache__/
-*.pyc
+# Ignorar los CSV reales/pesados de producción
+data/raw/churn_*.csv
 
-# entorno
+# Ignorar modelos entrenados pesados (Render o Git no deben almacenar binarios grandes)
+models/*.pkl
+
+# ENTORNO Y CONFIGURACIONES SENSIBLES
+# ¡NUNCA SUBIR EL .ENV! Las credenciales se ponen directamente en el panel de Render
 .env
 
-# notebooks
+# ENTORNO DE DESARROLLO Y BASURA DE PYTHON
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.ruff_cache/
 *.ipynb
 
-# docker
-docker-compose.yml
-Dockerfile
-models/*.pkl
+# ==============================================================================
+# DOCKER (LOCAL VS PRODUCCIÓN)
+# ==============================================================================
+# Mantenemos Dockerfile visible para Render, pero puedes ignorar el compose local si deseas
+# (Es una buena práctica subir ambos para que tu equipo sepa cómo correrlo local)
+# docker-compose.yml  <-- RECOMIENDO COMENTARLO (QUITAR EL #) PARA SUBIRLO AL REPO
