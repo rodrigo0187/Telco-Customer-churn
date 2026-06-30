@@ -1,29 +1,22 @@
 FROM python:3.11-slim
 
-# Evita que Python escriba archivos .pyc en disco y asegura salida de logs en tiempo real
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-ENV PYTHONPATH=/app
-
 WORKDIR /app
 
-# Instalar dependencias del sistema esenciales para compilar/correr Postgres si fuesen necesarias
+# Instalar dependencias del sistema operativo para PostgreSQL
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Instalar dependencias de Python aprovechando la caché de Docker
+# Copiar e instalar requerimientos de Python
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copiar el resto del proyecto
+# Copiar el proyecto completo (incluye las carpetas de código y datos de GitHub)
 COPY . .
 
-# Crear directorios clave para asegurar permisos correctos en los montajes de volúmenes
-RUN mkdir -p data/raw data/backup/raw results models
-
+# Exponer el puerto de Streamlit
 EXPOSE 10000
 
-# Comando por defecto (Ideal para Render, Docker Compose lo puede sobrescribir)
-CMD ["streamlit", "run", "app.py", "--server.port", "10000", "--server.address", "0.0.0.0"]
+# Comando de arranque por defecto para Render
+CMD ["streamlit", "run", "src/app.py", "--server.port", "10000", "--server.address", "0.0.0.0"]
