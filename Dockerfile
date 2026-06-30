@@ -11,5 +11,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copiar proyecto
 COPY . .
 
-# Comando por defecto (puede ser sobreescrito por docker-compose)
-CMD ["python"]
+# Exponer el puerto en el contenedor
+EXPOSE 10000
+
+# Comando por defecto al levantar el contenedor
+CMD ["streamlit", "run", "src/app.py", "--server.port", "10000", "--server.address", "0.0.0.0"]

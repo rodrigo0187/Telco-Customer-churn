@@ -2,9 +2,6 @@
 import os
 import glob
 import time
-import http.server
-import socketserver
-import threading
 from datetime import datetime
 from src.cleaning.duplicates import remove_duplicates_customers
 from src.cleaning.normalize_text import normalize_text
@@ -55,9 +52,15 @@ def main():
     
     logger.info("Incializando pipeline de datos")
     
-    archivos_raw = glob.glob(RUTA_LOCAL_PATTERN)
+    # Normalización del escaneo para evitar fallos de ruta en Docker/Render
+    # Excluye archivos temporales que empiecen con 'ingesta_'
+    archivos_raw = [
+        f for f in glob.glob(RUTA_LOCAL_PATTERN)
+        if not os.path.basename(f).startswith('ingesta_')
+    ]
+    
     if archivos_raw:
-        ruta_archivo = max(archivos_raw,key=os.path.getmtime)
+        ruta_archivo = max(archivos_raw, key=os.path.getmtime)
         logger.info(f'Archivo detectado localmente en {len(archivos_raw)} Procesando el mas reciente: {ruta_archivo}')
     else:
         # se descarga el archivo localmente desde la nube y se generar por defecto el nombre de ingesta_actual.csv
@@ -67,7 +70,7 @@ def main():
     
     # Ingesta
     df = cargar_csv(ruta_archivo)
-    logger.info(f'Arvhivo cargado: {len(df)} filas')
+    logger.info(f'Arvhivo cargado: {len(df)} filas' if df is not None else "Archivo vacío o no encontrado")
     if df is None:
         logger.error("No se puede cargar el csv")
         return
@@ -119,9 +122,9 @@ def main():
     
     logger.info(f"Quality score ML dataset: {qc_ml.quality_score_weight()}")
 
-    logger.info(f"Columnas finales: {df.columns.tolist()}")
+    grid_cols = df.columns.tolist() if hasattr(df, 'columns') else []
+    logger.info(f"Columnas finales: {grid_cols}")
     logger.info('Pipeline de datos finalizado con éxito')
-    
     
     # FASE DE MACHINE LEARNING
     logger.info('Iniciando fase de Machine Learning')
@@ -135,28 +138,6 @@ def main():
         
         logger.info('Proceso de Machine Learning completado exitosamente')
         logger.info('Reportes gráficos guardados correctamente en "results/"')
-        
-        logger.info('Manteniendo contenedor activo para estabilizar el Web service de Render')
-
-        PORT = int(os.getenv("PORT", 10000)) # Render asigna el puerto automáticamente
-        
-        class QuietHandler(http.server.SimpleHTTPRequestHandler):
-            def log_message(self, format, *args):
-                pass # Evita llenar tus logs con peticiones de control de Render
-
-        def iniciar_servidor_fantasma():
-            with socketserver.TCPServer(("", PORT), QuietHandler) as httpd:
-                logger.info(f"Servidor de control activo en el puerto {PORT} para mantener Render Live.")
-                httpd.serve_forever()
-
-        # Iniciamos el servidor en un hilo secundario para que no bloquee nada
-        threading.Thread(target=iniciar_servidor_fantasma, daemon=True).start()
-        
-        # Mantenemos el hilo principal vivo de forma indefinida
-        logger.info('Pipeline estabilizado en la nube de forma permanente.')        
-    except Exception:
-        while True:
-            time.sleep(3600)
         
     except Exception as e:
         # Optimización: exc_info=True guarda el reporte detallado del error en logs
