@@ -1,18 +1,16 @@
 import os
 import re
-import urllib.request
 import pandas as pd
 from datetime import datetime
 import logging
 
 logger = logging.getLogger(__name__)
 
-# Modificado: Se agrega sep=',' como argumento opcional con valor por defecto
 def cargar_csv(ruta_csv: str, carpeta_backup: str = 'data/backup/raw', sep: str = ',') -> pd.DataFrame:
-    """Realiza la carga de un archivo CSV de forma local o es obtenida desde la nube (Google Drive/Sheets).
+    """Realiza la carga de un archivo CSV de forma local o es obtenida desde la nube (OneDrive/Google/Directo).
 
     Args:
-        ruta_csv (str): Obtiene los datos crudos desde un csv local o desde la nube.
+        ruta_csv (str): Destino temporal local donde se guardará o leerá el csv.
         carpeta_backup (str, optional): Genera una copia del archivo CSV como respaldo. por defecto se almacena en 'data/backup/raw'.
         sep (str, optional): Delimitador del archivo CSV. Por defecto es ','.
 
@@ -27,24 +25,23 @@ def cargar_csv(ruta_csv: str, carpeta_backup: str = 'data/backup/raw', sep: str 
     try:
         url_datos = os.environ.get('DATA_SOURCE_URL')
         url_descarga_final = None
+        df = None
 
+        # --- FASE 1: PROCESAMIENTO E INGESTA ---
         if not os.path.exists(ruta_csv) and url_datos:
             logger.info("Archivo local no encontrado. Procesando origen de datos...")
             os.makedirs(os.path.dirname(ruta_csv), exist_ok=True)
             
-            # --- CASO 1: SI ES UN GOOGLE SHEET (Tu caso principal actual) ---
+            # Caso A: Estructura interna de Google Sheets
             if "docs.google.com/spreadsheets" in url_datos:
                 logger.info("Detectado formato Google Sheets. Generando URL de exportación a CSV...")
-                # Extraemos el ID
                 match_id = re.search(r"/d/([a-zA-Z0-9-_]+)", url_datos)
                 if not match_id:
                     raise ValueError("No se pudo extraer el ID del Google Sheet.")
-                
                 file_id = match_id.group(1)
-                # URL oficial de Google para exportar un Sheets directamente a CSV con gid=0 (Pestaña principal)
                 url_descarga_final = f"https://docs.google.com/spreadsheets/d/{file_id}/export?format=csv&gid=0"
             
-            # --- CASO 2: SI ES UN ARCHIVO CSV COMÚN EN DRIVE ---
+            # Caso B: Archivo común en Google Drive
             elif "drive.google.com" in url_datos or "id=" in url_datos:
                 logger.info("Detectado archivo común en Google Drive...")
                 if "id=" in url_datos:
@@ -55,30 +52,34 @@ def cargar_csv(ruta_csv: str, carpeta_backup: str = 'data/backup/raw', sep: str 
                 
                 if not file_id:
                     raise ValueError("No se pudo extraer el ID de Google Drive.")
-                    
                 url_descarga_final = f"https://docs.google.com/uc?export=download&id={file_id}"
             
-            # --- CASO 3: CUALQUIER OTRA URL DIRECTA (Respaldo seguro) ---
+            # Caso C: OneDrive o Enlaces Directos de Descarga Externa
             else:
-                logger.info("URL no requiere transformación previa.")
+                logger.info("URL directa u origen OneDrive detectado.")
                 url_descarga_final = url_datos
 
-            # Descarga del archivo definitivo
-            logger.info(f"Descargando datos desde: {url_descarga_final}")
-            req = urllib.request.Request(url_descarga_final, headers={'User-Agent': 'Mozilla/5.0'})
-            with urllib.request.urlopen(req) as response, open(ruta_csv, 'wb') as out_file:
-                out_file.write(response.read())
-                
-            logger.info(f"Descarga completada con éxito y guardada en: {ruta_csv}")
+            logger.info(f"Conectando y leyendo directamente desde la fuente remota...")
+            
+            # Definimos cabeceras de navegador para evitar bloqueos por Agentes Automatizados
+            storage_options = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+            
+            # Pandas lee el flujo directamente desde internet de forma segura
+            df = pd.read_csv(url_descarga_final, low_memory=False, sep=sep, storage_options=storage_options)
+            
+            # Guardamos localmente el dataset limpio para futuras lecturas rápidas sin llamadas a red
+            df.to_csv(ruta_csv, index=False, sep=sep)
+            logger.info(f"Descarga e inicialización completada con éxito en: {ruta_csv}")
 
-        if not os.path.exists(ruta_csv):
-            raise FileNotFoundError(f'No se encontró el archivo: {ruta_csv}')
+        # --- FASE 2: LECTURA LOCAL (Si ya fue descargado previamente) ---
+        if df is None:
+            if not os.path.exists(ruta_csv):
+                raise FileNotFoundError(f'No se encontró el archivo local ni remoto válido: {ruta_csv}')
+            df = pd.read_csv(ruta_csv, low_memory=False, sep=sep)
+            logger.info(f'CSV cargado exitosamente desde almacenamiento local: {len(df)} filas.')
 
-        # Modificado: Ahora usa la variable 'sep' dinámica que le envía el orquestador
-        df = pd.read_csv(ruta_csv, low_memory=False, sep=sep)
-        logger.info(f'CSV cargado exitosamente: {len(df)} filas.')
-
-        # Normalización estándar (Pasar todo a minúsculas y limpiar espacios)
+        # --- FASE 3: TRANSFORMACIONES Y CONTRATO DE DATOS ---
+        # Normalización estándar de columnas
         df.columns = df.columns.str.strip().str.lower()
         
         if 'customer_id' in df.columns:
@@ -89,16 +90,16 @@ def cargar_csv(ruta_csv: str, carpeta_backup: str = 'data/backup/raw', sep: str 
         else:
             logger.warning(f"Advertencia: 'totalcharges' no encontrada. Columnas disponibles: {list(df.columns)}")
 
-        # Generar Backup
+        # --- FASE 4: RESPALDO / BACKUP ---
         os.makedirs(carpeta_backup, exist_ok=True)
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         nombre_archivo = f'churn_{timestamp}.csv'
         ruta_backup = os.path.join(carpeta_backup, nombre_archivo)
         df.to_csv(ruta_backup, index=False)
-        logger.info(f'Backup generado: {ruta_backup}')
+        logger.info(f'Backup histórico generado con éxito: {ruta_backup}')
 
         return df
 
     except Exception as e:
-        logger.exception('Error crítico al cargar o procesar el CSV')
+        logger.exception('Error crítico en el módulo de ingesta al procesar el origen CSV')
         raise e
