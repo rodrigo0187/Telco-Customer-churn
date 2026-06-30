@@ -1,38 +1,13 @@
-version: '3.8'  # Nota: Es recomendable usar la versión de esquema '3.8' para compatibilidad estándar de Docker Compose
-
-services:
-  db:
-    image: postgres:15
-    container_name: postgres_churn
-    restart: always
-    env_file:
-      - .env
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-
-  app:
+app:
     build: .
     container_name: pipeline_streamlit_app
     working_dir: /app
     ports:
-      - "8501:8501"  # Mapeo obligatorio para acceder a Streamlit desde tu navegador
+      - "8501:8501"
     volumes:
-      - ./src:/app/src
-      - ./data:/app/data
-      - ./results:/app/results
-      - ./models:/app/models
+      # Dejamos los volúmenes solo para desarrollo (cambios en vivo), 
+      # pero ahora el comando ya no dependerá exclusivamente de ellos.
+      - .:/app
     depends_on:
       db:
         condition: service_healthy
@@ -40,11 +15,7 @@ services:
       - .env
     environment:
       PYTHONUNBUFFERED: "1"
-      # DB_HOST interno de la red de Docker para que la app apunte al contenedor 'db'
       DB_HOST: db    
       DB_PORT: 5432
-    # Modificado para levantar el servidor interactivo de Streamlit
-    command: ["streamlit", "run", "/app/src/app.py", "--server.port=8501", "--server.address=0.0.0.0"]
-
-volumes:
-  postgres_data:
+    # Al estar parados en working_dir (/app), ejecutamos directamente app.py indicando su subcarpeta src
+    command: ["streamlit", "run", "src/app.py", "--server.port=8501", "--server.address=0.0.0.0"]
