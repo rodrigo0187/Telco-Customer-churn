@@ -58,11 +58,19 @@ def main():
         if not os.path.basename(f).startswith('ingesta_')
     ]
     
-    if archivos_raw:
+    if os.environ.get('DATA_SOURCE_URL'):
+        timestime_ingesta = datetime.now().strftime("%Y%m%d_%H%M%S")
+        ruta_archivo = f'data/raw/ingesta_{timestime_ingesta}.csv'
+        logger.info(f'Detectada URL de datos. Se forzará la descarga en: {ruta_archivo}')
+        
+        # Opcional: Limpiar archivos viejos de la carpeta para no acumular basura en Render
+        for f in archivos_raw:
+            try: os.remove(f)
+            except: pass
+    elif archivos_raw:
         ruta_archivo = max(archivos_raw, key=os.path.getmtime)
-        logger.info(f'Archivo detectado localmente en {len(archivos_raw)} Procesando el mas reciente: {ruta_archivo}')
+        logger.info(f'Procesando archivo local más reciente: {ruta_archivo}')
     else:
-        # se descarga el archivo localmente desde la nube y se generar por defecto el nombre de ingesta_actual.csv
         timestime_ingesta = datetime.now().strftime("%Y%m%d_%H%M%S")
         ruta_archivo = f'data/raw/ingesta_{timestime_ingesta}.csv'
         logger.info(f'Modo OneDrive, se generar archivo en Directorio data/raw/ {ruta_archivo}')
