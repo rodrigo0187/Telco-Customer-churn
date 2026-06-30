@@ -6,12 +6,32 @@ from src.feature_engineering.handle_nulls_post_fe import handle_nulls_post_fe
 pd.set_option('future.no_silent_downcasting',True)
 
 def encode_features(df: pd.DataFrame) -> pd.DataFrame:
-    """Codifica variables categóricas para modelos de machine learning."""
+    """Orquesta la preparación final y codifica las variables categóricas a numéricas.
+
+    Ejecuta el pipeline secuencial de ingeniería de características (`create_features`) 
+    y limpieza de nulos final (`handle_nulls_post_fe`). Posteriormente, transforma 
+    las variables cualitativas mediante dos técnicas:
+    1. Mapeo Binario Personalizado: Convierte respuestas 'yes'/'no' a 1/0, asimilando 
+       los valores 'desconocido' o servicios no contratados al caso base (0).
+    2. Codificación One-Hot: Aplica `pd.get_dummies` de forma automática a las variables 
+       multiclase restantes (ej. contratos, métodos de pago), eliminando la primera 
+       categoría (`drop_first=True`) para evitar redundancia y asegurar compatibilidad 
+       con modelos lineales y basados en árboles.
+
+    Args:
+        df (pd.DataFrame): El DataFrame con los datos crudos o parcialmente limpios.
+
+    Returns:
+        pd.DataFrame: Copia del DataFrame completamente matematizado (con columnas 
+            enteras o flotantes), listo para ser separado en matrices X e y para el 
+            entrenamiento del modelo. Excluye 'customerid' del encoding.
+    """
+
     df = df.copy()
     
     # REGLA DE ORDEN: Primero ejecutamos las dos funciones previas
-    df = handle_nulls_post_fe(df)
     df = create_features(df)
+    df = handle_nulls_post_fe(df)
     
     # 1. Binarios estándar (Usamos .replace en minúsculas por la capa de limpieza)
     binary_cols = ['partner', 'dependents', 'phoneservice', 'paperlessbilling', 'churn']

@@ -258,34 +258,42 @@ La tabla `cliente` debe contener en crudo **7043 registros** con **21 columnas**
 
 ## Flujo del pipeline
 
+### Ingestion
+
+- load_csv.py, realiza la carga de un archivo CSV tanto local(data/raw) como en la nube(OneDrive).
+
 ### Cleaning
 
-- corregir los tipos de datos incorrectos
+- duplicates, consolida registros ducplicados basados en el id, garantizando un id unico.
+- normalize_text, normaliza y unifica las columnas de tipo texto en el DataFrame
+- null , identifica e imputa valores faltantes
 - quality_check (calidad de los datos)
-- analiza valores nulos
+- types(fix_data_types), corrige los tipos de datos incorrectos del DataFrame
 
 ### Feature Engineering
 
-- creation_features.py
-- encoding.py
-
-### Ingestion
-
-- load_csv.py
+- creation_features, Genera variables categóricas, numéricas e interecciones de negocio para el modelo churn.
+- encoding, orquesta la preparacion final y códifica las variables categóricas a numéricas.
 
 ### Model
 
-- dir/prepocessing/scaling.py
+predict, evalua el rendimiento del modelo serializado utilizando datos no vistos.
+train, ejecuta el pipeline de entramiento para posteriormente generar un análisis visual.
+verificacion_cm, Carga el modelo entrenado y los datos de prueba para graficar la Matriz de Confusión.
 
 ### Storage
 
-- load_db.py
+- load_db.py, Genera un motor (engine) de conexión para una base de datos PostgreSQL.
 
 ### Utils
 
-- logging.py # contener log o registros ver a futuro
-- normalize_text.py
-- saved_dataset.py
+- categorical_null,Calcula la proporción de valores nulos especificamente en las columnas categóricas.
+- inconsistencies_cat,Detecta de forma temprana si existen inconsistencias de formato en columnas categóricas.
+- logging,Configura y retorna un objeto Logger unificado para la aplicación.
+- negative_values,Analiza si existen valores negativos en las columnas numéricas del DataFrame.
+- outliers,Analiza si existen valores atípicos en las columnas numéricas usando el método IQR.
+- saved_dataset,Guarda del DataFrame en formato csv dentro de la ruta correpondiente a su etapa.
+- schema_validator,Audita la estructura y el contrato de datos del dataset frente al esquema esperado.
 
 ---
 
@@ -298,6 +306,7 @@ La tabla `cliente` debe contener en crudo **7043 registros** con **21 columnas**
 - `docker-compose.yml` → orquestación  
 - `pipeline.py` → orquestador del flujo  
 - `requirements.txt` → dependencias  
+- `render.yaml`-> despliegue
 
 ---
 
@@ -342,7 +351,7 @@ Telco-customer-churn
 │
 │
 ├── documentation/
-│   └── html/index.html # pagina de documentación    
+│   └── html/index.html # pagina de documentación Docstring
 │
 ├── models/
 ├── └── modelo_churn.pkl

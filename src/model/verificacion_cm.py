@@ -14,6 +14,25 @@ Y_TEST_PATH = 'data/processed/Y_test.csv'
 MODEL_PATH = 'models/modelo_churn.pkl'
 
 def graficar_matriz_real():
+    """Carga el modelo entrenado y los datos de prueba para graficar la Matriz de Confusión.
+
+    Valida la existencia física de los conjuntos de prueba y del artefacto del modelo
+    en disco. Tras deserializar el pipeline, genera las predicciones correspondientes
+    y diseña un mapa de calor dinámico (Heatmap) que contrasta las etiquetas reales 
+    frente a las predicciones del modelo para las clases 'Retained' y 'Churn'.
+
+    Dependencias de Entorno:
+        Requiere que los archivos definidos en `X_TEST_PATH`, `Y_TEST_PATH` 
+        y `MODEL_PATH` hayan sido generados previamente en las etapas de modelado.
+
+    Efectos Secundarios:
+        - Detiene temporalmente la ejecución del script en modo interactivo al 
+          desplegar la ventana emergente de `plt.show()`.
+        - Escribe logs de nivel ERROR o INFO según el resultado de la carga.
+
+    Returns:
+        None
+    """
     # Verificar que los archivos existan
     if not all(os.path.exists(p) for p in [X_TEST_PATH, Y_TEST_PATH, MODEL_PATH]):
         logger.error("Asegúrate de haber corrido el docker-compose para generar los archivos.")

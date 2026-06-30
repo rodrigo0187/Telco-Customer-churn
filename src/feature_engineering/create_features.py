@@ -1,7 +1,28 @@
 import pandas as pd
 
 def create_features(df: pd.DataFrame) -> pd.DataFrame:
-    """Creación de variables categóricas y de negocio para el modelo."""
+    """Genera variables categóricas, numéricas e interacciones de negocio para el modelo de Churn.
+
+    Calcula y añade los siguientes indicadores estratégicos al DataFrame:
+    - `charges_ratio`: Proporción del gasto total respecto a la antigüedad (se suma 1 a 
+       `tenure` para mitigar errores por división por cero en clientes nuevos).
+    - `is_new_customer`: Indicador binario (1/0) para clientes con antigüedad menor a 6 meses.
+    - `num_services`: Conteo total de servicios contratados con respuesta 'yes'.
+    - `is_auto_payment`: Indicador binario (1/0) de pago automático (tarjeta o transferencia).
+    - `is_risky_payment`: Indicador binario (1/0) para métodos de pago de alto riesgo (cheque electrónico).
+    - `is_month_to_month`: Indicador binario (1/0) para contratos mensuales sin permanencia.
+    - `new_monthly_combo`: Variable de interacción (1/0) que resalta clientes que son tanto 
+       nuevos como bajo contrato mes a mes (perfil de alto riesgo de Churn).
+
+    Args:
+        df (pd.DataFrame): El DataFrame de entrada preprocesado que contiene las variables 
+            originales del cliente.
+
+    Returns:
+        pd.DataFrame: Una copia del DataFrame original enriquecida con las 7 nuevas variables 
+            de negocio desarrolladas.
+    """
+    
     df = df.copy()
 
     # Variable nueva: valor económico

@@ -1,5 +1,3 @@
-import pandas as pd
-
 def categorical_nulls(self)-> dict:
     """Calcula la proporción de valores nulos especificamente en las columnas categóricas.
 

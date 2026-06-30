@@ -28,14 +28,25 @@ EXPECTED_SCHEMA = {
     "churn": "object"
 }
 def auditar_validar_dataset(df:pd.DataFrame)-> bool:
-    """Audita el dataset entrante bajo reglas flexibles de negocio.
+    """Audita la estructura y el contrato de datos del dataset frente al esquema esperado.
+
+    Esta función actúa como un validador de calidad en el pipeline. Realiza tres 
+    acciones críticas basadas en la constante global `EXPECTED_SCHEMA`:
+    1. Detecta y remueve columnas sobrantes directamente del DataFrame de entrada 
+       (mutación in-place) para proteger la firma del modelo de Machine Learning.
+    2. Rechaza el dataset si se detecta la ausencia de columnas obligatorias.
+    3. Evalúa la tasa de valores faltantes por columna (incluyendo NaN, strings 
+       vacíos y espacios en blanco), emitiendo alertas si superan el límite tolerable.
 
     Args:
-        df (pd.DataFrame): Entrada DataFrame
+        df (pd.DataFrame): El DataFrame entrante que se va a auditar. 
+            NOTA: Este objeto se modifica in-place si se detectan columnas extra.
 
     Returns:
-        bool: True si el dataset es apto para continuar. caso contrario se rechaza.
-    """    
+        bool: Retorna True si el dataset cuenta con todas las columnas requeridas 
+            y es apto para continuar en el flujo; False si faltan columnas críticas 
+            y debe ser rechazado.
+    """
     logger.info('Iniciando auditoria y validación de contrato...')
     # columnas actuales del dataset
     columnas_act= set(df.columns)
@@ -52,6 +63,8 @@ def auditar_validar_dataset(df:pd.DataFrame)-> bool:
         logger.info(' -> columnas removidas del flujo para proteger el Modelo ML.')
             
     # Columnas faltantes critico
+    UMBRAL_CRITICO = 20.0
+    UMBRAL_WARNING = 5.0
     missing_cols = columnas_espe - columnas_act
     if missing_cols:
         logger.critical(f'Rechazo de archivo: Faltan columnas criticas en el csv: {list(missing_cols)}')
@@ -63,7 +76,8 @@ def auditar_validar_dataset(df:pd.DataFrame)-> bool:
         nulos_col = df[col].isna().sum() + (df[col]=='').sum() + (df[col]==' ').sum()
         tasa_nulos = (nulos_col/ total_filas) *100
         if tasa_nulos > MIN_NULOS:
-            logger.error(f'Alerta de calidad, la columna {col} tiene una tasa de nulos {tasa_nulos:.2f} nulos. mayor al 50%')
+            logger.critical(f'Alerta de calidad, la columna {col} tiene una tasa de nulos {tasa_nulos:.2f} nulos. mayor al 20%')
+        elif tasa_nulos > UMBRAL_CRITICO:
+            logger.warning(f'Alerta: la columna {col} tiene {tasa_nulos:.2f} de nulos. Supera el óptimo umbral del {UMBRAL_WARNING}%')
     logger.info('Auditoria completada, El data set cumple con los requisitos minimos de estructura.')
     return True
-        
