@@ -154,7 +154,7 @@ def main():
         
         # Mantenemos el hilo principal vivo de forma indefinida
         logger.info('Pipeline estabilizado en la nube de forma permanente.')        
-    except Exception as e:
+    except Exception:
         while True:
             time.sleep(3600)
         
