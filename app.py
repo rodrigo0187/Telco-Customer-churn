@@ -1,7 +1,5 @@
 # src/app.py
 import streamlit as st
-import pandas as pd
-import os
 from src.pipeline import main as ejecutar_pipeline
 from src.utils.logging_config import get_logger
 
