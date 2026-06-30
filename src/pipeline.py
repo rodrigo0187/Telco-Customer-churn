@@ -16,6 +16,7 @@ from src.storage.load_db import subir_a_postgres
 from src.utils.logging_config import get_logger
 from src.utils.saved_dataset import saved_dataset
 from src.utils.schema_validator import auditar_validar_dataset
+from src.utils.url_transforme import transformar_link_onedrive
 
 MIN_QUALITY_SCORE = 70
 logger = get_logger('main_app')
@@ -68,7 +69,7 @@ def main():
         logger.info(f'Modo OneDrive, se generar archivo en Directorio data/raw/ {ruta_archivo}')
     
     # Ingesta
-    df = cargar_csv(ruta_archivo)
+    df = cargar_csv(ruta_archivo,sep=None,engine='PYTHON')
     logger.info(f'Arvhivo cargado: {len(df)} filas' if df is not None else "Archivo vacío o no encontrado")
     if df is None:
         logger.error("No se puede cargar el csv")
