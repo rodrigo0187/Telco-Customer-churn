@@ -41,7 +41,7 @@ services:
     environment:
       PYTHONUNBUFFERED: "1"
       # En la sección de entorno (environment) de tu docker-compose.yml:
-      DATA_SOURCE_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSYnQc-SvTC4anvw2i5fhfq5-P4l7T8BACyQ9_wDdi2gmm1e7Bc_1f2D95K0QI6o4lJhxikMB8zgWz4/pubhtml"
+      DATA_SOURCE_URL: "https://docs.google.com/spreadsheets/d/1iKCXJcI2d8KFdLdERYVFDEuDs7YL5VW25agxGW3vMmc/edit?usp=drive_link"
     command: ["python", "src/pipeline.py"]
 
 volumes:
