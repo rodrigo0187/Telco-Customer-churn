@@ -1,7 +1,7 @@
 # DATOS Y ARTEFACTOS (PROTEGER ALMACENAMIENTO Y PRIVACIDAD)
 # Ignorar todos los backups y datos procesados pesados
 data/backup/
-data/processed/
+data/processed/*
 
 # Ignorar los CSV reales/pesados de producción
 data/raw/churn_*.csv
