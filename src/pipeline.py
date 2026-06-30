@@ -1,7 +1,6 @@
 # src/pipeline.py
 import os
 import glob
-import time
 from datetime import datetime
 from src.cleaning.duplicates import remove_duplicates_customers
 from src.cleaning.normalize_text import normalize_text
