@@ -1,13 +1,38 @@
-app:
+version: "3.8"
+
+services:
+  db:
+    image: postgres:15
+    container_name: postgres_churn
+    restart: always
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
     build: .
     container_name: pipeline_streamlit_app
     working_dir: /app
     ports:
-      - "8501:8501"
+      - "8501:10000"
     volumes:
-      # Dejamos los volúmenes solo para desarrollo (cambios en vivo), 
-      # pero ahora el comando ya no dependerá exclusivamente de ellos.
-      - .:/app
+      - ./src:/app/src
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./results:/app/results
     depends_on:
       db:
         condition: service_healthy
@@ -15,7 +40,8 @@ app:
       - .env
     environment:
       PYTHONUNBUFFERED: "1"
-      DB_HOST: db    
+      DB_HOST: db
       DB_PORT: 5432
-    # Al estar parados en working_dir (/app), ejecutamos directamente app.py indicando su subcarpeta src
-    command: ["streamlit", "run", "src/app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+
+volumes:
+  postgres_data:
