@@ -1,9 +1,3 @@
-import streamlit as st
-import os
-import glob
-from src.pipeline import main as ejecutar_pipeline
-from src.utils.logging_config import get_logger
-
 """Módulo de Interfaz Gráfica (Dashboard) y Control del Pipeline de Churn.
 
 Esta aplicación de Streamlit actúa como el Centro de Control principal del proyecto,
@@ -23,7 +17,17 @@ Uso:
     $ streamlit run src/app.py --server.port 10000 --server.address 0.0.0.0
 """
 
+import streamlit as st
+import os
+import glob
+from src.pipeline import main as ejecutar_pipeline
+from src.utils.logging_config import get_logger
+
 logger = get_logger('streamlit_app')
+
+# Asegurar de forma reactiva que las carpetas existan en el contenedor de Render
+os.makedirs("data/raw", exist_ok=True)
+os.makedirs("results", exist_ok=True)
 
 # Configuración inicial de la página
 st.set_page_config(
@@ -82,7 +86,6 @@ col1, col2 = st.columns(2)
 
 with col1:
     st.markdown("#### Estado de la Base de Datos")
-    # Puedes usar un st.metric aquí más adelante cuando integres la lectura de la BD
     st.info(
         "Espacio reservado para consultas usando SQLAlchemy o Pandas para leer la tabla "
         "cliente de PostgreSQL y mostrar KPIs de Churn o el tamaño del dataset."
