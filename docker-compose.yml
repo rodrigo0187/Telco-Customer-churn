@@ -27,14 +27,13 @@ services:
       context: .
       dockerfile: src/Dockerfile.api
     container_name: pipeline_ingestion
-    working_dir: /app
     environment:
       - PYTHONPATH=/app
     volumes:
-      - ${PWD}:/app
-      - ${PWD}/data:/app/data
-      - ${PWD}/results:/app/results
-      - ${PWD}/models:/app/models
+      - .:/app
+      - ./data:/app/data
+      - ./results:/app/results
+      - ./models:/app/models
     depends_on:
       db:
         condition: service_healthy
@@ -52,25 +51,14 @@ services:
     ports:
       - "10000:10000"
     volumes:
-      - ${PWD}:/app
-      - ${PWD}/data:/app/data
-      - ${PWD}/results:/app/results
-      - ${PWD}/models:/app/models
+      - .:/app
+      - ./data:/app/data
+      - ./results:/app/results
+      - ./models:/app/models
     depends_on:
       db:
         condition: service_healthy
     env_file:
       - .env
-    command:
-      [
-        "streamlit",
-        "run",
-        "src/app.py",
-        "--server.port",
-        "10000",
-        "--server.address",
-        "0.0.0.0",
-      ]
-
 volumes:
   postgres_data:
