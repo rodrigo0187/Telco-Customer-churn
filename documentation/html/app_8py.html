@@ -122,72 +122,44 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('app_8py.html',
 <p>Dashboard de Streamlit para el Centro de Control del Pipeline de Churn.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:app" id="r_app"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespaceapp.html">app</a></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a2c5b508829b4995a003ebbea7efab85e" id="r_a2c5b508829b4995a003ebbea7efab85e"><td class="memItemLeft"><a id="a2c5b508829b4995a003ebbea7efab85e" name="a2c5b508829b4995a003ebbea7efab85e"></a>
-&#160;</td><td class="memItemRight"><b>app.page_title</b></td></tr>
-<tr class="memitem:a32ab50610df58ba90f40d85d72ba822d" id="r_a32ab50610df58ba90f40d85d72ba822d"><td class="memItemLeft"><a id="a32ab50610df58ba90f40d85d72ba822d" name="a32ab50610df58ba90f40d85d72ba822d"></a>
-&#160;</td><td class="memItemRight"><b>app.layout</b></td></tr>
-<tr class="memitem:abf1fbd261f89d92c575e179daa566311" id="r_abf1fbd261f89d92c575e179daa566311"><td class="memItemLeft"><a id="abf1fbd261f89d92c575e179daa566311" name="abf1fbd261f89d92c575e179daa566311"></a>
-&#160;</td><td class="memItemRight"><b>app.API_URL</b> = os.getenv(&quot;API_URL&quot;, &quot;http://localhost:8000&quot;)</td></tr>
-<tr class="memitem:a79f8751b4ca10396b3156e90dc0d6206" id="r_a79f8751b4ca10396b3156e90dc0d6206"><td class="memItemLeft"><a id="a79f8751b4ca10396b3156e90dc0d6206" name="a79f8751b4ca10396b3156e90dc0d6206"></a>
-&#160;</td><td class="memItemRight"><b>app.pipeline_ejecutado</b></td></tr>
-<tr class="memitem:af22fcee73d7d5e992a0c2fea49b4c5c6" id="r_af22fcee73d7d5e992a0c2fea49b4c5c6"><td class="memItemLeft"><a id="af22fcee73d7d5e992a0c2fea49b4c5c6" name="af22fcee73d7d5e992a0c2fea49b4c5c6"></a>
-&#160;</td><td class="memItemRight"><b>app.archivo_subido</b> = st.sidebar.file_uploader(&quot;Sube tu dataset de Churn (.csv)&quot;, type=[&quot;csv&quot;])</td></tr>
-<tr class="memitem:a9bd2d7ebdee26cb41e6df26817a5afe4" id="r_a9bd2d7ebdee26cb41e6df26817a5afe4"><td class="memItemLeft"><a id="a9bd2d7ebdee26cb41e6df26817a5afe4" name="a9bd2d7ebdee26cb41e6df26817a5afe4"></a>
-dict&#160;</td><td class="memItemRight"><b>app.files</b> = {&quot;file&quot;: (archivo_subido.name, archivo_subido.getvalue(), &quot;text/csv&quot;)}</td></tr>
-<tr class="memitem:ae1dbcd241739201734c30405f326a6d0" id="r_ae1dbcd241739201734c30405f326a6d0"><td class="memItemLeft"><a id="ae1dbcd241739201734c30405f326a6d0" name="ae1dbcd241739201734c30405f326a6d0"></a>
-&#160;</td><td class="memItemRight"><b>app.respuesta</b> = requests.post(f&quot;{API_URL}/run-pipeline&quot;, files=files)</td></tr>
-<tr class="memitem:a363ac3357b7b5afc6ec831a057af1513" id="r_a363ac3357b7b5afc6ec831a057af1513"><td class="memItemLeft"><a id="a363ac3357b7b5afc6ec831a057af1513" name="a363ac3357b7b5afc6ec831a057af1513"></a>
-&#160;</td><td class="memItemRight"><b>app.res_metrics</b> = requests.get(f&quot;{API_URL}/api/metrics&quot;)</td></tr>
-<tr class="memitem:a6a2096aa0532efae68ae5f85e754dcaf" id="r_a6a2096aa0532efae68ae5f85e754dcaf"><td class="memItemLeft"><a id="a6a2096aa0532efae68ae5f85e754dcaf" name="a6a2096aa0532efae68ae5f85e754dcaf"></a>
-&#160;</td><td class="memItemRight"><b>app.metricas</b> = res_metrics.json()</td></tr>
-<tr class="memitem:a7a411ea567ac1ca0c5c461278144a7e1" id="r_a7a411ea567ac1ca0c5c461278144a7e1"><td class="memItemLeft"><a id="a7a411ea567ac1ca0c5c461278144a7e1" name="a7a411ea567ac1ca0c5c461278144a7e1"></a>
-&#160;</td><td class="memItemRight"><b>app.col1</b></td></tr>
-<tr class="memitem:a5a5fda4e66a5b10cce19391f477e1298" id="r_a5a5fda4e66a5b10cce19391f477e1298"><td class="memItemLeft"><a id="a5a5fda4e66a5b10cce19391f477e1298" name="a5a5fda4e66a5b10cce19391f477e1298"></a>
-&#160;</td><td class="memItemRight"><b>app.col2</b></td></tr>
-<tr class="memitem:a6741c59d19870c5f024fd2337c49ce92" id="r_a6741c59d19870c5f024fd2337c49ce92"><td class="memItemLeft"><a id="a6741c59d19870c5f024fd2337c49ce92" name="a6741c59d19870c5f024fd2337c49ce92"></a>
-&#160;</td><td class="memItemRight"><b>app.col3</b></td></tr>
-<tr class="memitem:abf27f1326cf69ed64cded734f20d2a5f" id="r_abf27f1326cf69ed64cded734f20d2a5f"><td class="memItemLeft"><a id="abf27f1326cf69ed64cded734f20d2a5f" name="abf27f1326cf69ed64cded734f20d2a5f"></a>
-&#160;</td><td class="memItemRight"><b>app.col4</b></td></tr>
-<tr class="memitem:afc53c344ccbd27f69061b23c2ae7618e" id="r_afc53c344ccbd27f69061b23c2ae7618e"><td class="memItemLeft"><a id="afc53c344ccbd27f69061b23c2ae7618e" name="afc53c344ccbd27f69061b23c2ae7618e"></a>
-&#160;</td><td class="memItemRight"><b>app.col5</b></td></tr>
-<tr class="memitem:a31b9f41b1ddc88cc7804fe47f81ee52e" id="r_a31b9f41b1ddc88cc7804fe47f81ee52e"><td class="memItemLeft"><a id="a31b9f41b1ddc88cc7804fe47f81ee52e" name="a31b9f41b1ddc88cc7804fe47f81ee52e"></a>
-&#160;</td><td class="memItemRight"><b>app.val_acc</b> = metricas.get('accuracy', 'N/A')</td></tr>
-<tr class="memitem:a61d300bbfa7ecfc1ea9e7338c605e97a" id="r_a61d300bbfa7ecfc1ea9e7338c605e97a"><td class="memItemLeft"><a id="a61d300bbfa7ecfc1ea9e7338c605e97a" name="a61d300bbfa7ecfc1ea9e7338c605e97a"></a>
-&#160;</td><td class="memItemRight"><b>app.label</b></td></tr>
-<tr class="memitem:a5a8bc7b5784cab6bf470c41ed78c2623" id="r_a5a8bc7b5784cab6bf470c41ed78c2623"><td class="memItemLeft"><a id="a5a8bc7b5784cab6bf470c41ed78c2623" name="a5a8bc7b5784cab6bf470c41ed78c2623"></a>
-&#160;</td><td class="memItemRight"><b>app.value</b></td></tr>
-<tr class="memitem:a573af74d16035fd9a8c0671e9e4525d4" id="r_a573af74d16035fd9a8c0671e9e4525d4"><td class="memItemLeft"><a id="a573af74d16035fd9a8c0671e9e4525d4" name="a573af74d16035fd9a8c0671e9e4525d4"></a>
-&#160;</td><td class="memItemRight"><b>app.val_prec</b> = metricas.get('precision', 'N/A')</td></tr>
-<tr class="memitem:abc0099a0486a5eb2e726e67077330d89" id="r_abc0099a0486a5eb2e726e67077330d89"><td class="memItemLeft"><a id="abc0099a0486a5eb2e726e67077330d89" name="abc0099a0486a5eb2e726e67077330d89"></a>
-&#160;</td><td class="memItemRight"><b>app.val_rec</b> = metricas.get('recall', 'N/A')</td></tr>
-<tr class="memitem:a8c3072939ef7dd75cafde0190d0ebc6f" id="r_a8c3072939ef7dd75cafde0190d0ebc6f"><td class="memItemLeft"><a id="a8c3072939ef7dd75cafde0190d0ebc6f" name="a8c3072939ef7dd75cafde0190d0ebc6f"></a>
-&#160;</td><td class="memItemRight"><b>app.val_f1</b> = metricas.get('f1_score', 'N/A')</td></tr>
-<tr class="memitem:a1e6509cbabab68f476a87c64db7df38b" id="r_a1e6509cbabab68f476a87c64db7df38b"><td class="memItemLeft"><a id="a1e6509cbabab68f476a87c64db7df38b" name="a1e6509cbabab68f476a87c64db7df38b"></a>
-&#160;</td><td class="memItemRight"><b>app.val_auc</b> = metricas.get('roc_auc', 'N/A')</td></tr>
-<tr class="memitem:a3c79cd31bb209302cd2c97b04a1d7b75" id="r_a3c79cd31bb209302cd2c97b04a1d7b75"><td class="memItemLeft"><a id="a3c79cd31bb209302cd2c97b04a1d7b75" name="a3c79cd31bb209302cd2c97b04a1d7b75"></a>
-&#160;</td><td class="memItemRight"><b>app.expanded</b></td></tr>
-<tr class="memitem:ac3fb9759c39fa3e64353fa61daa49c19" id="r_ac3fb9759c39fa3e64353fa61daa49c19"><td class="memItemLeft"><a id="ac3fb9759c39fa3e64353fa61daa49c19" name="ac3fb9759c39fa3e64353fa61daa49c19"></a>
-&#160;</td><td class="memItemRight"><b>app.report</b> = metricas.get('classification_report', {})</td></tr>
-<tr class="memitem:a330d7fb6d3843b5073147ecc984b7c7d" id="r_a330d7fb6d3843b5073147ecc984b7c7d"><td class="memItemLeft"><a id="a330d7fb6d3843b5073147ecc984b7c7d" name="a330d7fb6d3843b5073147ecc984b7c7d"></a>
-&#160;</td><td class="memItemRight"><b>app.c_clase0</b></td></tr>
-<tr class="memitem:a2aaa2389ad80f1dc8da6169e401389f3" id="r_a2aaa2389ad80f1dc8da6169e401389f3"><td class="memItemLeft"><a id="a2aaa2389ad80f1dc8da6169e401389f3" name="a2aaa2389ad80f1dc8da6169e401389f3"></a>
-&#160;</td><td class="memItemRight"><b>app.c_clase1</b></td></tr>
-<tr class="memitem:a26c2e37c0ddc920f05d3a246c240ab7d" id="r_a26c2e37c0ddc920f05d3a246c240ab7d"><td class="memItemLeft"><a id="a26c2e37c0ddc920f05d3a246c240ab7d" name="a26c2e37c0ddc920f05d3a246c240ab7d"></a>
-&#160;</td><td class="memItemRight"><b>app.clase_0</b> = report.get('0', {})</td></tr>
-<tr class="memitem:ab7c57a58a1a7fb668ae5c8b9ead895b9" id="r_ab7c57a58a1a7fb668ae5c8b9ead895b9"><td class="memItemLeft"><a id="ab7c57a58a1a7fb668ae5c8b9ead895b9" name="ab7c57a58a1a7fb668ae5c8b9ead895b9"></a>
-&#160;</td><td class="memItemRight"><b>app.clase_1</b> = report.get('1', {})</td></tr>
-<tr class="memitem:a2f602af2332986f06c8d905b11dcbea8" id="r_a2f602af2332986f06c8d905b11dcbea8"><td class="memItemLeft"><a id="a2f602af2332986f06c8d905b11dcbea8" name="a2f602af2332986f06c8d905b11dcbea8"></a>
-list&#160;</td><td class="memItemRight"><b>app.lista_graficos</b> = [&quot;matriz_confusion.png&quot;, &quot;distribución_clases.png&quot;, &quot;curva_roc.png&quot;,&quot;importancia_variables.png&quot;]</td></tr>
-<tr class="memitem:a3842a73fa738c5eb37b6356f2927129f" id="r_a3842a73fa738c5eb37b6356f2927129f"><td class="memItemLeft"><a id="a3842a73fa738c5eb37b6356f2927129f" name="a3842a73fa738c5eb37b6356f2927129f"></a>
-&#160;</td><td class="memItemRight"><b>app.cols_graficos</b> = st.columns(len(lista_graficos))</td></tr>
-<tr class="memitem:a5fc4e0d70a688cb500c0f9e2ddcd2a79" id="r_a5fc4e0d70a688cb500c0f9e2ddcd2a79"><td class="memItemLeft"><a id="a5fc4e0d70a688cb500c0f9e2ddcd2a79" name="a5fc4e0d70a688cb500c0f9e2ddcd2a79"></a>
-&#160;</td><td class="memItemRight"><b>app.res_img</b> = requests.get(f&quot;{API_URL}/api/charts/{nombre_grafico}&quot;)</td></tr>
-<tr class="memitem:a0ff686af9e64565e047fe2f7fb0fd22e" id="r_a0ff686af9e64565e047fe2f7fb0fd22e"><td class="memItemLeft"><a id="a0ff686af9e64565e047fe2f7fb0fd22e" name="a0ff686af9e64565e047fe2f7fb0fd22e"></a>
-&#160;</td><td class="memItemRight"><b>app.caption</b></td></tr>
-<tr class="memitem:a0c6ec6d110eec6a716a98ab68529c22c" id="r_a0c6ec6d110eec6a716a98ab68529c22c"><td class="memItemLeft"><a id="a0c6ec6d110eec6a716a98ab68529c22c" name="a0c6ec6d110eec6a716a98ab68529c22c"></a>
-&#160;</td><td class="memItemRight"><b>app.use_container_width</b></td></tr>
+<tr class="memitem:a2c5b508829b4995a003ebbea7efab85e" id="r_a2c5b508829b4995a003ebbea7efab85e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="namespaceapp.html#a2c5b508829b4995a003ebbea7efab85e">app.page_title</a></td></tr>
+<tr class="memitem:a32ab50610df58ba90f40d85d72ba822d" id="r_a32ab50610df58ba90f40d85d72ba822d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="namespaceapp.html#a32ab50610df58ba90f40d85d72ba822d">app.layout</a></td></tr>
+<tr class="memitem:abf1fbd261f89d92c575e179daa566311" id="r_abf1fbd261f89d92c575e179daa566311"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="namespaceapp.html#abf1fbd261f89d92c575e179daa566311">app.API_URL</a> = os.getenv(&quot;API_URL&quot;, &quot;http://localhost:8000&quot;)</td></tr>
+<tr class="memitem:a79f8751b4ca10396b3156e90dc0d6206" id="r_a79f8751b4ca10396b3156e90dc0d6206"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="namespaceapp.html#a79f8751b4ca10396b3156e90dc0d6206">app.pipeline_ejecutado</a></td></tr>
+<tr class="memitem:af22fcee73d7d5e992a0c2fea49b4c5c6" id="r_af22fcee73d7d5e992a0c2fea49b4c5c6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="namespaceapp.html#af22fcee73d7d5e992a0c2fea49b4c5c6">app.archivo_subido</a> = st.sidebar.file_uploader(&quot;Sube tu dataset de Churn (.csv)&quot;, type=[&quot;csv&quot;])</td></tr>
+<tr class="memitem:a9bd2d7ebdee26cb41e6df26817a5afe4" id="r_a9bd2d7ebdee26cb41e6df26817a5afe4"><td class="memItemLeft">dict&#160;</td><td class="memItemRight"><a class="el" href="namespaceapp.html#a9bd2d7ebdee26cb41e6df26817a5afe4">app.files</a> = {&quot;file&quot;: (archivo_subido.name, archivo_subido.getvalue(), &quot;text/csv&quot;)}</td></tr>
+<tr class="memitem:ae1dbcd241739201734c30405f326a6d0" id="r_ae1dbcd241739201734c30405f326a6d0"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="namespaceapp.html#ae1dbcd241739201734c30405f326a6d0">app.respuesta</a> = requests.post(f&quot;{<a class="el" href="namespaceapp.html#abf1fbd261f89d92c575e179daa566311">API_URL</a>}/run-pipeline&quot;, <a class="el" href="namespaceapp.html#a9bd2d7ebdee26cb41e6df26817a5afe4">files</a>=<a class="el" href="namespaceapp.html#a9bd2d7ebdee26cb41e6df26817a5afe4">files</a>)</td></tr>
+<tr class="memitem:a363ac3357b7b5afc6ec831a057af1513" id="r_a363ac3357b7b5afc6ec831a057af1513"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="namespaceapp.html#a363ac3357b7b5afc6ec831a057af1513">app.res_metrics</a> = requests.get(f&quot;{<a class="el" href="namespaceapp.html#abf1fbd261f89d92c575e179daa566311">API_URL</a>}/api/metrics&quot;)</td></tr>
+<tr class="memitem:a6a2096aa0532efae68ae5f85e754dcaf" id="r_a6a2096aa0532efae68ae5f85e754dcaf"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="namespaceapp.html#a6a2096aa0532efae68ae5f85e754dcaf">app.metricas</a> = res_metrics.json()</td></tr>
+<tr class="memitem:a7a411ea567ac1ca0c5c461278144a7e1" id="r_a7a411ea567ac1ca0c5c461278144a7e1"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="namespaceapp.html#a7a411ea567ac1ca0c5c461278144a7e1">app.col1</a></td></tr>
+<tr class="memitem:a5a5fda4e66a5b10cce19391f477e1298" id="r_a5a5fda4e66a5b10cce19391f477e1298"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="namespaceapp.html#a5a5fda4e66a5b10cce19391f477e1298">app.col2</a></td></tr>
+<tr class="memitem:a6741c59d19870c5f024fd2337c49ce92" id="r_a6741c59d19870c5f024fd2337c49ce92"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="namespaceapp.html#a6741c59d19870c5f024fd2337c49ce92">app.col3</a></td></tr>
+<tr class="memitem:abf27f1326cf69ed64cded734f20d2a5f" id="r_abf27f1326cf69ed64cded734f20d2a5f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="namespaceapp.html#abf27f1326cf69ed64cded734f20d2a5f">app.col4</a></td></tr>
+<tr class="memitem:afc53c344ccbd27f69061b23c2ae7618e" id="r_afc53c344ccbd27f69061b23c2ae7618e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="namespaceapp.html#afc53c344ccbd27f69061b23c2ae7618e">app.col5</a></td></tr>
+<tr class="memitem:a31b9f41b1ddc88cc7804fe47f81ee52e" id="r_a31b9f41b1ddc88cc7804fe47f81ee52e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="namespaceapp.html#a31b9f41b1ddc88cc7804fe47f81ee52e">app.val_acc</a> = metricas.get('accuracy', 'N/A')</td></tr>
+<tr class="memitem:a61d300bbfa7ecfc1ea9e7338c605e97a" id="r_a61d300bbfa7ecfc1ea9e7338c605e97a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="namespaceapp.html#a61d300bbfa7ecfc1ea9e7338c605e97a">app.label</a></td></tr>
+<tr class="memitem:a5a8bc7b5784cab6bf470c41ed78c2623" id="r_a5a8bc7b5784cab6bf470c41ed78c2623"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="namespaceapp.html#a5a8bc7b5784cab6bf470c41ed78c2623">app.value</a></td></tr>
+<tr class="memitem:a573af74d16035fd9a8c0671e9e4525d4" id="r_a573af74d16035fd9a8c0671e9e4525d4"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="namespaceapp.html#a573af74d16035fd9a8c0671e9e4525d4">app.val_prec</a> = metricas.get('precision', 'N/A')</td></tr>
+<tr class="memitem:abc0099a0486a5eb2e726e67077330d89" id="r_abc0099a0486a5eb2e726e67077330d89"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="namespaceapp.html#abc0099a0486a5eb2e726e67077330d89">app.val_rec</a> = metricas.get('recall', 'N/A')</td></tr>
+<tr class="memitem:a8c3072939ef7dd75cafde0190d0ebc6f" id="r_a8c3072939ef7dd75cafde0190d0ebc6f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="namespaceapp.html#a8c3072939ef7dd75cafde0190d0ebc6f">app.val_f1</a> = metricas.get('f1_score', 'N/A')</td></tr>
+<tr class="memitem:a1e6509cbabab68f476a87c64db7df38b" id="r_a1e6509cbabab68f476a87c64db7df38b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="namespaceapp.html#a1e6509cbabab68f476a87c64db7df38b">app.val_auc</a> = metricas.get('roc_auc', 'N/A')</td></tr>
+<tr class="memitem:a3c79cd31bb209302cd2c97b04a1d7b75" id="r_a3c79cd31bb209302cd2c97b04a1d7b75"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="namespaceapp.html#a3c79cd31bb209302cd2c97b04a1d7b75">app.expanded</a></td></tr>
+<tr class="memitem:ac3fb9759c39fa3e64353fa61daa49c19" id="r_ac3fb9759c39fa3e64353fa61daa49c19"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="namespaceapp.html#ac3fb9759c39fa3e64353fa61daa49c19">app.report</a> = metricas.get('classification_report', {})</td></tr>
+<tr class="memitem:a330d7fb6d3843b5073147ecc984b7c7d" id="r_a330d7fb6d3843b5073147ecc984b7c7d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="namespaceapp.html#a330d7fb6d3843b5073147ecc984b7c7d">app.c_clase0</a></td></tr>
+<tr class="memitem:a2aaa2389ad80f1dc8da6169e401389f3" id="r_a2aaa2389ad80f1dc8da6169e401389f3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="namespaceapp.html#a2aaa2389ad80f1dc8da6169e401389f3">app.c_clase1</a></td></tr>
+<tr class="memitem:a26c2e37c0ddc920f05d3a246c240ab7d" id="r_a26c2e37c0ddc920f05d3a246c240ab7d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="namespaceapp.html#a26c2e37c0ddc920f05d3a246c240ab7d">app.clase_0</a> = report.get('0', {})</td></tr>
+<tr class="memitem:ab7c57a58a1a7fb668ae5c8b9ead895b9" id="r_ab7c57a58a1a7fb668ae5c8b9ead895b9"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="namespaceapp.html#ab7c57a58a1a7fb668ae5c8b9ead895b9">app.clase_1</a> = report.get('1', {})</td></tr>
+<tr class="memitem:a2f602af2332986f06c8d905b11dcbea8" id="r_a2f602af2332986f06c8d905b11dcbea8"><td class="memItemLeft">list&#160;</td><td class="memItemRight"><a class="el" href="namespaceapp.html#a2f602af2332986f06c8d905b11dcbea8">app.lista_graficos</a> = [&quot;matriz_confusion.png&quot;, &quot;distribución_clases.png&quot;, &quot;curva_roc.png&quot;,&quot;importancia_variables.png&quot;]</td></tr>
+<tr class="memitem:a3842a73fa738c5eb37b6356f2927129f" id="r_a3842a73fa738c5eb37b6356f2927129f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="namespaceapp.html#a3842a73fa738c5eb37b6356f2927129f">app.cols_graficos</a> = st.columns(len(<a class="el" href="namespaceapp.html#a2f602af2332986f06c8d905b11dcbea8">lista_graficos</a>))</td></tr>
+<tr class="memitem:a5fc4e0d70a688cb500c0f9e2ddcd2a79" id="r_a5fc4e0d70a688cb500c0f9e2ddcd2a79"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="namespaceapp.html#a5fc4e0d70a688cb500c0f9e2ddcd2a79">app.res_img</a> = requests.get(f&quot;{<a class="el" href="namespaceapp.html#abf1fbd261f89d92c575e179daa566311">API_URL</a>}/api/charts/{nombre_grafico}&quot;)</td></tr>
+<tr class="memitem:a0ff686af9e64565e047fe2f7fb0fd22e" id="r_a0ff686af9e64565e047fe2f7fb0fd22e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="namespaceapp.html#a0ff686af9e64565e047fe2f7fb0fd22e">app.caption</a></td></tr>
+<tr class="memitem:a0c6ec6d110eec6a716a98ab68529c22c" id="r_a0c6ec6d110eec6a716a98ab68529c22c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="namespaceapp.html#a0c6ec6d110eec6a716a98ab68529c22c">app.use_container_width</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Dashboard de Streamlit para el Centro de Control del Pipeline de Churn. </p>

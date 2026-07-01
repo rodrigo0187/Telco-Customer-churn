@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['fit_0',['fit',['../classwinsorizer_1_1_winsorizer.html#a74e5e7365410d7e8ad60c28435057056',1,'winsorizer::Winsorizer']]]
+  ['duplicated_5fdetails_0',['duplicated_details',['../classquality__check_1_1_quality_check.html#a2bbdacf8b5fcdd613e0b1f3e16f7db90',1,'quality_check::QualityCheck']]]
 ];

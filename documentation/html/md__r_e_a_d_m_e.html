@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('md__r_e_a_d_m_
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="autotoc_md0"></a></p>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md1"></a>
+Readme</h1>
+<p><a href="https://rodrigo0187.github.io/Telco-Customer-churn/">README</a></p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md2"></a>
 Descripción</h1>
 <p>El sistema permite predecir la probabilidad de que un cliente abandone el servicio (churn) en una empresa de telecomunicaciones, utilizando técnicas de machine learning a partir de datos históricos.</p>
 <p>El sistema:</p>
@@ -138,7 +141,7 @@ Descripción</h1>
 <li>Render</li>
 </ul>
 <hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
 Estructura del proyecto</h1>
 <div class="fragment"><div class="line">telco-customer-churn/</div>
 <div class="line">├── data/</div>
@@ -170,7 +173,7 @@ Estructura del proyecto</h1>
 <div class="line">├── README.md</div>
 <div class="line">└── requirements.txt</div>
 </div><!-- fragment --><hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md6"></a>
 Arquitectura</h1>
 <p>Arquitectura tipo <b>pipeline híbrido modular (batch) src</b>:</p>
 <ul>
@@ -191,14 +194,14 @@ Arquitectura</h1>
 </li>
 </ul>
 <hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md7"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md8"></a>
 Tecnologías</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md8"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md9"></a>
 Lenguaje</h2>
 <ul>
 <li>Python 3.x</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md9"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md10"></a>
 Librerías</h2>
 <ul>
 <li>Las versiones indicadas son referenciales a la configuracion de este proyecto y pueden cambiar con el tiempo; se recomienda validarlas y ajustar según el entorno y las dependencias del proyecto.</li>
@@ -216,36 +219,36 @@ Librerías</h2>
 <li>fastapi <a href="https://fastapi.tiangolo.com">FastApi</a></li>
 <li>uvicorn <a href="https://pypi.org/project/uvicorn/">Uvicorn</a></li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md10"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md11"></a>
 Base de datos</h2>
 <ul>
 <li>PostgreSQL</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md11"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md12"></a>
 Contenerización</h2>
 <ul>
 <li>Docker</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md12"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md13"></a>
 Control de versiones</h2>
 <ul>
 <li>Git / GitHub / GitHub Actions: automatización de flujos (CI/CD)</li>
 </ul>
 <hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md14"></a>
-Ejecución con Docker (Recomendado)</h1>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md15"></a>
+Ejecución con Docker (Recomendado)</h1>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md16"></a>
 Requisitos</h1>
 <ul>
 <li>Docker</li>
 </ul>
 <hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md17"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md18"></a>
 1. Clonar repositorio</h1>
 <div class="fragment"><div class="line">git clone https://github.com/rodrigo0187/Telco-Customer-churn.git</div>
 <div class="line">cd Telco-Customer-churn</div>
 </div><!-- fragment --><hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md19"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md20"></a>
 2. Configurar entorno</h1>
 <p>Crear archivo <span class="tt">.env</span> en la raíz:</p>
 <div class="fragment"><div class="line">POSTGRES_USER=admin</div>
@@ -255,11 +258,11 @@ Requisitos</h1>
 <div class="line">DB_HOST=db</div>
 <div class="line">DB_PORT=5432</div>
 </div><!-- fragment --><hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md21"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md22"></a>
 3. Ejecutar pipeline</h1>
 <div class="fragment"><div class="line">docker-compose up --build</div>
 </div><!-- fragment --><hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md23"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md24"></a>
 4. Verificar datos en PostgreSQL</h1>
 <div class="fragment"><div class="line">docker exec -it postgres_churn psql -U admin -d churn_db</div>
 </div><!-- fragment --><p>ver tabla</p>
@@ -268,103 +271,103 @@ Requisitos</h1>
 <div class="fragment"><div class="line"><span class="keyword">SELECT</span> COUNT(*) <span class="keyword">FROM</span> cliente;</div>
 <div class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> cliente LIMIT <span class="stringliteral">10</span>;</div>
 </div><!-- fragment --><hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md25"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md26"></a>
 5. Detener servicios</h1>
 <div class="fragment"><div class="line">docker-compose stop</div>
 <div class="line">docker-compose down</div>
-</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md26"></a>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md27"></a>
 6. Crea nuevamente el contenedor o encender contenedor ya creado</h1>
 <div class="fragment"><div class="line">docker-compose up</div>
 <div class="line">docker-compose start</div>
-</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md27"></a>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md28"></a>
 7. Elimina y detiene contenedor,volúmenes</h1>
 <blockquote class="doxtable">
 <p>Elimina toda la base de datos, tablas, registro y conexion creada </p>
 </blockquote>
 <div class="fragment"><div class="line">docker-compose down -v</div>
 </div><!-- fragment --><hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md29"></a>
-Ejecución sin Docker</h1>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md30"></a>
+Ejecución sin Docker</h1>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md31"></a>
 Requisitos sin docker</h1>
 <ul>
 <li>Python 3.x</li>
 <li>PostgreSQL</li>
 </ul>
 <hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md32"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md33"></a>
 1. Crear entorno virtual</h1>
 <div class="fragment"><div class="line">python -m venv venv</div>
 </div><!-- fragment --><p>Activar:</p>
 <div class="fragment"><div class="line">source venv/bin/activate      # Linux/Mac</div>
 <div class="line">venv\Scripts\activate         # Windows</div>
 </div><!-- fragment --><hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md34"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md35"></a>
 2. Instalar dependencias</h1>
 <div class="fragment"><div class="line">pip install -r requirements.txt</div>
 </div><!-- fragment --><hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md36"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md37"></a>
 3. Configurar base de datos</h1>
 <div class="fragment"><div class="line"><span class="keyword">CREATE</span> DATABASE churn_db;</div>
 </div><!-- fragment --><div class="fragment"><div class="line">psql -U admin -d churn_db -f db/init.sql</div>
 </div><!-- fragment --><hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md38"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md39"></a>
 4. Ejecutar pipeline</h1>
 <div class="fragment"><div class="line">python src/pipeline.py</div>
 </div><!-- fragment --><hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md40"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md41"></a>
 Validación</h1>
 <p>La tabla <span class="tt">cliente</span> debe contener en crudo <b>7043 registros</b> con <b>21 columnas</b> primer csv como prueba del proyecto</p>
 <hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md42"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md43"></a>
 Despliegue</h1>
 <ul>
 <li>Render: despliegue en la nube mediante URL pública</li>
 </ul>
 <hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md44"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md45"></a>
 Flujo del pipeline</h1>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md45"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md46"></a>
 Ingestion</h2>
 <ul>
-<li>load_csv.py, realiza la carga de un archivo CSV local en (data/raw).</li>
+<li><a class="el" href="load__csv_8py.html">load_csv.py</a>, realiza la carga de un archivo CSV local en (data/raw).</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md46"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md47"></a>
 Cleaning</h2>
 <ul>
 <li>duplicates, consolida registros ducplicados basados en el id, garantizando un id unico.</li>
-<li>normalize_text, normaliza y unifica las columnas de tipo texto en el DataFrame</li>
+<li><a class="el" href="namespacenormalize__text.html">normalize_text</a>, normaliza y unifica las columnas de tipo texto en el DataFrame</li>
 <li>null , identifica e imputa valores faltantes</li>
-<li>quality_check (calidad de los datos)</li>
-<li>types(fix_data_types), corrige los tipos de datos incorrectos del DataFrame</li>
+<li><a class="el" href="namespacequality__check.html">quality_check</a> (calidad de los datos)</li>
+<li><a class="el" href="namespacetypes.html">types(fix_data_types)</a>, corrige los tipos de datos incorrectos del DataFrame</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md47"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md48"></a>
 Feature Engineering</h2>
 <ul>
 <li>creation_features, Genera variables categóricas, numéricas e interecciones de negocio para el modelo churn.</li>
 <li>encoding, orquesta la preparacion final y códifica las variables categóricas a numéricas.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md48"></a>
-Model</h2>
-<p>predict, evalua el rendimiento del modelo serializado utilizando datos no vistos. train, ejecuta el pipeline de entramiento para posteriormente generar un análisis visual. verificacion_cm, Carga el modelo entrenado y los datos de prueba para graficar la Matriz de Confusión.</p>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md49"></a>
+Model</h2>
+<p>predict, evalua el rendimiento del modelo serializado utilizando datos no vistos. train, ejecuta el pipeline de entramiento para posteriormente generar un análisis visual. <a class="el" href="namespaceverificacion__cm.html">verificacion_cm</a>, Carga el modelo entrenado y los datos de prueba para graficar la Matriz de Confusión.</p>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md50"></a>
 Storage</h2>
 <ul>
-<li>load_db.py, Genera un motor (engine) de conexión para una base de datos PostgreSQL.</li>
+<li><a class="el" href="load__db_8py.html">load_db.py</a>, Genera un motor (engine) de conexión para una base de datos PostgreSQL.</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md50"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md51"></a>
 Utils</h2>
 <ul>
 <li>categorical_null,Calcula la proporción de valores nulos especificamente en las columnas categóricas.</li>
-<li>inconsistencies_cat,Detecta de forma temprana si existen inconsistencias de formato en columnas categóricas.</li>
+<li><a class="el" href="namespaceinconsistencies__cat.html">inconsistencies_cat</a>,Detecta de forma temprana si existen inconsistencias de formato en columnas categóricas.</li>
 <li>logging,Configura y retorna un objeto Logger unificado para la aplicación.</li>
-<li>negative_values,Analiza si existen valores negativos en las columnas numéricas del DataFrame.</li>
+<li><a class="el" href="namespacenegative__values.html">negative_values</a>,Analiza si existen valores negativos en las columnas numéricas del DataFrame.</li>
 <li>outliers,Analiza si existen valores atípicos en las columnas numéricas usando el método IQR.</li>
-<li>saved_dataset,Guarda del DataFrame en formato csv dentro de la ruta correpondiente a su etapa.</li>
-<li>schema_validator,Audita la estructura y el contrato de datos del dataset frente al esquema esperado.</li>
+<li><a class="el" href="namespacesaved__dataset.html">saved_dataset</a>,Guarda del DataFrame en formato csv dentro de la ruta correpondiente a su etapa.</li>
+<li><a class="el" href="namespaceschema__validator.html">schema_validator</a>,Audita la estructura y el contrato de datos del dataset frente al esquema esperado.</li>
 </ul>
 <hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md52"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md53"></a>
 Archivos importantes</h1>
 <ul>
 <li><span class="tt">.dockerignore</span> → excluye archivos del contenedor <br  />
@@ -378,18 +381,21 @@ Archivos importantes</h1>
 <li><span class="tt">Dockerfile.streamlit</span>-&gt; configuracion para el despliegue del dashboard frontend</li>
 <li><span class="tt">docker-compose.yml</span> → orquestación <br  />
 </li>
-<li><span class="tt">pipeline.py</span> → orquestador del flujo <br  />
+<li><span class="tt"><a class="el" href="pipeline_8py.html">pipeline.py</a></span> → orquestador del flujo <br  />
 </li>
 <li><span class="tt">requirements.txt</span> → dependencias o librerias</li>
 <li><span class="tt">render.yaml</span>-&gt; despliegue</li>
 <li><span class="tt">Doxyfile</span>-&gt; Genera la docuementacion basado en los docstring de las funciones implementadas en el proyecto</li>
 </ul>
 <hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md54"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md55"></a>
 Documento técnico</h1>
 <p><a href="https://github.com/rodrigo0187/Telco-Customer-churn/blob/main/root/docs/Documento_Diseno_T%C3%A9cnico.pdf">Documento Técnico</a></p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md56"></a>
+Documento Docstring</h1>
+<p><a href="https://rodrigo0187.github.io/Telco-Customer-churn/documentation/html/index.html">Documentation</a></p>
 <hr  />
-<h2 class="doxsection"><a class="anchor" id="autotoc_md56"></a>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md58"></a>
 Estructura del proyecto (expand)</h2>
 <div class="fragment"><div class="line">Telco-customer-churn</div>
 <div class="line"> </div>
@@ -502,7 +508,7 @@ Estructura del proyecto (expand)</h2>
 <div class="line">├── README.md</div>
 <div class="line">├── render.yaml</div>
 <div class="line">└── requirements.txt</div>
-</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md57"></a>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md59"></a>
 Autores</h1>
 <ul>
 <li>Rodrigo Ignacio Aedo Contreras <br  />
