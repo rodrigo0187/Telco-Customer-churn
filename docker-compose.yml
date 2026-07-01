@@ -31,10 +31,10 @@ services:
     environment:
       - PYTHONPATH=/app
     volumes:
-      - .:/app
-      - ./data:/app/data
-      - ./results:/app/results
-      - ./models:/app/models
+      - ${PWD}:/app
+      - ${PWD}/data:/app/data
+      - ${PWD}/results:/app/results
+      - ${PWD}/models:/app/models
     depends_on:
       db:
         condition: service_healthy
@@ -52,10 +52,10 @@ services:
     ports:
       - "10000:10000"
     volumes:
-      - .:/app
-      - ./data:/app/data
-      - ./results:/app/results
-      - ./models:/app/models
+      - ${PWD}:/app
+      - ${PWD}/data:/app/data
+      - ${PWD}/results:/app/results
+      - ${PWD}/models:/app/models
     depends_on:
       db:
         condition: service_healthy
