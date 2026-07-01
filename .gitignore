@@ -2,9 +2,10 @@
 # Ignorar todos los backups y datos procesados pesados
 data/backup/
 data/processed/*
+results/*
 
 # Ignorar los CSV reales/pesados de producción
-data/raw/churn_*.csv
+data/raw/
 # excepto para testing, puedes mantener un CSV de ejemplo ligero para pruebas
 !data/processed/X_test.csv
 !data/processed/Y_test.csv
