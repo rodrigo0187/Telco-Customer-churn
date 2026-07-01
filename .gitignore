@@ -9,9 +9,6 @@ data/raw/*
 # excepto para testing, puedes mantener un CSV de ejemplo ligero para pruebas
 !data/processed/X_test.csv
 !data/processed/Y_test.csv
-# Forzar a Git a rastrear los reportes visuales generados en results
-!results/*.png
-!results/*.json
 
 # Ignorar modelos entrenados pesados (Render o Git no deben almacenar binarios grandes)
 models/*.pkl
