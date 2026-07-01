@@ -5,7 +5,7 @@ data/processed/*
 results/*
 
 # Ignorar los CSV reales/pesados de producción
-data/raw/
+data/raw/*
 # excepto para testing, puedes mantener un CSV de ejemplo ligero para pruebas
 !data/processed/X_test.csv
 !data/processed/Y_test.csv
