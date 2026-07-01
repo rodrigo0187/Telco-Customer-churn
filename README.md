@@ -32,6 +32,7 @@ telco-customer-churn/
 ├── root/
 │   └── docs/
 ├── src/
+│   ├── api/
 │   ├── cleaning/
 │   ├── data/
 │   ├── feature_engineering/
@@ -59,13 +60,15 @@ telco-customer-churn/
 
 ## Arquitectura
 
-Arquitectura tipo **pipeline híbrido modular (batch)**:
+Arquitectura tipo **pipeline híbrido modular (batch) src**:
 
 - Ingestion
 - Cleaning
 - Feature Engineering
 - Storage
 - Model
+- utils
+- api
 
 Permite:
 
@@ -83,15 +86,21 @@ Permite:
 
 ### Librerías
 
-- Las versiones indicadas son referenciales y pueden cambiar con el tiempo; se recomienda validarlas y ajustar según el entorno y las dependencias del proyecto.
+- Las versiones indicadas son referenciales a la configuracion de este proyecto y pueden cambiar con el tiempo; se recomienda validarlas y ajustar según el entorno y las dependencias del proyecto.
 
-- Scikit 1.4.2 [Scikit](https://scikit-learn.org/stable/install.html)
-- Pandas 2.2.2 [Pandas](https://pandas.pydata.org/docs/getting_started/install.html)
-- Numpy 2.4.4 [Numpy](https://numpy.org/install/)
-- Seaborn 0.13.2 [Seaborn](https://seaborn.pydata.org/installing.html)
-- psycopg2-binary 2.9.9 [Psycopg2](https://pypi.org/project/psycopg2-binary/)
-- sqlalchemy 2.0.49 [SqlAlchemy](https://pypi.org/project/SQLAlchemy/)
-- python-dotenv 1.2.2 [Python-dotenv](https://pypi.org/project/python-dotenv/)
+- Scikit-learn      [Scikit](https://scikit-learn.org/stable/install.html)
+- Pandas            [Pandas](https://pandas.pydata.org/docs/getting_started/install.html)
+- Numpy             [Numpy](https://numpy.org/install/)
+- Seaborn           [Seaborn](https://seaborn.pydata.org/installing.html)
+- psycopg2-binary   [Psycopg2](https://pypi.org/project/psycopg2-binary/)
+- sqlalchemy        [SqlAlchemy](https://pypi.org/project/SQLAlchemy/)
+- python-dotenv     [Python-dotenv](https://pypi.org/project/python-dotenv/)
+- ruff              [Ruff](https://pypi.org/project/ruff/)
+- streamlit         [Stramlit](https://docs.streamlit.io)
+- requests          [Requests](https://pypi.org/project/requests/)
+- matplotlib        [Matplotlib](https://pypi.org/project/matplotlib/)
+- fastapi           [FastApi](https://fastapi.tiangolo.com)
+- uvicorn           [Uvicorn](https://pypi.org/project/uvicorn/)
 
 ### Base de datos
 
@@ -246,7 +255,7 @@ python src/pipeline.py
 
 ## Validación
 
-La tabla `cliente` debe contener en crudo **7043 registros** con **21 columnas**
+La tabla `cliente` debe contener en crudo **7043 registros** con **21 columnas** primer csv como prueba del proyecto
 
 ---
 
@@ -302,11 +311,14 @@ verificacion_cm, Carga el modelo entrenado y los datos de prueba para graficar l
 - `.dockerignore` → excluye archivos del contenedor  
 - `.env` → variables de entorno (no versionado)  
 - `.gitignore` → archivos ignorados por git  
-- `Dockerfile` → construcción de imagen  
+- `Dockerfile` → construcción de imagen
+- `Dockerfile.api`-> configuracion para el despliegue del backend
+- `Dockerfile.streamlit`-> configuracion para el despliegue del dashboard frontend
 - `docker-compose.yml` → orquestación  
 - `pipeline.py` → orquestador del flujo  
-- `requirements.txt` → dependencias  
+- `requirements.txt` → dependencias o librerias
 - `render.yaml`-> despliegue
+- `Doxyfile`-> Genera la docuementacion basado en los docstring de las funciones implementadas en el proyecto
 
 ---
 
@@ -326,8 +338,8 @@ Telco-customer-churn
 │
 ├── data/
 │   ├── backup/
-│   │   ├── raw # backup de churn con timestamp
-│   │   └── churn.csv # csv crudo
+│   │   └── raw # backup de churn con timestamp
+│   │       └── churn_{timestamp}.csv # csv crudo copia de respaldo
 │   │   
 │   │   # Trazabilidad cleaned y feature_engineered se crean archivos csv por etapas de processed
 │   ├── processed/
@@ -335,14 +347,14 @@ Telco-customer-churn
 │   │    │   └── cleaned_churn.csv
 │   │    │
 │   │    ├── encoded/
-│   │    │   └── encoded_churn.csv
-│   │    │
-│   │    ├── feature_engineering/
-│   │    │   └── fe_.csv # pendiente
+│   │    │   └── encoded_churn.csv 
 │   │    │
 │   │    └── winsorized/
 │   │        └── winsorized_churn.csv
 │   │
+│   ├── X_test.csv
+│   ├── Y_test.csv
+│   │ 
 │   └── raw/
 │        └── churn.py
 │
@@ -355,7 +367,7 @@ Telco-customer-churn
 │
 ├── models/
 ├── └── modelo_churn.pkl
-│   # se crearán las img con resultados de aprendizajes
+│   # se crearán las img con resultados de aprendizaje y metricas Json
 ├── results/
 │    ├── curva_roc.png
 │    ├── distribucion_clases.png
@@ -369,6 +381,8 @@ Telco-customer-churn
 │   │   └── diccionario_Metadata.txt
 │   │
 ├── src/
+│   ├── api/
+│   │   └── main.py
 │   │
 │   ├── cleaning/
 │   │   ├── duplicates.py
@@ -401,12 +415,17 @@ Telco-customer-churn
 │   │   └──load_bd.py
 │   │   
 │   ├── utils/
+│   │   ├── categorical_nulls.py
+│   │   ├── check_db.py
 │   │   ├── inconsistencies_cat.py
-│   │   ├── logging.py # registro de logs (como opción futura)
+│   │   ├── logging_config.py
 │   │   ├── negative_values.py
 │   │   ├── outliers.py
-│   │   └── saved_dataset.py # Trazabilidad [persistencia]
+│   │   ├── saved_dateset.py
+│   │   └── schema_validator.py
 │   │
+│   ├── Dockerfile.api
+│   ├── Dockerfile.streamlit
 │   └── pipeline.py  # Orquestador del flujo de datos
 │
 ├── test/
@@ -416,9 +435,10 @@ Telco-customer-churn
 ├── .env
 ├── .env.example # ejemplo de configuracion de credenciales
 ├── .gitignore
-├── app.py # archivo principal de la aplicación
+├── app.py # archivo principal de la aplicación despliegue con render
 ├── docker-compose.yml # orquestador de los contenedores
 ├── Dockerfile
+├── Doxyfile
 ├── README.md
 ├── render.yaml
 └── requirements.txt
