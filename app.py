@@ -133,7 +133,7 @@ if st.session_state.pipeline_ejecutado or st.checkbox("Mostrar últimos resultad
         st.subheader("Graficos Estadisticos Generados")
         
         # Nombres exactos de tus archivos .png guardados en results/
-        lista_graficos = ["matriz_confusion.png", "importancia_caracteristicas.png", "curva_roc.png"]
+        lista_graficos = ["matriz_confusion.png", "distribución_clases.png", "curva_roc.png","importancia_variables.png"]
         
         # Desplegar los gráficos dinámicamente en columnas
         cols_graficos = st.columns(len(lista_graficos))
