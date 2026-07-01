@@ -334,6 +334,12 @@ verificacion_cm, Carga el modelo entrenado y los datos de prueba para graficar l
 
 [Documentation](https://rodrigo0187.github.io/Telco-Customer-churn/documentation/html/index.html)
 
+## Despliegue Render
+
+- Modo de uso: Dejar caer el csv para posteriormente obtener los resultados.
+
+[Dashboard](https://churn-dashboard-frontend-ispp.onrender.com)
+
 ---
 
 ### Estructura del proyecto (expand)
