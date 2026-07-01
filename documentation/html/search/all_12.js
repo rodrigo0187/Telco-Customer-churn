@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['nuevamente_20el_20contenedor_20o_20encender_20contenedor_20ya_20creado_0',['6. Crea nuevamente el contenedor o encender contenedor ya creado',['../md__r_e_a_d_m_e.html#autotoc_md26',1,'']]],
-  ['null_5fdetails_1',['null_details',['../classquality__check_1_1_quality_check.html#a1382ac4fb8e7aa935577ecfd4a6966a9',1,'quality_check::QualityCheck']]]
+  ['main_2epy_0',['main.py',['../main_8py.html',1,'']]],
+  ['model_1',['Model',['../md__r_e_a_d_m_e.html#autotoc_md48',1,'']]],
+  ['modelo_20predictivo_20de_20riesgo_20de_20abandono_20de_20clientes_20en_20servicios_20de_20telecomunicaciones_2',['Modelo predictivo de riesgo de abandono de clientes en servicios de telecomunicaciones',['../md__r_e_a_d_m_e.html',1,'']]]
 ];

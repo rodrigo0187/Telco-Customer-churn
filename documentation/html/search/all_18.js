@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['técnico_0',['Documento técnico',['../md__r_e_a_d_m_e.html#autotoc_md54',1,'']]],
-  ['tecnologías_1',['Tecnologías',['../md__r_e_a_d_m_e.html#autotoc_md7',1,'']]],
-  ['telecomunicaciones_2',['Modelo predictivo de riesgo de abandono de clientes en servicios de telecomunicaciones',['../md__r_e_a_d_m_e.html',1,'']]],
-  ['transform_3',['transform',['../classwinsorizer_1_1_winsorizer.html#acfe08b738400ff5532049f88192950a2',1,'winsorizer::Winsorizer']]]
+  ['servicios_0',['5. Detener servicios',['../md__r_e_a_d_m_e.html#autotoc_md25',1,'']]],
+  ['servicios_20de_20telecomunicaciones_1',['Modelo predictivo de riesgo de abandono de clientes en servicios de telecomunicaciones',['../md__r_e_a_d_m_e.html',1,'']]],
+  ['sin_20docker_2',['Ejecución sin Docker',['../md__r_e_a_d_m_e.html#autotoc_md29',1,'']]],
+  ['sin_20docker_3',['Requisitos sin docker',['../md__r_e_a_d_m_e.html#autotoc_md30',1,'']]],
+  ['storage_4',['Storage',['../md__r_e_a_d_m_e.html#autotoc_md49',1,'']]]
 ];

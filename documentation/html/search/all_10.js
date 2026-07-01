@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['lenguaje_0',['Lenguaje',['../md__r_e_a_d_m_e.html#autotoc_md8',1,'']]],
-  ['librerías_1',['Librerías',['../md__r_e_a_d_m_e.html#autotoc_md9',1,'']]]
+  ['importantes_0',['Archivos importantes',['../md__r_e_a_d_m_e.html#autotoc_md52',1,'']]],
+  ['ingestion_1',['Ingestion',['../md__r_e_a_d_m_e.html#autotoc_md45',1,'']]],
+  ['instalar_20dependencias_2',['2. Instalar dependencias',['../md__r_e_a_d_m_e.html#autotoc_md34',1,'']]]
 ];

@@ -147,6 +147,7 @@ Estructura del proyecto</h1>
 <div class="line">├── root/</div>
 <div class="line">│   └── docs/</div>
 <div class="line">├── src/</div>
+<div class="line">│   ├── api/</div>
 <div class="line">│   ├── cleaning/</div>
 <div class="line">│   ├── data/</div>
 <div class="line">│   ├── feature_engineering/</div>
@@ -171,13 +172,15 @@ Estructura del proyecto</h1>
 </div><!-- fragment --><hr  />
 <h1 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
 Arquitectura</h1>
-<p>Arquitectura tipo <b>pipeline híbrido modular (batch)</b>:</p>
+<p>Arquitectura tipo <b>pipeline híbrido modular (batch) src</b>:</p>
 <ul>
 <li>Ingestion</li>
 <li>Cleaning</li>
 <li>Feature Engineering</li>
 <li>Storage</li>
 <li>Model</li>
+<li>utils</li>
+<li>api</li>
 </ul>
 <p>Permite:</p>
 <ul>
@@ -198,14 +201,20 @@ Lenguaje</h2>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md9"></a>
 Librerías</h2>
 <ul>
-<li>Las versiones indicadas son referenciales y pueden cambiar con el tiempo; se recomienda validarlas y ajustar según el entorno y las dependencias del proyecto.</li>
-<li>Scikit 1.4.2 <a href="https://scikit-learn.org/stable/install.html">Scikit</a></li>
-<li>Pandas 2.2.2 <a href="https://pandas.pydata.org/docs/getting_started/install.html">Pandas</a></li>
-<li>Numpy 2.4.4 <a href="https://numpy.org/install/">Numpy</a></li>
-<li>Seaborn 0.13.2 <a href="https://seaborn.pydata.org/installing.html">Seaborn</a></li>
-<li>psycopg2-binary 2.9.9 <a href="https://pypi.org/project/psycopg2-binary/">Psycopg2</a></li>
-<li>sqlalchemy 2.0.49 <a href="https://pypi.org/project/SQLAlchemy/">SqlAlchemy</a></li>
-<li>python-dotenv 1.2.2 <a href="https://pypi.org/project/python-dotenv/">Python-dotenv</a></li>
+<li>Las versiones indicadas son referenciales a la configuracion de este proyecto y pueden cambiar con el tiempo; se recomienda validarlas y ajustar según el entorno y las dependencias del proyecto.</li>
+<li>Scikit-learn <a href="https://scikit-learn.org/stable/install.html">Scikit</a></li>
+<li>Pandas <a href="https://pandas.pydata.org/docs/getting_started/install.html">Pandas</a></li>
+<li>Numpy <a href="https://numpy.org/install/">Numpy</a></li>
+<li>Seaborn <a href="https://seaborn.pydata.org/installing.html">Seaborn</a></li>
+<li>psycopg2-binary <a href="https://pypi.org/project/psycopg2-binary/">Psycopg2</a></li>
+<li>sqlalchemy <a href="https://pypi.org/project/SQLAlchemy/">SqlAlchemy</a></li>
+<li>python-dotenv <a href="https://pypi.org/project/python-dotenv/">Python-dotenv</a></li>
+<li>ruff <a href="https://pypi.org/project/ruff/">Ruff</a></li>
+<li>streamlit <a href="https://docs.streamlit.io">Stramlit</a></li>
+<li>requests <a href="https://pypi.org/project/requests/">Requests</a></li>
+<li>matplotlib <a href="https://pypi.org/project/matplotlib/">Matplotlib</a></li>
+<li>fastapi <a href="https://fastapi.tiangolo.com">FastApi</a></li>
+<li>uvicorn <a href="https://pypi.org/project/uvicorn/">Uvicorn</a></li>
 </ul>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md10"></a>
 Base de datos</h2>
@@ -305,7 +314,7 @@ Requisitos sin docker</h1>
 </div><!-- fragment --><hr  />
 <h1 class="doxsection"><a class="anchor" id="autotoc_md40"></a>
 Validación</h1>
-<p>La tabla <span class="tt">cliente</span> debe contener en crudo <b>7043 registros</b> con <b>21 columnas</b></p>
+<p>La tabla <span class="tt">cliente</span> debe contener en crudo <b>7043 registros</b> con <b>21 columnas</b> primer csv como prueba del proyecto</p>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="autotoc_md42"></a>
 Despliegue</h1>
@@ -318,7 +327,7 @@ Flujo del pipeline</h1>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md45"></a>
 Ingestion</h2>
 <ul>
-<li>load_csv.py, realiza la carga de un archivo CSV tanto local(data/raw) como en la nube(OneDrive).</li>
+<li>load_csv.py, realiza la carga de un archivo CSV local en (data/raw).</li>
 </ul>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md46"></a>
 Cleaning</h2>
@@ -364,15 +373,16 @@ Archivos importantes</h1>
 </li>
 <li><span class="tt">.gitignore</span> → archivos ignorados por git <br  />
 </li>
-<li><span class="tt">Dockerfile</span> → construcción de imagen <br  />
-</li>
+<li><span class="tt">Dockerfile</span> → construcción de imagen</li>
+<li><span class="tt">Dockerfile.api</span>-&gt; configuracion para el despliegue del backend</li>
+<li><span class="tt">Dockerfile.streamlit</span>-&gt; configuracion para el despliegue del dashboard frontend</li>
 <li><span class="tt">docker-compose.yml</span> → orquestación <br  />
 </li>
 <li><span class="tt">pipeline.py</span> → orquestador del flujo <br  />
 </li>
-<li><span class="tt">requirements.txt</span> → dependencias <br  />
-</li>
+<li><span class="tt">requirements.txt</span> → dependencias o librerias</li>
 <li><span class="tt">render.yaml</span>-&gt; despliegue</li>
+<li><span class="tt">Doxyfile</span>-&gt; Genera la docuementacion basado en los docstring de las funciones implementadas en el proyecto</li>
 </ul>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="autotoc_md54"></a>
@@ -388,8 +398,8 @@ Estructura del proyecto (expand)</h2>
 <div class="line">│</div>
 <div class="line">├── data/</div>
 <div class="line">│   ├── backup/</div>
-<div class="line">│   │   ├── raw # backup de churn con timestamp</div>
-<div class="line">│   │   └── churn.csv # csv crudo</div>
+<div class="line">│   │   └── raw # backup de churn con timestamp</div>
+<div class="line">│   │       └── churn_{timestamp}.csv # csv crudo copia de respaldo</div>
 <div class="line">│   │   </div>
 <div class="line">│   │   # Trazabilidad cleaned y feature_engineered se crean archivos csv por etapas de processed</div>
 <div class="line">│   ├── processed/</div>
@@ -397,14 +407,14 @@ Estructura del proyecto (expand)</h2>
 <div class="line">│   │    │   └── cleaned_churn.csv</div>
 <div class="line">│   │    │</div>
 <div class="line">│   │    ├── encoded/</div>
-<div class="line">│   │    │   └── encoded_churn.csv</div>
-<div class="line">│   │    │</div>
-<div class="line">│   │    ├── feature_engineering/</div>
-<div class="line">│   │    │   └── fe_.csv # pendiente</div>
+<div class="line">│   │    │   └── encoded_churn.csv </div>
 <div class="line">│   │    │</div>
 <div class="line">│   │    └── winsorized/</div>
 <div class="line">│   │        └── winsorized_churn.csv</div>
 <div class="line">│   │</div>
+<div class="line">│   ├── X_test.csv</div>
+<div class="line">│   ├── Y_test.csv</div>
+<div class="line">│   │ </div>
 <div class="line">│   └── raw/</div>
 <div class="line">│        └── churn.py</div>
 <div class="line">│</div>
@@ -417,7 +427,7 @@ Estructura del proyecto (expand)</h2>
 <div class="line">│</div>
 <div class="line">├── models/</div>
 <div class="line">├── └── modelo_churn.pkl</div>
-<div class="line">│   # se crearán las img con resultados de aprendizajes</div>
+<div class="line">│   # se crearán las img con resultados de aprendizaje y metricas Json</div>
 <div class="line">├── results/</div>
 <div class="line">│    ├── curva_roc.png</div>
 <div class="line">│    ├── distribucion_clases.png</div>
@@ -431,6 +441,8 @@ Estructura del proyecto (expand)</h2>
 <div class="line">│   │   └── diccionario_Metadata.txt</div>
 <div class="line">│   │</div>
 <div class="line">├── src/</div>
+<div class="line">│   ├── api/</div>
+<div class="line">│   │   └── main.py</div>
 <div class="line">│   │</div>
 <div class="line">│   ├── cleaning/</div>
 <div class="line">│   │   ├── duplicates.py</div>
@@ -463,12 +475,17 @@ Estructura del proyecto (expand)</h2>
 <div class="line">│   │   └──load_bd.py</div>
 <div class="line">│   │   </div>
 <div class="line">│   ├── utils/</div>
+<div class="line">│   │   ├── categorical_nulls.py</div>
+<div class="line">│   │   ├── check_db.py</div>
 <div class="line">│   │   ├── inconsistencies_cat.py</div>
-<div class="line">│   │   ├── logging.py # registro de logs (como opción futura)</div>
+<div class="line">│   │   ├── logging_config.py</div>
 <div class="line">│   │   ├── negative_values.py</div>
 <div class="line">│   │   ├── outliers.py</div>
-<div class="line">│   │   └── saved_dataset.py # Trazabilidad [persistencia]</div>
+<div class="line">│   │   ├── saved_dateset.py</div>
+<div class="line">│   │   └── schema_validator.py</div>
 <div class="line">│   │</div>
+<div class="line">│   ├── Dockerfile.api</div>
+<div class="line">│   ├── Dockerfile.streamlit</div>
 <div class="line">│   └── pipeline.py  # Orquestador del flujo de datos</div>
 <div class="line">│</div>
 <div class="line">├── test/</div>
@@ -478,9 +495,10 @@ Estructura del proyecto (expand)</h2>
 <div class="line">├── .env</div>
 <div class="line">├── .env.example # ejemplo de configuracion de credenciales</div>
 <div class="line">├── .gitignore</div>
-<div class="line">├── app.py # archivo principal de la aplicación</div>
+<div class="line">├── app.py # archivo principal de la aplicación despliegue con render</div>
 <div class="line">├── docker-compose.yml # orquestador de los contenedores</div>
 <div class="line">├── Dockerfile</div>
+<div class="line">├── Doxyfile</div>
 <div class="line">├── README.md</div>
 <div class="line">├── render.yaml</div>
 <div class="line">└── requirements.txt</div>

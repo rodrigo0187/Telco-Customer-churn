@@ -1,6 +1,7 @@
 var NAVTREEINDEX0 =
 {
 "annotated.html":[1,0],
+"app_8py.html":[2,0,1],
 "classes.html":[1,1],
 "classquality__check_1_1_quality_check.html":[1,0,0,0],
 "classquality__check_1_1_quality_check.html#a10f8aad7c57fa8907507abda6e3e95c8":[1,0,0,0,8],
@@ -22,10 +23,14 @@ var NAVTREEINDEX0 =
 "classwinsorizer_1_1_winsorizer.html#a74e5e7365410d7e8ad60c28435057056":[1,0,1,0,1],
 "classwinsorizer_1_1_winsorizer.html#abae1adfce81439a0f774f9ab2d08ad18":[1,0,1,0,0],
 "classwinsorizer_1_1_winsorizer.html#acfe08b738400ff5532049f88192950a2":[1,0,1,0,2],
+"dir_68267d1309a1af8e8297ef4c3efbcdba.html":[2,0,0],
+"dir_da61e3e9a357748887e3ca8d7c5a0c16.html":[2,0,0,0],
+"files.html":[2,0],
 "functions.html":[1,3,0],
 "functions_func.html":[1,3,1],
 "hierarchy.html":[1,2],
 "index.html":[],
+"main_8py.html":[2,0,0,0,0],
 "md__r_e_a_d_m_e.html":[0],
 "md__r_e_a_d_m_e.html#autotoc_md1":[0,0],
 "md__r_e_a_d_m_e.html#autotoc_md10":[0,3,2],
