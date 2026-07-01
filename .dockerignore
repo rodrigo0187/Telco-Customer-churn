@@ -1,14 +1,30 @@
+# Control de versiones
 .gitignore
 .git
-/test
-docker-composey
+.dockerignore
+
+# Entorno local de desarrollo
 .env
+venv/
+.venv/
+
+# Orquestacioón local
+docker-compose.yml
+
+# Archivos temporales y de cache
 __pycache__/
 *.pyc
-venv/
-data/backup/raw/
-data/raw/test.ipynb
-data/raw/*.csv
-results
-models/*.pkl
-test/test_modelo.py
+*.pyo
+*.pyd
+.pytest_cache/
+.ruff_cache/
+
+# Notebooks de Jupyter y pruebas
+**/*.ipynb
+test/*
+
+# evitar subir datos pesados y resultados de procesamiento
+data/raw/
+data/backup/
+results/
+models/
