@@ -19,4 +19,4 @@ COPY . .
 EXPOSE 10000
 
 # Comando de arranque por defecto para Render
-CMD ["streamlit", "run", "src/app.py", "--server.port", "10000", "--server.address", "0.0.0.0"]
+CMD ["streamlit", "run", "app.py", "--server.port", "10000", "--server.address", "0.0.0.0"]
