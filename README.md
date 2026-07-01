@@ -269,7 +269,7 @@ La tabla `cliente` debe contener en crudo **7043 registros** con **21 columnas**
 
 ### Ingestion
 
-- load_csv.py, realiza la carga de un archivo CSV tanto local(data/raw) como en la nube(OneDrive).
+- load_csv.py, realiza la carga de un archivo CSV local en (data/raw).
 
 ### Cleaning
 
