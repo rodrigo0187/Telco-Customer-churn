@@ -2,6 +2,7 @@
 import os
 import glob
 import sys
+import logging
 from src.cleaning.duplicates import remove_duplicates_customers
 from src.cleaning.normalize_text import normalize_text
 from src.cleaning.null import normalize_nulls
@@ -19,6 +20,14 @@ from src.utils.schema_validator import auditar_validar_dataset
 
 MIN_QUALITY_SCORE = 70
 logger = get_logger('main_app')
+
+LOG_DIR = "results/logs"
+LOG_FILE =os.path.join(LOG_DIR,"pipeline.log")
+os.makedirs(LOG_DIR,exist_ok=True)
+logging.basicConfig(level=logging.INFO,
+                    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+                    handlers=[logging.handlers(LOG_FILE,encoding ="utf-8"),logging.StreamHandler])
+logger =logging.getLogger("pipeline_ingestion")
 
 def main():
     """Orquesta el pipeline local de preparación de datos y Machine Learning para Churn."""
