@@ -59,7 +59,7 @@ if st.session_state.pipeline_ejecutado or st.checkbox("Mostrar últimos resultad
              esta sección realiza peticiones HTTP GET a la API para descargar el archivo
              'metricas.json' y los gráficos PNG correspondientes, desplegándolos de forma ordenada.
     """
-    st.subheader("Metricas del Modelo y Graficos del Pipeline")
+    st.subheader("Métricas del Modelo y Gráficos del Pipeline")
     
     try:
         # 1. Consumir el endpoint de métricas JSON de la API
@@ -79,7 +79,7 @@ if st.session_state.pipeline_ejecutado or st.checkbox("Mostrar últimos resultad
             with col2:
                 val_prec = metricas.get('precision', 'N/A')
                 st.metric(
-                    label="Precision (Precision)", 
+                    label="Precisión (Precision)", 
                     value=f"{val_prec*100:.2f}%" if isinstance(val_prec, (int, float)) else val_prec
                 )
             with col3:
@@ -102,7 +102,7 @@ if st.session_state.pipeline_ejecutado or st.checkbox("Mostrar últimos resultad
                 )
 
             # Desglose del Classification Report estructurado por clases
-            st.markdown("### Reporte de Clasificacion Detallado")
+            st.markdown("### Reporte de Clasificación Detallado")
             with st.expander("Ver desglose por Clase (0: No Churn / 1: Churn)", expanded=True):
                 report = metricas.get('classification_report', {})
                 if report:
@@ -111,7 +111,7 @@ if st.session_state.pipeline_ejecutado or st.checkbox("Mostrar últimos resultad
                     with c_clase0:
                         st.markdown("**Clase 0 (Permanencia)**")
                         clase_0 = report.get('0', {})
-                        st.write(f"Precision: {clase_0.get('precision', 0)*100:.2f}%")
+                        st.write(f"Precisión: {clase_0.get('precision', 0)*100:.2f}%")
                         st.write(f"Recall: {clase_0.get('recall', 0)*100:.2f}%")
                         st.write(f"F1-Score: {clase_0.get('f1-score', 0)*100:.2f}%")
                         st.caption(f"Soporte: {int(clase_0.get('support', 0))} registros")
@@ -119,18 +119,18 @@ if st.session_state.pipeline_ejecutado or st.checkbox("Mostrar últimos resultad
                     with c_clase1:
                         st.markdown("**Clase 1 (Fuga / Churn)**")
                         clase_1 = report.get('1', {})
-                        st.write(f"Precision: {clase_1.get('precision', 0)*100:.2f}%")
+                        st.write(f"Precisión: {clase_1.get('precision', 0)*100:.2f}%")
                         st.write(f"Recall: {clase_1.get('recall', 0)*100:.2f}%")
                         st.write(f"F1-Score: {clase_1.get('f1-score', 0)*100:.2f}%")
                         st.caption(f"Soporte: {int(clase_1.get('support', 0))} registros")
                 else:
                     st.warning("No se encontro el desglose por clases en el reporte.")
         else:
-            st.warning("No se pudieron cargar las metricas desde la API. Asegurate de haber corrido el pipeline.")
+            st.warning("No se pudieron cargar las métricas desde la API. Asegurate de haber corrido el pipeline.")
             
         # 2. Consumir el endpoint de imágenes PNG de la API
         st.markdown("---")
-        st.subheader("Graficos Estadisticos Generados")
+        st.subheader("Gráficos Estadísticos Generados")
         
         # Nombres exactos de tus archivos .png guardados en results/
         lista_graficos = ["matriz_confusion.png", "distribución_clases.png", "curva_roc.png","importancia_variables.png"]
@@ -147,7 +147,7 @@ if st.session_state.pipeline_ejecutado or st.checkbox("Mostrar últimos resultad
                         use_container_width=True
                     )
                 else:
-                    st.error(f"Grafico no encontrado: {nombre_grafico}")
+                    st.error(f"Gráfico no encontrado: {nombre_grafico}")
                     
     except Exception as e:
         st.error(f"Error al conectar con la API para extraer los resultados: {e}")
