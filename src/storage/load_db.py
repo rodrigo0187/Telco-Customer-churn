@@ -67,9 +67,13 @@ def subir_a_postgres(df: pd.DataFrame, nombre_tabla: str, if_exists: str = 'appe
                 logger.info(f"Se filtraron {total_antes - total_despues} filas duplicadas por 'customerid' antes de subir a BD.")
 
         # Inserción física en la Base de Datos
-        df_to_insert.to_sql(nombre_tabla, engine, if_exists=if_exists, index=False)
-        logger.info(f'Éxito: {len(df_to_insert)} registros guardados en la tabla "{nombre_tabla}".')
-
+        try:
+            df_to_insert.to_sql(nombre_tabla, engine, if_exists=if_exists, index=False)
+            logger.info(f'Éxito: {len(df_to_insert)} registros guardados en la tabla "{nombre_tabla}".')
+        except SQLAlchemyError as error_sql:
+            mensaje_error= f'Error crítico en PostgreSQL (Tabla :{nombre_tabla}): {str(error_sql)}'
+            logger.error(mensaje_error)
+            raise error_sql
     except Exception as e:
         logger.error(f'Error de escritura en PostgreSQL en la tabla "{nombre_tabla}": {str(e)}')
         raise
