@@ -38,7 +38,7 @@ def encode_features(df: pd.DataFrame) -> pd.DataFrame:
     for col in binary_cols:
         if col in df.columns:
             # Protegemos "desconocido" asignándolo por defecto a 0
-            df[col] = df[col].replace({'yes': 1, 'no': 0, 'desconocido': 0,np.nan:0}).astype(int)
+            df[col] = df[col].replace({'yes': 1, 'no': 0, 'desconocido': 0,np.nan:0,'nan':0,'NAN':0}).astype(int)
             
     # 2. Categóricas especiales multiclases
     special_cols = ['multiplelines', 'onlinesecurity', 'onlinebackup', 'deviceprotection',
