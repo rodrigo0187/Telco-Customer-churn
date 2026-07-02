@@ -3,7 +3,6 @@ import os
 import glob
 import sys
 import logging
-import logging.handlers
 from src.cleaning.duplicates import remove_duplicates_customers
 from src.cleaning.normalize_text import normalize_text
 from src.cleaning.null import normalize_nulls

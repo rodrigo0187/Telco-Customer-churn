@@ -1,11 +1,11 @@
 create table cliente (
    customerid       varchar(50) primary key,
-   gender           varchar(20),
+   gender           varchar(50),
    seniorcitizen    int,
-   partner          varchar(10),
-   dependents       varchar(10),
+   partner          varchar(50),
+   dependents       varchar(50),
    tenure           int,
-   phoneservice     varchar(20),
+   phoneservice     varchar(50),
    multiplelines    varchar(50),
    internetservice  varchar(50),
    onlinesecurity   varchar(50),
@@ -19,5 +19,5 @@ create table cliente (
    paymentmethod    varchar(50),
    monthlycharges   float,
    totalcharges     varchar(50),
-   churn            varchar(10)
+   churn            varchar(20)
 );
