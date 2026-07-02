@@ -20,14 +20,13 @@ from src.utils.saved_dataset import saved_dataset
 from src.utils.schema_validator import auditar_validar_dataset
 
 MIN_QUALITY_SCORE = 70
-logger = get_logger('main_app')
 
 LOG_DIR = "results/logs"
 LOG_FILE =os.path.join(LOG_DIR,"pipeline.log")
 os.makedirs(LOG_DIR,exist_ok=True)
 logging.basicConfig(level=logging.INFO,
                     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
-                    handlers=[logging.FileHandler(LOG_FILE,encoding ="utf-8"),logging.StreamHandler])
+                    handlers=[logging.FileHandler(LOG_FILE,encoding ="utf-8"),logging.StreamHandler()])
 logger =logging.getLogger("pipeline_ingestion")
 
 def main():
