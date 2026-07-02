@@ -1,9 +1,7 @@
 import sys
 from sqlalchemy import create_engine, text
 
-print("=========================================")
 print("INICIANDO SCRIPT DE DIAGNÓSTICO")
-print("=========================================")
 
 # Pegar directamente AQUÍ tu URL externa de Render
 URL_EXTERNA = "postgresql://dbchurn_user:xxt234xFdJXIWSjPb0mDTd9hP6eekBjn@dpg-d91ne80js32c739nlrc0-a.oregon-postgres.render.com/dbchurn"
@@ -32,7 +30,4 @@ try:
 except Exception as e:
     print("EL PROCESO FALLO DIRECTAMENTE CON EL SIGUIENTE ERROR:")
     print(e)
-
-print("=========================================")
 print("SCRIPT FINALIZADO")
-print("=========================================")

@@ -25,7 +25,7 @@ def get_logger(name):
         console_handler.setFormatter(formatter)
         logger.addHandler(console_handler)
         
-        ruta_logs_dir = 'results'
+        ruta_logs_dir = 'results/logs'
         os.makedirs(ruta_logs_dir,exist_ok = True)
         ruta_archivo_log = os.path.join(ruta_logs_dir,'Errores_pipeling.log')
         
