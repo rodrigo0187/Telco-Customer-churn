@@ -383,6 +383,10 @@ Telco-customer-churn
 ├── └── modelo_churn.pkl
 │   # se crearán las img con resultados de aprendizaje y metricas Json
 ├── results/
+│    │ └── logs/
+│    │      ├── Errores_pipeline.log
+│    │      └── pipeline.log      
+│    │   
 │    ├── curva_roc.png
 │    ├── distribucion_clases.png
 │    ├── importancia_variables.png
@@ -390,9 +394,9 @@ Telco-customer-churn
 │    └── metricas.json
 │
 ├── root/
-│   └── docs
-│   │   ├── Documento_Diseno_Técnico.pdf
-│   │   └── diccionario_Metadata.txt
+│   │ └── docs
+│   │       ├── Documento_Diseno_Técnico.pdf
+│   │       └── diccionario_Metadata.txt
 │   │
 ├── src/
 │   ├── api/
