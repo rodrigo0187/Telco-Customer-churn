@@ -118,9 +118,9 @@ def evaluate_model():
     plt.savefig(os.path.join(RESULTS_DIR, "importancia_variables.png"), dpi=300)
     plt.close()
     
+    # Grafico de árbol de decisión
     print("Generación arbol de decisión")
     arbol_individual = rf_model.estimators_[0]
-    
     plt.figure(figsize=(20,10))
     plot_tree(
         arbol_individual,
