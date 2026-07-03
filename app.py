@@ -44,7 +44,13 @@ if st.sidebar.button("Ejecutar Pipeline en la API"):
                     st.session_state.pipeline_ejecutado = True
                     st.sidebar.success("Pipeline ejecutado con éxito")
                 else:
-                    st.sidebar.error(f"Error de la API: {respuesta.json().get('detail', 'Desconocido')}")
+                    error_msg= respuesta.json().get('detail','Desconocido')
+                    st.sidebar.error(f"Error de la API (Código {respuesta.status_code}): {error_msg}")
+            except ValueError:
+                    st.sidebar.error(f"La API respondió con código {respuesta.status_code} pero no envió un JSON.")
+                    with st.expander('Ver la respuesta del servidor'):
+                        st.code(respuesta.text[:500])
+                 
             except Exception as e:
                 st.sidebar.error(f"No se pudo conectar con la API: {e}")
     else:
