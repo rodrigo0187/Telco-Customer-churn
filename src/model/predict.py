@@ -4,6 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import json
+from sklearn.tree import plot_tree
 
 from sklearn.metrics import (
     accuracy_score,
@@ -116,6 +117,25 @@ def evaluate_model():
     plt.tight_layout()
     plt.savefig(os.path.join(RESULTS_DIR, "importancia_variables.png"), dpi=300)
     plt.close()
+    
+    print("Generación arbol de decisión")
+    arbol_individual = rf_model.estimators_[0]
+    
+    plt.figure(figsize=(20,10))
+    plot_tree(
+        arbol_individual,
+        max_depth=3,
+        feature_names=feature_names,
+        class_names=["Retaind (0)","Churn (1)"],
+        filled=True,
+        rounded=True,
+        fontsize=10    
+    )
+    plt.title('Estructura individual del Bosque (Profundidad Maxima 3)')
+    plt.tight_layout()
+    plt.savefig(os.path.join(RESULTS_DIR,'arbol_decision.png'),dpi=300,bbox_inches='tight')
+    plt.close()
+    
     
     # 6. Almacenar Métricas en JSON para auditoría futura
     metricas = {
